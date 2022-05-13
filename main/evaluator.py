@@ -1,9 +1,9 @@
-import sys
-sys.path.append('/home/monte.flora/python_packages/ml_workflow/')
+#import sys
+#sys.path.append('/home/monte.flora/python_packages/ml_workflow/')
 
 import numpy as np
 from mlxtend.evaluate import permutation_test
-from ml_workflow import DateBasedCV
+from ml_workflow.io.cross_validation_generator import DateBasedCV
 from ml_workflow.ml_methods import norm_aupdc, norm_csi, brier_skill_score
 from sklearn.metrics import roc_auc_score
 from sklearn.isotonic import IsotonicRegression

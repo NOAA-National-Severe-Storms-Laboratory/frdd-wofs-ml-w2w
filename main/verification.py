@@ -14,8 +14,8 @@ from sklearn.utils import resample
 from scipy import interpolate
 
 import warnings
-from shapely.errors import ShapelyDeprecationWarning
-warnings.filterwarnings("ignore", category=ShapelyDeprecationWarning) 
+#from shapely.errors import ShapelyDeprecationWarning
+#warnings.filterwarnings("ignore", category=ShapelyDeprecationWarning) 
 
 
 def plot_verification(estimators, X, y, 
