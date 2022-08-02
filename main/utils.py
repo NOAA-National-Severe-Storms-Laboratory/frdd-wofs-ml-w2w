@@ -1,9 +1,11 @@
-#import sys
-#sys.path.append('/home/monte.flora/python_packages/ml_workflow')
+import sys
+sys.path.append('/home/monte.flora/python_packages/ml_workflow')
 
 from ml_workflow.io.cross_validation_generator import DateBasedCV
 import random
 from sklearn.model_selection import train_test_split
+from os.path import join
+import pandas as pd
 
 # Splitting the data into training and testing. 
 def _train_test_split():
@@ -53,7 +55,8 @@ def _train_test_split():
     train_base_df.to_feather(join(basePath, f'wofs_ml_severe__2to6hr__baseline_train_data.feather'))
     test_base_df.to_feather(join(basePath, f'wofs_ml_severe__2to6hr__baseline_test_data.feather'))
     
-    
+# Execute the code. 
+_train_test_split()
     
     
     
