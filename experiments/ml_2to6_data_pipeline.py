@@ -1,18 +1,30 @@
+####################################################################################
+#
+# DATA PIPELINE SCRIPT FOR THE 2-6 HR WOFS-ML-SEVERE PRODUCTS
+#
+# Git Author: monte-flora (monte.flora@noaa.gov) 
+####################################################################################
+
 from WoF_post.wofs.post.utils import (
     save_dataset,
     load_multiple_nc_files,
 )
+from WoF_post.wofs.verification.lsrs.get_storm_reports import StormReports
+from WoF_post.wofs.plotting.util import decompose_file_path
+
+
 from glob import glob
 from scipy.ndimage import uniform_filter, maximum_filter 
 from collections import ChainMap
 import numpy as np
-
-from WoF_post.wofs.verification.lsrs.get_storm_reports import StormReports
-from WoF_post.wofs.plotting.util import decompose_file_path
 import xarray as xr
-from glob import glob
 from os.path import join
 import itertools
+import pyresample 
+
+
+# These are the list of variables that are pulled from the WoFS
+# summary files. The list is informed by previous work (Flora et al. 2021, MWR) 
 
 ml_config = { 'ENS_VARS':  ['uh_2to5_instant',
                             'uh_0to2_instant',
@@ -44,7 +56,7 @@ ml_config = { 'ENS_VARS':  ['uh_2to5_instant',
 
 def get_files(path):
     """Get the ENS, ENV, and SVR file paths for the 2-6 hr forecasts"""
-    # Load the X. 
+    # Load summary files between time step 24-72. 
     ens_files = glob(join(path,'wofs_ENS_[2-7]*'))
     ens_files.sort()
     ens_files = ens_files[4:]
@@ -59,7 +71,7 @@ def load_dataset(path):
     ens_files, env_files, svr_files = get_files(path)
     
     coord_vars = ["xlat", "xlon", "hgt"]
-    X_strm, _, _, _  = load_multiple_nc_files(
+    X_strm, coords, _, _  = load_multiple_nc_files(
                 ens_files, concat_dim="time", coord_vars=coord_vars,  load_vars=ml_config['ENS_VARS'])
 
     X_env, _, _, _  = load_multiple_nc_files(
@@ -73,23 +85,81 @@ def load_dataset(path):
     X_env = {v : X_env[v][1] for v in X_env.keys()}
     X_strm = {v : X_strm[v][1] for v in X_strm.keys()}
     
-    return X_env, X_strm, ens_files[0]
+    ll_grid = (coords['xlat'][1].values, coords['xlon'][1].values)
+    
+    return X_env, X_strm, ens_files[0], ll_grid
 
 class GridPointExtracter:
-    """Upscale X, compute time-composites, compute ensemble statistics."""
-    def __init__(self, ncfile, env_vars, strm_vars, upscale_size=3):
+    """Upscale X, compute time-composites, compute ensemble statistics.
+    
+    Attributes
+    -------------------------
+    
+    ncfile : path-like 
+        The summary file path for either the ENS, ENV, or SVR file at the beginning of the 
+        4-hr period. Used for determining getting the correct reports for labelling. 
+    
+    env_vars : list of strs 
+        The environmental variables. These variables are 4-hr time-averaged and 
+        are upscaled using a spatial average filter. 
+    
+    strm_vars : list of strs
+        The intra-storm variables. These variables are 4-hr time-maxed and 
+        are upscaled using a spatial maximum filter. 
+    
+    ll_grid : 2-tuple of 2D arrays 
+        original latitude and longitude grids prior to the resampling. 
+    
+    upscale_size : int (default = 3)
+        The initial upscaling radius (in grid points). This initial upscaling 
+        coarsens the grid resolution to improve processing times. 
+        
+    forecast_sizes : list of ints
+        The radius of the forecast upscalings (in grid points). Internally, the
+        radius are converted to the diameters for the 
+        scipy.ndimage.uniform_filter and scipy.ndimage.maximum_filter. 
+        d = 2*r 
+        
+    target_sizes : list of ints
+        The radius of the targets upscalings (in grid points). Internally, the
+        radius are converted to the diameters for the scipy.ndimage.uniform_filter. 
+        d = 2*r 
+        
+    grid_spacing : int 
+        Grid spacing (in km) of the original grid. 
+    """
+    def __init__(self, ncfile, env_vars, strm_vars, ll_grid, 
+                 forecast_sizes=[1,3,5], 
+                 target_sizes = [1,2,4,6],
+                 upscale_size=3, 
+                 grid_spacing=3,
+                 reports_path = '/work/mflora/LSRS/STORM_EVENTS_2017-2022.csv',
+                 report_type = 'NOAA'
+                ):
+        
         self._n_ens = 18
         self._env_vars = env_vars
         self._strm_vars = strm_vars
         
         self._upscale_size = upscale_size
-        self._SIZES = [1,3,5]
-        self._TARGET_SIZES = [1,2,4,6]
+        self._SIZES = np.array(forecast_sizes)*2
+        self._TARGET_SIZES = np.array(target_sizes)*2
         self._ncfile = ncfile
-        self._DX = 9 
+        self._DX = grid_spacing * upscale_size  
+        self._reports_path = reports_path
+        self._report_type = report_type
         
+        if np.max(np.absolute(ll_grid[0]))>90:
+            raise ValueError('Latitude values for ll_grid > 90 and are likely longitude values. Switch the input.')
+        
+        self._original_grid = ll_grid 
+
+        self._target_grid = (ll_grid[0][::upscale_size, ::upscale_size], 
+                             ll_grid[1][::upscale_size, ::upscale_size]
+                            ) 
+
+        # Baseline variables and their corresponding thresholds. 
         self._BASELINE_VARS = ['hailcast', 'uh_2to5_instant', 'ws_80']
-        
         self._NMEP_THRESHS = {'hailcast' : [0.5, 0.75, 1.0, 1.25, 1.5], 
                              'uh_2to5_instant' : [50, 75, 100, 125, 150, 175, 200],
                              'ws_80' : [30, 40, 50, 60], 
@@ -97,7 +167,7 @@ class GridPointExtracter:
         
     def __call__(self, X_env, X_strm, predict=False):
         
-        # Pre-processor. Get rid of super high updraft speeds, replace NaNs, etc. 
+        # TODO: Pre-processor. Get rid of super high updraft speeds, replace NaNs, etc. 
          
         
         # This X has had a 3-grid point gaussian smoother applied to it. 
@@ -163,7 +233,7 @@ class GridPointExtracter:
         return new_df
     
     def get_nmep(self, X, size):
-        """Compute the NMEP baseline"""
+        """Compute the Neighborhood Maximum Ensemble Probability baseline"""
         X_nmep = {}
         for v in self._BASELINE_VARS:
             for t in self._NMEP_THRESHS[v]:
@@ -178,9 +248,12 @@ class GridPointExtracter:
         """Convert storm reports to a grid and apply different upscaling"""
         comps = decompose_file_path(self._ncfile)
         start_time = comps['VALID_DATE']+comps['VALID_TIME']
-        report = StormReports(start_time, 
+        report = StormReports(
+            self._reports_path, 
+            self._report_type, 
+            start_time, 
             forecast_length=240,
-            err_window=15, 
+            err_window=15,               
             )
 
         ds = xr.load_dataset(self._ncfile, decode_times=False)
@@ -203,6 +276,38 @@ class GridPointExtracter:
         
         return y_final
     
+    
+    def resample(self, variable):
+        '''
+        Resamples (i.e., re-projects, re-grid) the original grid to the target grid 
+        using a nearest neighborhood approach
+        
+        Parameters
+        --------------------
+            target_grid: 2-tuple of 2D arrays 
+                target latitude and longitude grids for the resampling. 
+                
+            original_grid : 2-tuple of 2D arrays 
+                original latitude and longitude grids prior to the resampling. 
+                
+            variable : 2D array to be resampled
+                The grid to be resampled. 
+                
+        Return
+        -----------------------
+            variable_nearest, 2D array of variable resampled to the target grid
+        '''
+        # Create a pyresample object holding the original grid
+        orig_def = pyresample.geometry.SwathDefinition(lons=self._original_grid[1], lats=self._original_grid[0])
+
+        # Create another pyresample object for the target grid
+        targ_def = pyresample.geometry.SwathDefinition(lons=self._target_grid[1], lats=self._target_grid[0])
+
+        variable_nearest = pyresample.kd_tree.resample_nearest(orig_def, variable, \
+                    targ_def, radius_of_influence=50000, fill_value=None)
+
+        return variable_nearest
+    
     def neighborhooder(self, X, func, size, is_2d=False):
         """Apply neighborhood function to X. For any grid points with NaN values, 
            replace it with a generic, full-domain spatial average value."""
@@ -222,17 +327,19 @@ class GridPointExtracter:
     def upscaler(self, X, func, size, remove_nans=False):
         """Applies a spatial filter per ensemble member and timestep and then 
         subsamples the grid to reduce the number of grid points."""
-        new_X = X.copy()
+        new_X = np.zeros((X.shape[0], X.shape[1], 
+                          self._target_grid[0].shape[0], self._target_grid[0].shape[1] ))
+        
         fill_value = np.nanmean(X)
         for t,n in itertools.product(range(new_X.shape[0]), range(self._n_ens)):
             X_ = np.nan_to_num(X[t,n,:,:], nan=fill_value)
-            new_X[t,n,:,:] = func(X_, size)
-        return new_X[:,:,::size, ::size]
+            new_X[t,n,:,:] = self.resample(func(X_, size))
+            
+        return new_X
     
     def calc_time_composite(self, X, func, name, keys):
         """Compute the time-maximum or time-average"""
         X_time_comp = {f'{v}__{name}' : func(X[v], axis=0) for v in keys }
-        
         return X_time_comp
         
     def calc_spatial_ensemble_stats(self, X, environ=True):
@@ -290,6 +397,3 @@ def subsampler(y, pos_percent=1.0, neg_percent=0.25):
     inds = np.concatenate([pos_inds_sub, neg_inds_sub])
     
     return inds     
-
-
-

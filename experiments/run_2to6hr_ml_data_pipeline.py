@@ -1,13 +1,15 @@
-import sys 
-sys.path.append('/home/monte.flora/python_packages/wofs_ml_severe')
-from wofs_ml_severe.data.ml_2to6_data_pipeline import (GridPointExtracter,
-                                                       subsampler, 
-                                                       load_dataset)
+from ml_2to6_data_pipeline import (GridPointExtracter,
+                                   subsampler, 
+                                   load_dataset)
 
 from wofs_ml_severe.common.util import Emailer
 
 from os.path import join , exists
-from WoF_post.wofs.post.multiprocessing_script import run_parallel, to_iterator
+
+import sys 
+sys.path.append('/home/monte.flora/python_packages/scikit-explain')
+from skexplain.common.multiprocessing_utils import run_parallel, to_iterator
+
 import os
 from glob import glob
 import pandas as pd 
@@ -16,12 +18,14 @@ import pandas as pd
 
 n_jobs = 30
 
+OUT_PATH = '/work/mflora/ML_2TO6HR'
+
 # Workflow script. 
 def worker(path):
     print(path)
-    X_env, X_strm, ncfile  = load_dataset(path)
+    X_env, X_strm, ncfile, ll_grid  = load_dataset(path)
     #print(ncfile)
-    extracter = GridPointExtracter(ncfile, env_vars=X_env.keys(), strm_vars=X_strm.keys())
+    extracter = GridPointExtracter(ncfile, env_vars=X_env.keys(), strm_vars=X_strm.keys(), ll_grid=ll_grid)
     df = extracter(X_env, X_strm)
 
     ys = [f for f in df.columns if 'severe' in f]
@@ -67,14 +71,11 @@ for d in dates:
 print(f'Number of paths : {len(paths)}')
 emailer.send_message('Starting process for wofs_ML2to6', start_time)
 
-"""
 run_parallel(
                 func = worker,
-                nprocs_to_use = n_jobs,
-                iterator = to_iterator(paths),
-                mode='mp',
+                n_jobs = n_jobs,
+                args_iterator = to_iterator(paths),
                 )
-"""
 
 emailer.send_message('Individual dataframes for the 2-6 hr dataset are complete', start_time)
 
@@ -105,9 +106,7 @@ features = [f for f in df.columns if f not in baseline_features]
 
 ml_df = df[features].reset_index(drop=True)  
 
-out_path = join('/work/mflora/ML_2TO6HR', 'data') 
-
-baseline_df.to_feather(join(out_path, f'wofs_ml_severe__2to6hr__baseline_data.feather'))
-ml_df.to_feather(join(out_path, f'wofs_ml_severe__2to6hr__data.feather'))
+baseline_df.to_feather(join(OUT_PATH, f'wofs_ml_severe__2to6hr__baseline_data.feather'))
+ml_df.to_feather(join(OUT_PATH, f'wofs_ml_severe__2to6hr__data.feather'))
 
 emailer.send_message('The 2-6 hr ML and BL datasets are built and ready to go!', start_time)
