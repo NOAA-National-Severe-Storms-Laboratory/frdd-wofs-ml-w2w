@@ -20,6 +20,12 @@ n_jobs = 30
 
 OUT_PATH = '/work/mflora/ML_2TO6HR'
 
+# SAM: This is where you'll need to change. 
+
+SUMMARY_FILE_OUT_PATH = '/work/mflora/SummaryFiles/'
+
+base_path = '/work/mflora/SummaryFiles'
+
 # Workflow script. 
 def worker(path):
     print(path)
@@ -38,6 +44,10 @@ def worker(path):
     df_sub = df.iloc[inds, :]
     df_sub.reset_index(drop=True, inplace=True)
 
+    path = path.replace(base_path, SUMMARY_FILE_OUT_PATH)
+    if not exists(path):
+        os.makedirs(path)
+       
     out_name = join(path, 'wofs_ML2TO6.feather')
     print(f'Saving {out_name}...')
     df_sub.to_feather(out_name)
@@ -48,7 +58,6 @@ emailer = Emailer()
 
 start_time = emailer.get_start_time()
 
-base_path = '/work/mflora/SummaryFiles'
 dates = [d for d in os.listdir(base_path) if '.txt' not in d]
 
 paths = []
