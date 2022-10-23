@@ -237,10 +237,10 @@ class GridPointExtracter:
         X_nmep = {}
         for v in self._BASELINE_VARS:
             for t in self._NMEP_THRESHS[v]:
-                data = X[f'{v}__time_max__{self._DX*size}km']
+                data = X[f'{v}__time_max__{self._DX*size/2:.0f}km']
                 data_bin = np.where(data>t,1,0)
                 ens_prob = np.nanmean(data_bin, axis=0)
-                X_nmep[f"{v}__nmep_>{str(t).replace('.','_')}_{self._DX*size}km"] = ens_prob
+                X_nmep[f"{v}__nmep_>{str(t).replace('.','_')}_{self._DX*size/2:.0f}km"] = ens_prob
                 
         return X_nmep 
 
@@ -267,7 +267,7 @@ class GridPointExtracter:
         # Upscale the targets. 
         y_final = [] 
         for size in self._TARGET_SIZES:
-            y_nghbrd = {f'{v}__{self._DX*size}km' : self.neighborhooder(y[v], 
+            y_nghbrd = {f'{v}__{self._DX*size/2:.0f}km' : self.neighborhooder(y[v], 
                                                                       func=maximum_filter,
                                                                      size=size, is_2d=True) for v in keys}
             y_final.append(y_nghbrd)
@@ -353,7 +353,7 @@ class GridPointExtracter:
         
         for size in self._SIZES:
             if environ:
-                X_nghbrd = {f'{v}__{self._DX*size}km' : self.neighborhooder(X[v], 
+                X_nghbrd = {f'{v}__{self._DX*size/2:.0f}km' : self.neighborhooder(X[v], 
                                                                       func=uniform_filter,
                                                                      size=size, 
                                                                            ) for v in keys}
@@ -363,7 +363,7 @@ class GridPointExtracter:
                 X_ens_stats = {**X_ens_mean, **X_ens_std}
             
             else:
-                X_nghbrd = {f'{v}__{self._DX*size}km' : self.neighborhooder(X[v], 
+                X_nghbrd = {f'{v}__{self._DX*size/2:.0f}km' : self.neighborhooder(X[v], 
                                                                       func=maximum_filter,
                                                                      size=size,      
                                                                            ) for v in keys}
