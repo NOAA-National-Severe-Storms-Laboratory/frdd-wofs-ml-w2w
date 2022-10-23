@@ -22,6 +22,7 @@ def plot_verification(estimators, X, y,
                       baseline_estimators=None, 
                       X_baseline=None, 
                       n_boot=10, style='classification'):
+    
     """Plot Classification- or Regression-based verification."""
     verify = VerificationDiagram()
     fig, axes = plt.subplots(dpi=300, figsize=(8,8), ncols=2, nrows=2)
@@ -72,6 +73,7 @@ def plot_verification(estimators, X, y,
         verify.plot(diagram=metric, x=xp, y=yp, ax=ax, scores=scores, pred=pred)
     
     axes.flat[-1].remove()
+    
 class VerificationDiagram:
     mpl.rcParams["axes.titlepad"] = 15
     mpl.rcParams["xtick.labelsize"] = 10
@@ -363,8 +365,6 @@ def bootstrap_generator(n_bootstrap, seed=42):
     base_random_state = np.random.RandomState(seed)
     random_num_set = base_random_state.choice(10000, size=n_bootstrap, replace=False)
     return random_num_set
-
-
 
 def sklearn_curve_bootstrap(y_true, y_pred, metric, n_boot, scorers=None, **kws):
     """Apply bootstrapping to the sklearn verification curves"""

@@ -13,7 +13,7 @@ def _train_test_split():
     Randomly split the full dataset into training and testing 
     based on the date. 
     """
-    basePath = '/work/mflora/ML_2TO6HR/data'
+    basePath = '/work/samuel.varga/data/2to6_hr_severe_wx' #Base path to data
     
     path = join(basePath, f'wofs_ml_severe__2to6hr__data.feather')
     df = pd.read_feather(path)
