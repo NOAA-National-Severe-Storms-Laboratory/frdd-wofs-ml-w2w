@@ -5,6 +5,8 @@
 # Git Author: monte-flora (monte.flora@noaa.gov) 
 ####################################################################################
 
+
+#Varga version
 #These are from the wofs_post package
 
 from wofs.post.utils import (
@@ -269,7 +271,7 @@ class GridPointExtracter:
         # Upscale the targets. 
         y_final = [] 
         for size in self._TARGET_SIZES:
-            y_nghbrd = {f'{v}__{self._DX*size}km' : self.neighborhooder(y[v], 
+            y_nghbrd = {f'{v}__{self._DX*size/2:.0f}km' : self.neighborhooder(y[v], #Here
                                                                       func=maximum_filter,
                                                                      size=size, is_2d=True) for v in keys}
             y_final.append(y_nghbrd)
