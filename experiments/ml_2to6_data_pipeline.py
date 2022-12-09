@@ -26,7 +26,8 @@ from os.path import join
 import itertools
 import pyresample 
 
-
+#print('Using the correct file')
+#exit()
 # These are the list of variables that are pulled from the WoFS
 # summary files. The list is informed by previous work (Flora et al. 2021, MWR) 
 
@@ -61,9 +62,9 @@ ml_config = { 'ENS_VARS':  ['uh_2to5_instant',
 def get_files(path):
     """Get the ENS, ENV, and SVR file paths for the 2-6 hr forecasts"""
     # Load summary files between time step 24-72. 
-    ens_files = glob(join(path,'wofs_ENS_[2-7]*'))
+    ens_files = glob(join(path,'wofs_ENS_[2-7]*')) #Change here for 0-2
     ens_files.sort()
-    ens_files = ens_files[4:]
+    ens_files = ens_files[4:] #Drops the first 4 files, so we have 24-72 instead of 20-72
     
     svr_files = [f.replace('ENS', 'SVR') for f in ens_files]
     env_files = [f.replace('ENS', 'ENV') for f in ens_files]
@@ -133,10 +134,10 @@ class GridPointExtracter:
         Grid spacing (in km) of the original grid. 
     """
     def __init__(self, ncfile, env_vars, strm_vars, ll_grid, 
-                 forecast_sizes=[1,3,5], 
-                 target_sizes = [1,2,4,6],
-                 upscale_size=3, 
-                 grid_spacing=3,
+                 forecast_sizes=[1,3,5], #upscale_zie*grid_spacing*forecast size = predictor radius (km)
+                 target_sizes = [1,2,4,6], #upscale_size*grid_spacing*target size = target radius (km)
+                 upscale_size=3, #Scales from 3-> 9 km grid
+                 grid_spacing=3, #WOFS grid spacing (km)
                  reports_path = '/work/mflora/LSRS/STORM_EVENTS_2017-2022.csv',
                  report_type = 'NOAA'
                 ):
@@ -357,7 +358,7 @@ class GridPointExtracter:
         
         for size in self._SIZES:
             if environ:
-                X_nghbrd = {f'{v}__{self._DX*size/2:.0f}km' : self.neighborhooder(X[v], #here
+                X_nghbrd = {f'{v}__{self._DX*size/2:.0f}km' : self.neighborhooder(X[v], 
                                                                       func=uniform_filter,
                                                                      size=size, 
                                                                            ) for v in keys}
@@ -365,22 +366,38 @@ class GridPointExtracter:
                 X_ens_mean = {f'{v}__ens_mean' : np.nanmean(X_nghbrd[v], axis=0) for v in X_nghbrd.keys()}
                 X_ens_std = {f'{v}__ens_std' : np.nanstd(X_nghbrd[v], axis=0, ddof=1) for v in X_nghbrd.keys()}   
                 X_ens_stats = {**X_ens_mean, **X_ens_std}
+                
             
             else:
-                X_nghbrd = {f'{v}__{self._DX*size/2:.0f}km' : self.neighborhooder(X[v], #here
+                #Block for storm variables
+                X_nghbrd = {f'{v}__{self._DX*size/2:.0f}km' : self.neighborhooder(X[v], 
                                                                       func=maximum_filter,
                                                                      size=size,      
                                                                            ) for v in keys}
-                
+                #Should appear as the ens mean and std for storm variables
+                X_ens_mean = {f'{v}__ens_mean' : np.nanmean(X_nghbrd[v], axis=0) for v in X_nghbrd.keys()} #Change 
+               
                 X_ens_90th = {f'{v}__ens_90th' : np.nanpercentile(X_nghbrd[v],
-                                                                90, axis=0) for v in X_nghbrd.keys()} 
+                                                                90, axis=0) for v in X_nghbrd.keys()} #Old 90th percentile
+                
+                X_ens_16th = {f'{v}__ens_16th' : np.nanpercentile(X_nghbrd[v],
+                                                                16/18*100, axis=0, method='higher') for v in X_nghbrd.keys()} 
+                X_ens_2nd = {f'{v}__ens_2nd' : np.nanpercentile(X_nghbrd[v],
+                                                                2/18*100, axis=0, method='lower') for v in X_nghbrd.keys()}
+                X_strm_iqr={f'{v}__ens_IQR' : np.nanpercentile(X_nghbrd[v],
+                                                                75, axis=0, method='higher')-np.nanpercentile(X_nghbrd[v], 25, axis=0, method='lower') for v in X_nghbrd.keys()}
+              
                 
                 # Compute the baseline stuff. 
                 X_baseline = self.get_nmep(X_nghbrd, size)
 
-                X_ens_stats = {**X_baseline, **X_ens_90th}
+                X_ens_stats = {**X_baseline, **X_ens_90th, **X_ens_mean, **X_ens_2nd, **X_strm_iqr, **X_ens_16th} #Change
+                
+                                                           
             
             X_final.append(X_ens_stats)
+            
+                                                          
             
         X_final = dict(ChainMap(*X_final))    
             
