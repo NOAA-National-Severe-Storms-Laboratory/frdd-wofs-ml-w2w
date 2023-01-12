@@ -59,23 +59,30 @@ ml_config = { 'ENS_VARS':  ['uh_2to5_instant',
                        ]
             }
 
-def get_files(path):
-    """Get the ENS, ENV, and SVR file paths for the 2-6 hr forecasts"""
-    # Load summary files between time step 24-72. 
-    ens_files = glob(join(path,'wofs_ENS_[2-7]*')) #Change here for 0-2
-    ens_files.sort()
-    ens_files = ens_files[4:] #Drops the first 4 files, so we have 24-72 instead of 20-72
+def get_files(path, TIMESCALE):
+    """Get the ENS, ENV, and SVR file paths for the 0-3 || 2-6 hr forecasts"""
+    # Load summary files between time step 00-36 || 24-72. 
+    if TIMESCALE=='0to3':
+        ens_files = glob(join(path,'wofs_ENS_[0-3]*')) 
+        ens_files.sort()
+        ens_files = ens_files[:37] #Drops the last 4 files, so we have 0-36
+    elif TIMESCALE=='2to6':
+        ens_files = glob(join(path,'wofs_ENS_[2-7]*'))
+        ens_files.sort()
+        ens_files = ens_files[4:] #Drops the first 4 files, so we have 24-72 instead of 20-72
     
     svr_files = [f.replace('ENS', 'SVR') for f in ens_files]
     env_files = [f.replace('ENS', 'ENV') for f in ens_files]
     
     return ens_files, env_files, svr_files
     
-def load_dataset(path):
-    """Load the 2-6 hr forecasts"""
-    ens_files, env_files, svr_files = get_files(path)
+def load_dataset(path, TIMESCALE):
+    """Load the 0-3|| 2-6 hr forecasts"""
+    ens_files, env_files, svr_files = get_files(path, TIMESCALE)
     
     coord_vars = ["xlat", "xlon", "hgt"]
+    
+    #Check concat dim when doing ADAM
     X_strm, coords, _, _  = load_multiple_nc_files(
                 ens_files, concat_dim="time", coord_vars=coord_vars,  load_vars=ml_config['ENS_VARS'])
 
@@ -132,8 +139,14 @@ class GridPointExtracter:
         
     grid_spacing : int 
         Grid spacing (in km) of the original grid. 
+        
+    TIMESCALE: string
+        Forecast window of the data in hours after the init time
+        
+    FRAMEWORK: string
+        Framework used for preprocessing the data. See respective papers for more detail.
     """
-    def __init__(self, ncfile, env_vars, strm_vars, ll_grid, 
+    def __init__(self, ncfile, env_vars, strm_vars, ll_grid, TIMESCALE, FRAMEWORK,
                  forecast_sizes=[1,3,5], #upscale_zie*grid_spacing*forecast size = predictor radius (km)
                  target_sizes = [1,2,4,6], #upscale_size*grid_spacing*target size = target radius (km)
                  upscale_size=3, #Scales from 3-> 9 km grid
@@ -153,6 +166,8 @@ class GridPointExtracter:
         self._DX = grid_spacing * upscale_size  
         self._reports_path = reports_path
         self._report_type = report_type
+        self._TIMESCALE=TIMESCALE
+        self._FRAMEWORK=FRAMEWORK
         
         if np.max(np.absolute(ll_grid[0]))>90:
             raise ValueError('Latitude values for ll_grid > 90 and are likely longitude values. Switch the input.')
@@ -209,7 +224,7 @@ class GridPointExtracter:
             data = X_all
         else:
             # IF not predicting, then get the target values. 
-            y = self.get_targets()
+            y = self.get_targets(TIMESCALE=self._TIMESCALE)
             data = {**X_all, **y}
 
         
@@ -249,16 +264,25 @@ class GridPointExtracter:
                 
         return X_nmep 
 
-    def get_targets(self):
+    def get_targets(self, TIMESCALE):
         """Convert storm reports to a grid and apply different upscaling"""
         comps = decompose_file_path(self._ncfile)
         start_time = comps['VALID_DATE']+comps['VALID_TIME']
-        report = StormReports(
-            self._reports_path, 
-            self._report_type, 
-            start_time, 
-            forecast_length=240,
-            err_window=15,               
+        if TIMESCALE=='0to3':
+            report = StormReports(
+                self._reports_path, 
+                self._report_type, 
+                start_time, 
+                forecast_length=180, 
+                err_window=15,               
+            )
+        elif TIMESCALE=='2to6':
+            report = StormReports(
+                self._reports_path, 
+                self._report_type, 
+                start_time, 
+                forecast_length=240, 
+                err_window=15,               
             )
 
         ds = xr.load_dataset(self._ncfile, decode_times=False)
