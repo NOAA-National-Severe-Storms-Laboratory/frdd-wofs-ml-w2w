@@ -236,7 +236,7 @@ class VerificationDiagram:
         plot_kwargs['alpha'] = plot_kwargs.get('alpha', 0.7)
         plot_kwargs['linewidth'] = plot_kwargs.get('linewidth', 1.5)
         
-        line_colors = ['r', 'b', 'g', 'k']
+        line_colors = ['r', 'b', 'g', 'orange', 'k']
         
         if ax is None:
             mpl.pyplot.subplots

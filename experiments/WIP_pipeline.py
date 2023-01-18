@@ -26,8 +26,6 @@ from os.path import join
 import itertools
 import pyresample 
 
-#print('Using the correct file')
-#exit()
 # These are the list of variables that are pulled from the WoFS
 # summary files. The list is informed by previous work (Flora et al. 2021, MWR) 
 
@@ -59,7 +57,7 @@ ml_config = { 'ENS_VARS':  ['uh_2to5_instant',
                        ]
             }
 
-def get_files(path, TIMESCALE):
+def get_files(path, TIMESCALE='2to6'):
     """Get the ENS, ENV, and SVR file paths for the 0-3 || 2-6 hr forecasts"""
     # Load summary files between time step 24-72. 
     if TIMESCALE=='0to3':
@@ -76,7 +74,7 @@ def get_files(path, TIMESCALE):
     
     return ens_files, env_files, svr_files
     
-def load_dataset(path, TIMESCALE):
+def load_dataset(path, TIMESCALE='2to6'):
     """Load the 2-6 hr forecasts"""
     ens_files, env_files, svr_files = get_files(path, TIMESCALE)
     
@@ -141,25 +139,38 @@ class GridPointExtracter:
     def __init__(self, ncfile, env_vars, strm_vars, ll_grid, TIMESCALE, FRAMEWORK,
                  forecast_sizes=[1,3,5], #upscale_zie*grid_spacing*forecast size = predictor radius (km)
                  target_sizes = [1,2,4,6], #upscale_size*grid_spacing*target size = target radius (km)
-                 upscale_size=3, #Scales from 3-> 9 km grid
+                 upscale_size=None, #Scales from 3-> 9 km grid
                  grid_spacing=3, #WOFS grid spacing (km)
                  reports_path = '/work/mflora/LSRS/STORM_EVENTS_2017-2022.csv',
                  report_type = 'NOAA'
                 ):
         
-        self._n_ens = 18
+       ##Parameters that change based on Framework
+        
+        if FRAMEWORK=='ADAM':
+            self._upscale_size = 1 #No upscaling of data
+            self._TARGET_SIZES = np.array([12,13])*2 #Converts radius to diameter, 3 x 12 || 3 x 13 =36, 39km target radius
+            self._SIZES = np.array([3])*2 #Diameter of Gaussian Smoother only used for smoothed mean of storm fields
+            #From Clark & Loken: SD is 18 km -> grid_spacing * forecast_size*2 = 18km -> forecast_size=3 
+        else:
+            self._upscale_size = 3 #3km smoothing of data before everything else
+            self._TARGET_SIZES = np.array(target_sizes)*2 #9/18/36/72 km target radius converted to diameter
+            self._SIZES = np.array(forecast_sizes)*2
+        
+         
+        ##Constant Parameters
+        self._n_ens = 18 #number of ensemble members
         self._env_vars = env_vars
         self._strm_vars = strm_vars
-        
-        self._upscale_size = upscale_size
-        self._SIZES = np.array(forecast_sizes)*2
-        self._TARGET_SIZES = np.array(target_sizes)*2
         self._ncfile = ncfile
-        self._DX = grid_spacing * upscale_size  
+        self._DX = grid_spacing * upscale_size #Delta X  
         self._reports_path = reports_path
         self._report_type = report_type
         self._TIMESCALE= TIMESCALE
         self._FRAMEWORK= FRAMEWORK
+        
+        
+        
         
         if np.max(np.absolute(ll_grid[0]))>90:
             raise ValueError('Latitude values for ll_grid > 90 and are likely longitude values. Switch the input.')
@@ -168,7 +179,7 @@ class GridPointExtracter:
 
         self._target_grid = (ll_grid[0][::upscale_size, ::upscale_size], 
                              ll_grid[1][::upscale_size, ::upscale_size]
-                            ) 
+                            ) #(Identical to original grid for ADAM)
 
         # Baseline variables and their corresponding thresholds. 
         self._BASELINE_VARS = ['hailcast', 'uh_2to5_instant', 'ws_80']
@@ -176,40 +187,58 @@ class GridPointExtracter:
                              'uh_2to5_instant' : [50, 75, 100, 125, 150, 175, 200],
                              'ws_80' : [30, 40, 50, 60], 
                             }
+            
         
-    def __call__(self, X_env, X_strm, predict=False):
-        
-        # TODO: Pre-processor. Get rid of super high updraft speeds, replace NaNs, etc. 
+    def __call__(self, X_env, X_strm, predict=False, FRAMEWORK='POTVIN'):
          
-        
         # This X has had a 3-grid point gaussian smoother applied to it. 
+        #Identical (or nearly identical) to original fields when upscale_size==1
         X_env_upscaled = {v  : self.upscaler(X_env[v], 
-                                     func=uniform_filter,
-                                     size=self._upscale_size) for v in self._env_vars}
-        
-        # This X has had a 3-grid point maximum filter applied to it. 
+                                         func=uniform_filter,
+                                         size=self._upscale_size) for v in self._env_vars}
+
+        # This X has had a 3-grid point maximum filter applied to it. (See above)
         X_strm_upscaled = {v : self.upscaler(X_strm[v], 
-                                     func=maximum_filter,
-                                     size=self._upscale_size) for v in self._strm_vars}
+                                         func=maximum_filter,
+                                         size=self._upscale_size) for v in self._strm_vars}
+        if FRAMEWORK=='POTVIN':
+
+            # For the environment, 
+            # 1. Time-average 
+            # 2. Spatial ensemble statistics at different scales. 
+            X_env_time_comp = self.calc_time_composite(X_env_upscaled, 
+                                                        func=np.nanmean, name='time_avg', keys=self._env_vars)
+
+
+            X_env_stats = self.calc_spatial_ensemble_stats(X_env_time_comp, environ=True)
+
+            # For the storm, 
+            # 1. Time-maximum 
+            # 2. Spatial ensemble statistics at different scales. 
+            # 3. Amplitude Statistics
+            X_strm_time_comp = self.calc_time_composite(X_strm_upscaled, 
+                                                        func=np.nanmax, name='time_max', keys=self._strm_vars)
+
+            X_strm_stats = self.calc_spatial_ensemble_stats(X_strm_time_comp, environ=False)
+
+           
+        elif FRAMEWORK=='ADAM':
         
-        # For the environment, 
-        # 1. Time-average 
-        # 2. Spatial ensemble statistics at different scales. 
-        X_env_time_comp = self.calc_time_composite(X_env_upscaled, 
-                                                    func=np.nanmean, name='time_avg', keys=self._env_vars)
-        
-        
-        X_env_stats = self.calc_spatial_ensemble_stats(X_env_time_comp, environ=True)
-        
-        # For the storm, 
-        # 1. Time-maximum 
-        # 2. Spatial ensemble statistics at different scales. 
-        # 3. Amplitude Statistics
-        X_strm_time_comp = self.calc_time_composite(X_strm_upscaled, 
-                                                    func=np.nanmax, name='time_max', keys=self._strm_vars)
-        
-        X_strm_stats = self.calc_spatial_ensemble_stats(X_strm_time_comp, environ=False)
-        
+            #For the environment,
+            #1. Ensemble mean at each hour (This is actually every time step?)
+            #2. Time-average 
+            
+            
+            
+            #For the storm,
+            #1. Time-maximum 
+            #2. Ensemble Statistics at each grid point
+            X_strm_time_comp = self.calc_time_composite(X_strm_upscaled, 
+                                                        func=np.nanmax, name='time_max', keys=self._strm_vars)
+            ##
+            ##Resume here
+            ##
+            
         X_all = {**X_strm_stats, **X_env_stats}
         
         if predict:
@@ -249,10 +278,10 @@ class GridPointExtracter:
         X_nmep = {}
         for v in self._BASELINE_VARS:
             for t in self._NMEP_THRESHS[v]:
-                data = X[f'{v}__time_max__{self._DX*size/2:.0f}km'] #Had to change this line as well
+                data = X[f'{v}__time_max__{self._DX*size/2:.0f}km'] 
                 data_bin = np.where(data>t,1,0)
                 ens_prob = np.nanmean(data_bin, axis=0)
-                X_nmep[f"{v}__nmep_>{str(t).replace('.','_')}_{self._DX*size/2:.0f}km"] = ens_prob #also had to change this line
+                X_nmep[f"{v}__nmep_>{str(t).replace('.','_')}_{self._DX*size/2:.0f}km"] = ens_prob 
                 
         return X_nmep 
 
@@ -354,7 +383,7 @@ class GridPointExtracter:
         fill_value = np.nanmean(X)
         for t,n in itertools.product(range(new_X.shape[0]), range(self._n_ens)):
             X_ = np.nan_to_num(X[t,n,:,:], nan=fill_value)
-            new_X[t,n,:,:] = self.resample(func(X_, size))
+            new_X[t,n,:,:] = self.resample(func(X_, size)) #time, ens member, lat, lon?
             
         return new_X
     

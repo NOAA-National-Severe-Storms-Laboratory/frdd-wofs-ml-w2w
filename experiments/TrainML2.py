@@ -27,7 +27,7 @@ from hyperopt import hp
 
 
 #Command line input
-#Hazard for target (tornado, hail, wind)
+#Hazard for target (tornado, hail, wind, all)
 #Resolution for target hazard (9, 15, 36)
 #Resolution for input (9, 27, 45, all)
 
@@ -42,17 +42,44 @@ parser.add_argument('-is' ,'--intrastorm', help="Drop all environmental variable
 args=parser.parse_args()
 
 # Configuration variables (You'll need to change based on where you store your data)
-base_path = '/work/samuel.varga/data/2to6_hr_severe_wx'
+FRAMEWORK='POTVIN'
+TIMESCALE='2to6'
+base_path = f'/work/samuel.varga/data/{TIMESCALE}_hr_severe_wx/{FRAMEWORK}'
 
 ###########
 #Data Prep#
 ###########
 
 #Load Data
-target_col='{}_severe__{}km'.format(args.hazard_name, args.hazard_scale)
-X,y,metadata = load_ml_data(base_path=base_path, 
+if args.hazard_name == 'all':    
+    target_col=f'wind_severe__{args.hazard_scale}km'
+    X,y,metadata = load_ml_data(base_path=base_path, 
                             mode='train', 
-                            target_col=target_col)
+                            target_col=target_col,
+                           FRAMEWORK=FRAMEWORK,
+                           TIMESCALE=TIMESCALE)
+    print(len(y[y>0]))
+    for hazard in ['hail','tornado']:
+        target_col='{}_severe__{}km'.format(hazard, args.hazard_scale)
+        SPAM, y1, SPAM  = load_ml_data(base_path=base_path, mode='train', target_col=target_col, FRAMEWORK=FRAMEWORK, TIMESCALE=TIMESCALE) 
+        y +=y1
+        print(len(y[y>0]))
+       
+    y[y > 0] = 1
+    
+    
+else:
+    target_col='{}_severe__{}km'.format(args.hazard_name, args.hazard_scale)
+
+    
+    
+    X,y,metadata = load_ml_data(base_path=base_path, 
+                            mode='train', 
+                            target_col=target_col,
+                           FRAMEWORK=FRAMEWORK,
+                           TIMESCALE=TIMESCALE)
+
+
 X=X.drop(['NX','NY'], axis=1)
 
 #Select Desired Input Scales:
@@ -127,8 +154,8 @@ scaler = 'standard'
 resample = 'under'
 
 
-names=['logistic','random','hist']
-
+#names=['logistic','random','hist','ADAM']
+names=['ADAM']
 
 for name in names:
     if name=='logistic':
@@ -161,11 +188,26 @@ for name in names:
         'max_bins': hp.choice('max_bins',[15, 31, 63, 127])
 
                 }
+        
+        
+    elif name=='ADAM': #Add a conditional to reduce the number of max iterations for this
+        base_estimator=sklearn.ensemble.RandomForestClassifier(random_state=42)
+        param_grid = {
+               'n_estimators' : hp.choice('n_estimators',[200]), 
+               'criterion' : hp.choice('criterion',['entropy']),
+                'max_depth' : hp.choice('max_depth',[15]),
+               'max_features' : hp.choice('max_features',["sqrt"]),
+               #'min_samples_split' : hp.choice('min_samples_split',[4,6,8,10,15,20,25,50]),
+               'min_samples_leaf' : hp.choice('min_samples_leaf',[20])
+            }
 
 
 
 
-
+    if name=='ADAM':
+        max_iter=25
+    else:
+        max_iter=50
 
 
     train_dates = metadata['Run Date'].apply(str)
@@ -173,7 +215,7 @@ for name in names:
     clf = CalibratedPipelineHyperOptCV(base_estimator=base_estimator, 
                                        param_grid=param_grid, 
                                        scaler=scaler, 
-                                       resample=resample, max_iter=50, 
+                                       resample=resample, max_iter=max_iter, 
                                        cv_kwargs = {'dates': train_dates, 'n_splits': 5, 'valid_size' : 20}, 
                                        hyperopt='tpe')
 
