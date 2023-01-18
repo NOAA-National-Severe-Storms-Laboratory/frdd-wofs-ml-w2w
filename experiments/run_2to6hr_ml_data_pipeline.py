@@ -19,6 +19,7 @@ from skexplain.common.multiprocessing_utils import run_parallel, to_iterator
 
 import os
 from glob import glob 
+import numpy.random as npr #Used for date selection
 
 
 """ usage: stdbuf -oL python -u run_2to6hr_ml_data_pipeline.py  2 > & log_2to6hr_data_pipeline & """
@@ -70,18 +71,19 @@ def worker(path, FRAMEWORK=FRAMEWORK, TIMESCALE=TIMESCALE):
 
     # Sampling all grid points with an event, but only 15% of 
     # grid points with no events. -- might change this to see if it affects models being too hot?
-    inds = subsampler(y_df, pos_percent=1.0, neg_percent=0.15)
+    #inds = subsampler(y_df, pos_percent=1.0, neg_percent=0.15)
 
-    df_sub = df.iloc[inds, :]
-    df_sub.reset_index(drop=True, inplace=True)
+    #df_sub = df.iloc[inds, :]
+    #df_sub.reset_index(drop=True, inplace=True)
 
     path = path.replace(base_path, SUMMARY_FILE_OUT_PATH) #replace the base path with the output path
     if not exists(path):
         os.makedirs(path)
        
-    out_name = join(path, 'wofs_ML{}.feather'.format(TIMESCALE.upper()))
+    out_name = join(path, 'wofs_ML{}_Big.feather'.format(TIMESCALE.upper()))
     print(f'Saving {out_name}...')
-    df_sub.to_feather(out_name)
+    df.to_feather(out_name)
+    #df_sub.to_feather(out_name)
     
     return None
 
@@ -90,6 +92,16 @@ emailer = Emailer()
 start_time = emailer.get_start_time()
 
 dates = [d for d in os.listdir(base_path) if '.txt' not in d]
+
+##################################
+##Changes for making big dataset##
+##################################
+valInit=['2000','2100','2200','2300','0000','0100','0200','0300'] #List of init times to keep
+dates=[d for d in dates if d[4:6]=='05'] #Removes all Months other than May
+print(f'Number of cases in May: {len(dates)}')
+randState=npr.RandomState(42) #Set random state for reproducibility
+dates=randState.choice(dates, 45, replace=False) #Randomly choose 45 days in May
+
 
 
 ##########################
@@ -103,6 +115,8 @@ for d in dates:
         continue
     
     times = [t for t in os.listdir(join(base_path,d)) if 'basemap' not in t] #initialization time
+    times = [t for t in times if t in valInit] #only keeps init times between 22-03
+    
     for t in times: #For every init time on that day
         path = join(base_path,d,t)
         if TIMESCALE=='0to3':
@@ -145,9 +159,11 @@ for d in dates:
         continue
         
     times = [t for t in os.listdir(join(base_path,d)) if 'basemap' not in t]
+    times = [t for t in times if t in valInit] #only keeps init times between 22-03
+    
     for t in times:
         path = join(SUMMARY_FILE_OUT_PATH,d,t)
-        filename = join(path,f'wofs_ML{TIMESCALE.upper()}.feather') #Make a list of the individual ML frames for each day
+        filename = join(path,f'wofs_ML{TIMESCALE.upper()}_Big.feather') #Make a list of the individual ML frames for each day
         if exists(filename):
             ml_files.append(filename)
     
@@ -165,7 +181,7 @@ features = [f for f in df.columns if f not in baseline_features]
 
 ml_df = df[features].reset_index(drop=True)  
 
-baseline_df.to_feather(join(OUT_PATH, f'wofs_ml_severe__{TIMESCALE}hr__baseline_data.feather'))
-ml_df.to_feather(join(OUT_PATH, f'wofs_ml_severe__{TIMESCALE}hr__data.feather'))
+baseline_df.to_feather(join(OUT_PATH, f'wofs_ml_severe__{TIMESCALE}hr__baseline_data_Big.feather'))
+ml_df.to_feather(join(OUT_PATH, f'wofs_ml_severe__{TIMESCALE}hr__data_Big.feather'))
 
 emailer.send_email(f'The {TIMESCALE} hr ML and BL datasets are built and ready to go!', start_time)
