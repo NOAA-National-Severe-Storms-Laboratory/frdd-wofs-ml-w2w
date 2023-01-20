@@ -37,8 +37,8 @@ import numpy.random as npr #Used for date selection
 ##Framework and Time Scale Settings##
 #####################################
 FRAMEWORK='POTVIN' #Framework to use when creating the dataset. Valid options: POTVIN or ADAM
-TIMESCALE='0to3' #Forecast windows to use when creating the data set. Valid Options: 0to3 or 2to6
-n_jobs=7 #Number of jobs for parallel processing
+TIMESCALE='2to6' #Forecast windows to use when creating the data set. Valid Options: 0to3 or 2to6
+n_jobs=5 #Number of jobs for parallel processing
 
 ################################
 ##Input and Output Directories##
@@ -66,8 +66,8 @@ def worker(path, FRAMEWORK=FRAMEWORK, TIMESCALE=TIMESCALE):
     extracter = GridPointExtracter(ncfile, env_vars=X_env.keys(), strm_vars=X_strm.keys(), ll_grid=ll_grid, TIMESCALE=TIMESCALE, FRAMEWORK=FRAMEWORK) #Def GPE-- pass timescale and framework to control sampling
     df = extracter(X_env, X_strm) #Apply GPE to the env and storm
 
-    ys = [f for f in df.columns if 'severe' in f]
-    y_df = df[ys].sum(axis='columns')
+    #ys = [f for f in df.columns if 'severe' in f]
+    #y_df = df[ys].sum(axis='columns')
 
     # Sampling all grid points with an event, but only 15% of 
     # grid points with no events. -- might change this to see if it affects models being too hot?
@@ -75,7 +75,9 @@ def worker(path, FRAMEWORK=FRAMEWORK, TIMESCALE=TIMESCALE):
 
     #df_sub = df.iloc[inds, :]
     #df_sub.reset_index(drop=True, inplace=True)
-
+    df.reset_index(drop=True, inplace=True)
+    
+    
     path = path.replace(base_path, SUMMARY_FILE_OUT_PATH) #replace the base path with the output path
     if not exists(path):
         os.makedirs(path)
@@ -98,9 +100,10 @@ dates = [d for d in os.listdir(base_path) if '.txt' not in d]
 ##################################
 valInit=['2000','2100','2200','2300','0000','0100','0200','0300'] #List of init times to keep
 dates=[d for d in dates if d[4:6]=='05'] #Removes all Months other than May
+dates=[d for d in dates if d[0:4]!='2017'] #Removes 2017
 print(f'Number of cases in May: {len(dates)}')
 randState=npr.RandomState(42) #Set random state for reproducibility
-dates=randState.choice(dates, 45, replace=False) #Randomly choose 45 days in May
+dates=randState.choice(dates, 40, replace=False) #Randomly choose 40 days in May
 
 
 

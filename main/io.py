@@ -3,7 +3,7 @@ import pandas as pd
 from os.path import join
 
 # Load the data in a scikit-learn-ready input. 
-def load_ml_data(base_path, target_col=None, date = None, mode=None, bl_column=None, FRAMEWORK=None, TIMESCALE=None):
+def load_ml_data(base_path, target_col=None, date = None, mode=None, bl_column=None, FRAMEWORK=None, TIMESCALE=None, Big=True):
     """Load the ML dataframe into a X,y-ready scikit-learn input
     Parameters
     ---------------
@@ -32,11 +32,16 @@ def load_ml_data(base_path, target_col=None, date = None, mode=None, bl_column=N
             else:
                 ml_df = pd.read_feather(join(base_path, f'wofs_ml_severe__2to6hr__{date}_data.feather'))
         else:
-            ml_df = pd.read_feather(join(base_path, f'wofs_ml_severe__2to6hr__data.feather'))
+            if Big:
+                ml_df = pd.read_feather(join(base_path, f'wofs_ml_severe__{TIMESCALE}hr__data_Big.feather'))
+            else:
+                ml_df = pd.read_feather(join(base_path, f'wofs_ml_severe__{TIMESCALE}hr__data.feather'))
     
     elif FRAMEWORK and TIMESCALE:
-        ml_df = pd.read_feather(join(base_path, f'wofs_ml_severe__{TIMESCALE}hr__{mode}_data.feather'))
-    
+        if Big:
+            ml_df = pd.read_feather(join(base_path, f'wofs_ml_severe__{TIMESCALE}hr__{mode}_data_Big.feather'))
+        else:
+            ml_df = pd.read_feather(join(base_path, f'wofs_ml_severe__{TIMESCALE}hr__{mode}_data.feather'))
     else:
         ml_df = pd.read_feather(join(base_path, f'wofs_ml_severe__2to6hr__{mode}_data.feather'))
       
@@ -64,7 +69,7 @@ def load_ml_data(base_path, target_col=None, date = None, mode=None, bl_column=N
 
 
 # Load the baseline data into a scikit-learn ready input. 
-def load_bl_data(base_path, target_col, mode, feature_col=None, FRAMEWORK=None, TIMESCALE=None):
+def load_bl_data(base_path, target_col, mode, feature_col=None, FRAMEWORK=None, TIMESCALE=None, Big=True):
     """
     Load the baseline dataset.
     
@@ -86,8 +91,10 @@ def load_bl_data(base_path, target_col, mode, feature_col=None, FRAMEWORK=None, 
 
     """
     if TIMESCALE and FRAMEWORK:
-        
-        bl_df = pd.read_feather(join(base_path, f'wofs_ml_severe__{TIMESCALE}hr__baseline_{mode}_data.feather'))
+        if Big:
+            bl_df = pd.read_feather(join(base_path, f'wofs_ml_severe__{TIMESCALE}hr__baseline_{mode}_data_Big.feather'))
+        else:
+            bl_df = pd.read_feather(join(base_path, f'wofs_ml_severe__{TIMESCALE}hr__baseline_{mode}_data.feather'))
     
     else:
         bl_df = pd.read_feather(join(base_path, f'wofs_ml_severe__2to6hr__baseline_{mode}_data.feather'))

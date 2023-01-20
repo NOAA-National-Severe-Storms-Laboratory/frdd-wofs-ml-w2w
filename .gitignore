@@ -130,3 +130,5 @@ dmypy.json
 
 #Ignore log file for data
 **/log_2to6hr_data_pipeline.txt
+RandSampLogs/
+

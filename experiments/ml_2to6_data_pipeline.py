@@ -170,6 +170,7 @@ class GridPointExtracter:
         self._TIMESCALE=TIMESCALE
         self._FRAMEWORK=FRAMEWORK
         
+        
         if np.max(np.absolute(ll_grid[0]))>90:
             raise ValueError('Latitude values for ll_grid > 90 and are likely longitude values. Switch the input.')
         
@@ -271,17 +272,17 @@ class GridPointExtracter:
         start_time = comps['VALID_DATE']+comps['VALID_TIME']
         if TIMESCALE=='0to3':
             report = StormReports(
-                self._reports_path, 
-                self._report_type, 
-                start_time, 
+                #path=self._reports_path, 
+                #self._report_type, 
+                initial_time=start_time, 
                 forecast_length=180, 
                 err_window=15,               
             )
         elif TIMESCALE=='2to6':
             report = StormReports(
-                self._reports_path, 
-                self._report_type, 
-                start_time, 
+                #path=self._reports_path, 
+                #self._report_type, 
+                initial_time=start_time, 
                 forecast_length=240, 
                 err_window=15,               
             )
