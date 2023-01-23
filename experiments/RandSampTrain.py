@@ -47,7 +47,7 @@ args=parser.parse_args()
 FRAMEWORK='POTVIN'
 TIMESCALE='0to3'
 base_path = f'/work/samuel.varga/data/{TIMESCALE}_hr_severe_wx/{FRAMEWORK}'
-OUTPATH=f'/work/samuel.varga/projects/{TIMESCALE}_hr_severe_wx/{FRAMEWORK}/mlModels/{args.hazard_scale}km'
+
 
 ###########
 #Data Prep#
@@ -60,7 +60,8 @@ else:
 ###Start Loop here
 for radius in hazard_scale:
     print(f'Starting the process for {radius}km')
-
+    
+    OUTPATH=f'/work/samuel.varga/projects/{TIMESCALE}_hr_severe_wx/{FRAMEWORK}/mlModels/{radius}km'
     Seed=np.random.RandomState(42)    
     #Load Data
     if args.hazard_name == 'all':    
@@ -155,7 +156,7 @@ for radius in hazard_scale:
 
 
     #Second Loop for percentages
-    for p in [.5]: #[0.01, 0.05, 0.1, 0.15, 0.2, 0.25, 0.5, 1]:
+    for p in [0.01, 0.05, 0.1, 0.15, 0.2, 0.25, 0.5, 1]:
         print(f'Starting process for {radius}km {p*100}%')
 
         ##Get the data subset

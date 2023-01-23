@@ -14,7 +14,7 @@ def _train_test_split():
     based on the date. 
     """
     FRAMEWORK='POTVIN'
-    TIMESCALE='0to3'
+    TIMESCALE='2to6'
     basePath = f'/work/samuel.varga/data/{TIMESCALE}_hr_severe_wx/{FRAMEWORK}/' #Base path to data
     
     
@@ -53,7 +53,7 @@ def _train_test_split():
     test_base_df.reset_index(inplace=True, drop=True)
         
     train_df.to_feather(join(basePath, f'wofs_ml_severe__{TIMESCALE}hr__train_data_Big.feather'))
-    test_df.to_feather(join(basePath, f'wofs_ml_severe__{TIMESCALE}hr__test_data.feather'))
+    test_df.to_feather(join(basePath, f'wofs_ml_severe__{TIMESCALE}hr__test_data_Big.feather'))
         
     train_base_df.to_feather(join(basePath, f'wofs_ml_severe__{TIMESCALE}hr__baseline_train_data_Big.feather'))
     test_base_df.to_feather(join(basePath, f'wofs_ml_severe__{TIMESCALE}hr__baseline_test_data_Big.feather'))

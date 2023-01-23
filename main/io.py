@@ -28,7 +28,10 @@ def load_ml_data(base_path, target_col=None, date = None, mode=None, bl_column=N
     if mode is None:
         if date is not None:
             if FRAMEWORK and TIMESCALE:
-                ml_df = pd.read_feather(join(base_path, f'wofs_ml_severe__{TIMESCALE}hr__{date}_data.feather'))
+                if Big:
+                    ml_df = pd.read_feather(join(base_path, f'wofs_ml_severe__{TIMESCALE}hr__{date}_data_Big.feather'))
+                else:
+                    ml_df = pd.read_feather(join(base_path, f'wofs_ml_severe__{TIMESCALE}hr__{date}_data.feather'))
             else:
                 ml_df = pd.read_feather(join(base_path, f'wofs_ml_severe__2to6hr__{date}_data.feather'))
         else:
