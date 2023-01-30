@@ -226,18 +226,17 @@ class GridPointExtracter:
         
             #For the environment,
             #1. Ensemble mean at each hour (This is actually every time step?)
-            #2. Time-average 
-            
-            
+            #2. Time-average of ensemble means 
+            X_ens_stats=self.calc_spatial_ensemble_stats(X_env_upscaled, environ=True, FRAMEWORK=FRAMEWORK)
+            X_env_stats=self.calc_time_composite(X_ens_stats, func=np.nanmean, name='time_avg', keys=X_ens_stats.keys())
             
             #For the storm,
             #1. Time-maximum 
             #2. Ensemble Statistics at each grid point
             X_strm_time_comp = self.calc_time_composite(X_strm_upscaled, 
                                                         func=np.nanmax, name='time_max', keys=self._strm_vars)
-            ##
-            ##Resume here
-            ##
+            
+            X_strm_stats = self.calc_spatial_ensemble_stats(X_strm_time_comp, environ=False, FRAMEWORK=FRAMEWORK)
             
         X_all = {**X_strm_stats, **X_env_stats}
         
@@ -358,7 +357,7 @@ class GridPointExtracter:
 
         return variable_nearest
     
-    def neighborhooder(self, X, func, size, is_2d=False):
+    def neighborhooder(self, X, func, size, is_2d=False, AdamEnv=False):
         """Apply neighborhood function to X. For any grid points with NaN values, 
            replace it with a generic, full-domain spatial average value."""
         new_X = X.copy()
@@ -368,9 +367,14 @@ class GridPointExtracter:
                 X_ = np.nan_to_num(X[:,:], nan=fill_value)
                 new_X[:,:] = func(X_, size)
         else:
-            for n in range(self._n_ens):
-                X_ = np.nan_to_num(X[n,:,:], nan=fill_value)
-                new_X[n,:,:] = func(X_, size)
+            if not AdamEnv:
+                for n in range(self._n_ens):
+                    X_ = np.nan_to_num(X[n,:,:], nan=fill_value)
+                    new_X[n,:,:] = func(X_, size)
+            elif AdamENV:
+                for t,n in itertools.product(range(new_X.shape[0]), range(self._n_ens)):
+                    X_ = np.nan_to_num(X[t, n, :,:], nan=fill_value)
+                    new_X[t,n,:,:] = func(X_, size) 
     
         return new_X 
     
@@ -392,7 +396,7 @@ class GridPointExtracter:
         X_time_comp = {f'{v}__{name}' : func(X[v], axis=0) for v in keys }
         return X_time_comp
         
-    def calc_spatial_ensemble_stats(self, X, environ=True):
+    def calc_spatial_ensemble_stats(self, X, environ=True, FRAMEWORK='POTVIN'):
         """Compute the spatial ensemble mean and standard deviation if environ = True,
         else compute the ensemble 90th. Ensemble statistics are computed in multiple different 
         neighborhood sizes"""
@@ -403,40 +407,67 @@ class GridPointExtracter:
         
         for size in self._SIZES:
             if environ:
-                X_nghbrd = {f'{v}__{self._DX*size/2:.0f}km' : self.neighborhooder(X[v], 
-                                                                      func=uniform_filter,
-                                                                     size=size, 
-                                                                           ) for v in keys}
-                
-                X_ens_mean = {f'{v}__ens_mean' : np.nanmean(X_nghbrd[v], axis=0) for v in X_nghbrd.keys()}
-                X_ens_std = {f'{v}__ens_std' : np.nanstd(X_nghbrd[v], axis=0, ddof=1) for v in X_nghbrd.keys()}   
-                X_ens_stats = {**X_ens_mean, **X_ens_std}
+                if FRAMEWORK='POTVIN':
+                    X_nghbrd = {f'{v}__{self._DX*size/2:.0f}km' : self.neighborhooder(X[v], 
+                                                                          func=uniform_filter,
+                                                                         size=size, 
+                                                                               ) for v in keys}
+
+                    X_ens_mean = {f'{v}__ens_mean' : np.nanmean(X_nghbrd[v], axis=0) for v in X_nghbrd.keys()}
+                    X_ens_std = {f'{v}__ens_std' : np.nanstd(X_nghbrd[v], axis=0, ddof=1) for v in X_nghbrd.keys()}   
+                    X_ens_stats = {**X_ens_mean, **X_ens_std}
+                elif FRAMEWORk='ADAM':
+                    X_nghbrd = {f'{v}__{self._DX*1/2:.1f}km' : self.neighborhooder(X[v], #Check dims
+                                                                          func=uniform_filter,
+                                                                         size=1, AdamEnv=True  
+                                                                               ) for v in keys} #Returns X[t, n, x, y]
+
+                    X_ens_mean = {f'{v}__ens_mean' : np.nanmean(X_nghbrd[v], axis=1) for v in X_nghbrd.keys()} #Returns X[t,x,y]
+                    X_ens_stats = {**X_ens_mean} #Check X_final here
                 
             
             else:
                 #Block for storm variables
-                X_nghbrd = {f'{v}__{self._DX*size/2:.0f}km' : self.neighborhooder(X[v], 
-                                                                      func=maximum_filter,
-                                                                     size=size,      
-                                                                           ) for v in keys}
-                #Should appear as the ens mean and std for storm variables
-                X_ens_mean = {f'{v}__ens_mean' : np.nanmean(X_nghbrd[v], axis=0) for v in X_nghbrd.keys()} #Change 
-               
-                X_ens_90th = {f'{v}__ens_90th' : np.nanpercentile(X_nghbrd[v],
-                                                                90, axis=0) for v in X_nghbrd.keys()} #Old 90th percentile
-                
-                X_ens_16th = {f'{v}__ens_16th' : np.nanpercentile(X_nghbrd[v],
-                                                                16/18*100, axis=0, method='higher') for v in X_nghbrd.keys()} 
-                X_ens_2nd = {f'{v}__ens_2nd' : np.nanpercentile(X_nghbrd[v],
-                                                                2/18*100, axis=0, method='lower') for v in X_nghbrd.keys()}
-                X_strm_iqr={f'{v}__ens_IQR' : np.nanpercentile(X_nghbrd[v],
-                                                                75, axis=0, method='higher')-np.nanpercentile(X_nghbrd[v], 25, axis=0, method='lower') for v in X_nghbrd.keys()}
-              
-                
-                # Compute the baseline stuff. 
-                X_baseline = self.get_nmep(X_nghbrd, size)
+                if FRAMEWORK='POTVIN':
+                    X_nghbrd = {f'{v}__{self._DX*size/2:.0f}km' : self.neighborhooder(X[v], 
+                                                                          func=maximum_filter,
+                                                                         size=size,      
+                                                                               ) for v in keys}
+                    #Should appear as the ens mean and std for storm variables
+                    X_ens_mean = {f'{v}__ens_mean' : np.nanmean(X_nghbrd[v], axis=0) for v in X_nghbrd.keys()} #Change 
 
-                X_ens_stats = {**X_baseline, **X_ens_90th, **X_ens_mean, **X_ens_2nd, **X_strm_iqr, **X_ens_16th} #Change
+                    X_ens_90th = {f'{v}__ens_90th' : np.nanpercentile(X_nghbrd[v],
+                                                                    90, axis=0) for v in X_nghbrd.keys()} #Old 90th percentile
+
+                    X_ens_16th = {f'{v}__ens_16th' : np.nanpercentile(X_nghbrd[v],
+                                                                    16/18*100, axis=0, method='higher') for v in X_nghbrd.keys()} 
+                    X_ens_2nd = {f'{v}__ens_2nd' : np.nanpercentile(X_nghbrd[v],
+                                                                    2/18*100, axis=0, method='lower') for v in X_nghbrd.keys()}
+                    X_strm_iqr={f'{v}__ens_IQR' : np.nanpercentile(X_nghbrd[v],
+                                                                    75, axis=0, method='higher')-np.nanpercentile(X_nghbrd[v], 25, axis=0, method='lower') for v in X_nghbrd.keys()}
+
+
+                    # Compute the baseline stuff. 
+                    X_baseline = self.get_nmep(X_nghbrd, size)
+
+                    X_ens_stats = {**X_baseline, **X_ens_90th, **X_ens_mean, **X_ens_2nd, **X_strm_iqr, **X_ens_16th}
+                elif FRAMEWORK='ADAM':
+                    X_nghbrd={f'{v}__{self._DX*1/2:.1f}km':self.neighborhooder(X[v],func=maximum_filter, size=1) for v in keys}
+                    
+                    #Ensemble max at each grid point
+                    X_ens_max={f'{v}__ens_max': np.nanmax(X_nghbrd[v], axis=0) for v in X_nghbrd.keys()}
+                    
+                    #Ensemble 90th %ile at each grid point (No extrapolation)
+                    X_ens_90th={f'{v}__ens_16th': np.nanpercemtile(X_nghbrd[v], 16/18*100, axis=0, method='higher') for v in X_nghbrd.keys()}
+                    
+                    #Mean of ensemble at each grid point
+                    
+                    X_ens_mean={f'{v}__ens_mean':np.nanmean(X_nghbrd[v], axis=0) for v in X_nghbrd.keys()}
+                    
+                    X_gaussian={f'{v}__smoothed':self.neighborhooder(X_ens_mean[v], func=gaussian_filter, size=size, is_2d=True) for v in X_ens_mean.keys}
+                    
+                    X_baseline=self.get_nmep(X_nghbrd, size)
+                    X_ens_stats={**X_baseline, **X_ens_90th, **X_ens_max, **X_gaussian}
                 
                                                            
             

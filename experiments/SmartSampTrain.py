@@ -19,7 +19,7 @@ from hyperopt import hp
 from main.io import load_ml_data
 from ml_workflow.calibrated_pipeline_hyperopt_cv import norm_aupdc_scorer, norm_csi_scorer
 from ml_workflow.tuned_estimator import TunedEstimator, dates_to_groups
-from VargaPy.MlUtils import All_Severe, Simple_Random_Subsample, Drop_Unwanted_Variables
+from VargaPy.MlUtils import All_Severe, Drop_Unwanted_Variables
 from sklearn.model_selection import GroupKFold
 
 #######
@@ -59,7 +59,7 @@ arguments_dict = {'pipeline_arguments':{#Dictionary of arguments for ml_workflow
                         'imputer':'simple', #From sklearn.impute- handles missing data- simple or iterative
                         'scaler':'standard', #From sklearn.preprocessing - scales features - standard, robust, minmax
                         'pca':None, #From sklearn.decomposition - method of PCA - None, or valid methods
-                        'resample':None, #imblearn.under/over_sampling - Resamples training folds of KFCV- under, None, over 
+                        'resample':'under', #imblearn.under/over_sampling - Resamples training folds of KFCV- under, None, over 
                         'sampling_strategy':'auto', #Default setting
                         'numeric_features':None,
                         'categorical_features':None
@@ -96,7 +96,7 @@ for radius in hazard_scale:
     print(f'Starting the process for {radius}km')
     
     OUTPATH=f'/work/samuel.varga/projects/{TIMESCALE}_hr_severe_wx/{FRAMEWORK}/mlModels/{radius}km'
-    Seed=np.random.RandomState(42)    
+    #Seed=np.random.RandomState(42)    
     
     #Load Data
     if args.hazard_name == 'all':    
@@ -132,19 +132,22 @@ for radius in hazard_scale:
 ###################
 
 
-    #Second Loop for percentages
-    for p in [0.01, 0.05, 0.1, 0.15, 0.2, 0.25, 0.5, 1]:
+    #Second Loop for ratios
+    for s_s in [1/5., 1/4., 1/3., 1/2., 1]:
+        arguments_dict['pipeline_arguments']['sampling_strategy']=s_s
+        
         for n in [0,1,2,3,4]:
-            print(f'Starting {n} process for {radius}km {p*100}%')
+            print(f'Starting {n} process for {radius}km {s_s*100:.0f}')
 
             ##Get the data subset
-            X_sub, y_sub, meta_sub = Simple_Random_Subsample(X, y, metadata, p, Seed)
-            print(f'input shape for {radius}km {p*100}%: {np.shape(X_sub)}')
+            #X_sub, y_sub, meta_sub = Simple_Random_Subsample(X, y, metadata, p, Seed)
+            #print(f'input shape for {radius}km {p*100}%: {np.shape(X_sub)}')
 
-            train_dates=meta_sub['Run Date']
+            train_dates=metadata['Run Date']
             groups=dates_to_groups(train_dates, n_splits=5)
-            cv=list(GroupKFold(n_splits=5).split(X_sub, y_sub, groups))
-            arguments_dict['hyperopt_arguments']['cv'], arguments_dict['calibration_arguments']['cv']= cv, cv
+            cv=list(GroupKFold(n_splits=5).split(X, y, groups))
+            arguments_dict['calibration_arguments']['cv']= cv
+            
 
 
 
@@ -200,14 +203,14 @@ for radius in hazard_scale:
 
 
 
-                arguments_dict['hyperopt_arguments']['search_space']=param_grid
+               
                 t_e = TunedEstimator(estimator=base_estimator,
                                      pipeline_kwargs=arguments_dict['pipeline_arguments'],
                                      hyperopt_kwargs=None,
                                      calibration_cv_kwargs=arguments_dict['calibration_arguments'])
 
 
-                t_e.fit(X_sub, y_sub, groups)
+                t_e.fit(X, y, groups)
 
                 if args.original or args.environmental:
                     suff=''
@@ -217,6 +220,6 @@ for radius in hazard_scale:
                         suff+='env'
                     save_name = f'Varga_{ts_suff}_{name}_{args.hazard_name}_{args.hazard_scale}km_{suff}.joblib'
                 else:
-                    save_name = f'Varga_{ts_suff}_{name}_{args.hazard_name}_{radius}km_{int(p*100)}_{n}.joblib'
+                    save_name = f'Varga_{ts_suff}_{name}_{args.hazard_name}_{radius}km_u{int(s_s*100)}_{n}.joblib'
                 print(save_name)
                 t_e.save(join(OUTPATH, save_name)) 
