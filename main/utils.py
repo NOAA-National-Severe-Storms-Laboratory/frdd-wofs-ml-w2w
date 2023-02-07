@@ -18,10 +18,10 @@ def _train_test_split():
     basePath = f'/work/samuel.varga/data/{TIMESCALE}_hr_severe_wx/{FRAMEWORK}/' #Base path to data
     
     
-    path = join(basePath, f'wofs_ml_severe__{TIMESCALE}hr__data_Big.feather')
+    path = join(basePath, f'wofs_ml_severe__{TIMESCALE}hr__data.feather')
     df = pd.read_feather(path)
     
-    baseline_path = join(basePath, f'wofs_ml_severe__{TIMESCALE}hr__baseline_data_Big.feather')
+    baseline_path = join(basePath, f'wofs_ml_severe__{TIMESCALE}hr__baseline_data.feather')
     baseline_df = pd.read_feather(baseline_path)
         
     # Get the date from April, May, and June 
@@ -52,11 +52,11 @@ def _train_test_split():
     train_base_df.reset_index(inplace=True, drop=True)
     test_base_df.reset_index(inplace=True, drop=True)
         
-    train_df.to_feather(join(basePath, f'wofs_ml_severe__{TIMESCALE}hr__train_data_Big.feather'))
-    test_df.to_feather(join(basePath, f'wofs_ml_severe__{TIMESCALE}hr__test_data_Big.feather'))
+    train_df.to_feather(join(basePath, f'wofs_ml_severe__{TIMESCALE}hr__train_data.feather'))
+    test_df.to_feather(join(basePath, f'wofs_ml_severe__{TIMESCALE}hr__test_data.feather'))
         
-    train_base_df.to_feather(join(basePath, f'wofs_ml_severe__{TIMESCALE}hr__baseline_train_data_Big.feather'))
-    test_base_df.to_feather(join(basePath, f'wofs_ml_severe__{TIMESCALE}hr__baseline_test_data_Big.feather'))
+    train_base_df.to_feather(join(basePath, f'wofs_ml_severe__{TIMESCALE}hr__baseline_train_data.feather'))
+    test_base_df.to_feather(join(basePath, f'wofs_ml_severe__{TIMESCALE}hr__baseline_test_data.feather'))
     
 # Execute the code. 
 _train_test_split()

@@ -66,26 +66,26 @@ def worker(path, FRAMEWORK=FRAMEWORK, TIMESCALE=TIMESCALE):
     extracter = GridPointExtracter(ncfile, env_vars=X_env.keys(), strm_vars=X_strm.keys(), ll_grid=ll_grid, TIMESCALE=TIMESCALE, FRAMEWORK=FRAMEWORK) #Def GPE-- pass timescale and framework to control sampling
     df = extracter(X_env, X_strm) #Apply GPE to the env and storm
 
-    #ys = [f for f in df.columns if 'severe' in f]
-    #y_df = df[ys].sum(axis='columns')
+    ys = [f for f in df.columns if 'severe' in f]
+    y_df = df[ys].sum(axis='columns')
 
-    # Sampling all grid points with an event, but only 15% of 
+    # Sampling all grid points with an event, but only 25% of 
     # grid points with no events. -- might change this to see if it affects models being too hot?
-    #inds = subsampler(y_df, pos_percent=1.0, neg_percent=0.15)
+    inds = subsampler(y_df, pos_percent=1.0, neg_percent=0.25)
 
-    #df_sub = df.iloc[inds, :]
-    #df_sub.reset_index(drop=True, inplace=True)
-    df.reset_index(drop=True, inplace=True)
+    df_sub = df.iloc[inds, :]
+    df_sub.reset_index(drop=True, inplace=True)
+    #df.reset_index(drop=True, inplace=True)
     
     
     path = path.replace(base_path, SUMMARY_FILE_OUT_PATH) #replace the base path with the output path
     if not exists(path):
         os.makedirs(path)
        
-    out_name = join(path, 'wofs_ML{}_Big.feather'.format(TIMESCALE.upper()))
+    out_name = join(path, 'wofs_ML{}.feather'.format(TIMESCALE.upper()))
     print(f'Saving {out_name}...')
-    df.to_feather(out_name)
-    #df_sub.to_feather(out_name)
+    #df.to_feather(out_name)
+    df_sub.to_feather(out_name)
     
     return None
 
@@ -98,12 +98,12 @@ dates = [d for d in os.listdir(base_path) if '.txt' not in d]
 ##################################
 ##Changes for making big dataset##
 ##################################
-valInit=['2000','2100','2200','2300','0000','0100','0200','0300'] #List of init times to keep
-dates=[d for d in dates if d[4:6]=='05'] #Removes all Months other than May
-dates=[d for d in dates if d[0:4]!='2017'] #Removes 2017
-print(f'Number of cases in May: {len(dates)}')
-randState=npr.RandomState(42) #Set random state for reproducibility
-dates=randState.choice(dates, 40, replace=False) #Randomly choose 40 days in May
+#valInit=['2000','2100','2200','2300','0000','0100','0200','0300'] #List of init times to keep
+#dates=[d for d in dates if d[4:6]=='05'] #Removes all Months other than May
+#dates=[d for d in dates if d[0:4]!='2017'] #Removes 2017
+#print(f'Number of cases in May: {len(dates)}')
+#randState=npr.RandomState(42) #Set random state for reproducibility
+#dates=randState.choice(dates, 40, replace=False) #Randomly choose 40 days in May
 
 
 
@@ -118,7 +118,7 @@ for d in dates:
         continue
     
     times = [t for t in os.listdir(join(base_path,d)) if 'basemap' not in t] #initialization time
-    times = [t for t in times if t in valInit] #only keeps init times between 22-03
+    #times = [t for t in times if t in valInit] #only keeps init times between 22-03
     
     for t in times: #For every init time on that day
         path = join(base_path,d,t)
@@ -162,11 +162,11 @@ for d in dates:
         continue
         
     times = [t for t in os.listdir(join(base_path,d)) if 'basemap' not in t]
-    times = [t for t in times if t in valInit] #only keeps init times between 22-03
+    #times = [t for t in times if t in valInit] #only keeps init times between 22-03
     
     for t in times:
         path = join(SUMMARY_FILE_OUT_PATH,d,t)
-        filename = join(path,f'wofs_ML{TIMESCALE.upper()}_Big.feather') #Make a list of the individual ML frames for each day
+        filename = join(path,f'wofs_ML{TIMESCALE.upper()}.feather') #Make a list of the individual ML frames for each day
         if exists(filename):
             ml_files.append(filename)
     
@@ -184,7 +184,7 @@ features = [f for f in df.columns if f not in baseline_features]
 
 ml_df = df[features].reset_index(drop=True)  
 
-baseline_df.to_feather(join(OUT_PATH, f'wofs_ml_severe__{TIMESCALE}hr__baseline_data_Big.feather'))
-ml_df.to_feather(join(OUT_PATH, f'wofs_ml_severe__{TIMESCALE}hr__data_Big.feather'))
+baseline_df.to_feather(join(OUT_PATH, f'wofs_ml_severe__{TIMESCALE}hr__baseline_data.feather'))
+ml_df.to_feather(join(OUT_PATH, f'wofs_ml_severe__{TIMESCALE}hr__data.feather'))
 
 emailer.send_email(f'The {TIMESCALE} hr ML and BL datasets are built and ready to go!', start_time)

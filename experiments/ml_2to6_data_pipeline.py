@@ -26,6 +26,8 @@ import xarray as xr
 from os.path import join
 import itertools
 import pyresample 
+import pandas as pd
+import datetime as dt
 
 #print('Using the correct file')
 #exit()
@@ -169,6 +171,7 @@ class GridPointExtracter:
         self._report_type = report_type
         self._TIMESCALE=TIMESCALE
         self._FRAMEWORK=FRAMEWORK
+        self._deltat=5 #Time step in minutes
         
         
         if np.max(np.absolute(ll_grid[0]))>90:
@@ -269,7 +272,9 @@ class GridPointExtracter:
     def get_targets(self, TIMESCALE):
         """Convert storm reports to a grid and apply different upscaling"""
         comps = decompose_file_path(self._ncfile)
-        start_time = comps['VALID_DATE']+comps['VALID_TIME']
+        #start_time = comps['VALID_DATE']+comps['VALID_TIME']
+        start_time=(pd.to_datetime(comps['VALID_DATE']+comps['INIT_TIME'])+dt.timedelta(minutes=int(comps['TIME_INDEX'])*self._deltat)).strftime('%Y%m%d%H%M')
+
         if TIMESCALE=='0to3':
             report = StormReports(
                 #path=self._reports_path, 
@@ -403,8 +408,8 @@ class GridPointExtracter:
                 #Should appear as the ens mean and std for storm variables
                 X_ens_mean = {f'{v}__ens_mean' : np.nanmean(X_nghbrd[v], axis=0) for v in X_nghbrd.keys()} #Change 
                
-                X_ens_90th = {f'{v}__ens_90th' : np.nanpercentile(X_nghbrd[v],
-                                                                90, axis=0) for v in X_nghbrd.keys()} #Old 90th percentile
+                #X_ens_90th = {f'{v}__ens_90th' : np.nanpercentile(X_nghbrd[v],
+                #                                                90, axis=0) for v in X_nghbrd.keys()} #Old 90th percentile
                 
                 X_ens_16th = {f'{v}__ens_16th' : np.nanpercentile(X_nghbrd[v],
                                                                 16/18*100, axis=0, method='higher') for v in X_nghbrd.keys()} 
@@ -417,7 +422,7 @@ class GridPointExtracter:
                 # Compute the baseline stuff. 
                 X_baseline = self.get_nmep(X_nghbrd, size)
 
-                X_ens_stats = {**X_baseline, **X_ens_90th, **X_ens_mean, **X_ens_2nd, **X_strm_iqr, **X_ens_16th} #Change
+                X_ens_stats = {**X_baseline, **X_ens_mean, **X_ens_2nd, **X_strm_iqr, **X_ens_16th} #Change
                 
                                                            
             
