@@ -420,7 +420,7 @@ class GridPointExtracter:
                     X_ens_std = {f'{v}__ens_std' : np.nanstd(X_nghbrd[v], axis=0, ddof=1) for v in X_nghbrd.keys()}   
                     X_ens_stats = {**X_ens_mean, **X_ens_std}
                 elif FRAMEWORK=='ADAM':
-                    X_nghbrd = {f'{v}__{self._DX*1/2:.1f}km' : self.neighborhooder(X[v], #Check dims
+                    X_nghbrd = {f'{v}__{self._DX*1/2:.0f}km' : self.neighborhooder(X[v], #Check dims
                                                                           func=uniform_filter,
                                                                          size=1, AdamEnv=True  
                                                                                ) for v in keys} #Returns X[t, n, x, y]

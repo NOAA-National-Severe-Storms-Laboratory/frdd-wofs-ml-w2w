@@ -24,12 +24,12 @@ from glob import glob
 """ usage: stdbuf -oL python -u run_2to6hr_ml_data_pipeline.py  2 > & log_2to6hr_data_pipeline & """
 """ usage: stdbuf -oL python -u run_2to6hr_ml_data_pipeline.py > log_2to6hr_data_pipeline.txt 2>&1 &"""
 
-n_jobs = 7 #7
+n_jobs = 5 #7
 
 #####################################
 ##Framework and Time Scale Settings##
 #####################################
-FRAMEWORK='POTVIN' #Framework to use when creating the dataset. Valid options: POTVIN or ADAM
+FRAMEWORK='ADAM' #Framework to use when creating the dataset. Valid options: POTVIN or ADAM
 TIMESCALE='0to3' #Forecast windows to use when creating the data set. Valid Options: 0to3 or 2to6
 
 ################################
@@ -60,7 +60,7 @@ def worker(path, FRAMEWORK=FRAMEWORK, TIMESCALE=TIMESCALE):
 
     # Sampling all grid points with an event, but only 15% of 
     # grid points with no events. 
-    inds = subsampler(y_df, pos_percent=1.0, neg_percent=0.15)
+    inds = subsampler(y_df, pos_percent=1.0, neg_percent=1.0) #Loken et. didn't resample, so use 1
 
     df_sub = df.iloc[inds, :]
     df_sub.reset_index(drop=True, inplace=True)
@@ -71,7 +71,8 @@ def worker(path, FRAMEWORK=FRAMEWORK, TIMESCALE=TIMESCALE):
        
     out_name = join(path, 'wofs_ML{}.feather'.format(TIMESCALE.upper()))
     print(f'Saving {out_name}...')
-    df_sub.to_feather(out_name)
+    #df_sub.to_feather(out_name)
+    
     
     return None
 
@@ -82,14 +83,23 @@ start_time = emailer.get_start_time()
 dates = [d for d in os.listdir(base_path) if '.txt' not in d]
 
 
+bad_dates=['20180618', '20180621', ' 20180622', '20180625', '20180625', '20180628']
+
+
+dates =[ d for d in dates if d not in bad_dates ]
+
 ##########################
 ##Get Paths of ENS files##
 ##########################
 
 paths = [] #list of valid paths for worker function
 for d in dates:
-    if d[4:6] != '05': #Skips all months other than May
+    #if d[4:6] != '05': #Skips all months other than May YYYYmmdd 
+    if d[0:4] != '2018': #Only use 2018
         continue
+    if d[4:6] not in ['04', '05', '06']: #Only use Apr, May, Jun
+        continue
+    
     
     times = [t for t in os.listdir(join(base_path,d)) if 'basemap' not in t] #initialization time
     for t in times: #For every init time on that day
