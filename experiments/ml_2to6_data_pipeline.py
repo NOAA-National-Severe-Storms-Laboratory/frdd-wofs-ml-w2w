@@ -19,7 +19,7 @@ from wofs.plotting.util import decompose_file_path
 
 
 from glob import glob
-from scipy.ndimage import uniform_filter, maximum_filter 
+from scipy.ndimage import uniform_filter, maximum_filter, gaussian_filter
 from collections import ChainMap
 import numpy as np
 import xarray as xr
@@ -29,8 +29,6 @@ import pyresample
 import pandas as pd
 import datetime as dt
 
-#print('Using the correct file')
-#exit()
 # These are the list of variables that are pulled from the WoFS
 # summary files. The list is informed by previous work (Flora et al. 2021, MWR) 
 
@@ -85,7 +83,6 @@ def load_dataset(path, TIMESCALE):
     
     coord_vars = ["xlat", "xlon", "hgt"]
     
-    #Check concat dim when doing ADAM
     X_strm, coords, _, _  = load_multiple_nc_files(
                 ens_files, concat_dim="time", coord_vars=coord_vars,  load_vars=ml_config['ENS_VARS'])
 
@@ -125,7 +122,7 @@ class GridPointExtracter:
     ll_grid : 2-tuple of 2D arrays 
         original latitude and longitude grids prior to the resampling. 
     
-    upscale_size : int (default = 3)
+    upscale_size : int (default = None)
         The initial upscaling radius (in grid points). This initial upscaling 
         coarsens the grid resolution to improve processing times. 
         
@@ -152,21 +149,32 @@ class GridPointExtracter:
     def __init__(self, ncfile, env_vars, strm_vars, ll_grid, TIMESCALE, FRAMEWORK,
                  forecast_sizes=[1,3,5], #upscale_zie*grid_spacing*forecast size = predictor radius (km)
                  target_sizes = [1,2,4,6], #upscale_size*grid_spacing*target size = target radius (km)
-                 upscale_size=3, #Scales from 3-> 9 km grid
+                 upscale_size=None, #Scales from 3-> 9 km grid
                  grid_spacing=3, #WOFS grid spacing (km)
                  reports_path = '/work/mflora/LSRS/STORM_EVENTS_2017-2022.csv',
                  report_type = 'NOAA'
                 ):
         
-        self._n_ens = 18
-        self._env_vars = env_vars
-        self._strm_vars = strm_vars
+        #Change parameters based on Framework:
+        if FRAMEWORK.upper()=='ADAM':
+            self._upscale_size = 3 #No upscaling of data -->  Change this to 1, for comparison, set to 3
+            self._TARGET_SIZES = np.array([1, 2, 4]) * 2 #Converts radius to diameter, 3 km x 12,13 boxes == 36 km, 39 km target radius
+            self._SIZES = np.array([1])*2 #Diameter of Gaussian Smoother only used for smoothed mean of storm fields
+            #From Loken et.: SD is 18 km -> grid_spacing * forecast_size * 2 =18km -> forecast_size=3
+            #With upscaling: SD of 18 km-> grid_spacing * upscale * forecast * 2 =18 -> f_size=1
+            #But is that really valid when the initial data is 3x as coarse?
+        else:
+            self._upscale_size = 3 #3km smoothing of data before everything else
+            self._TARGET_SIZES =  np.array(target_sizes)*2
+            self._SIZES = np.array(forecast_sizes)*2
         
-        self._upscale_size = upscale_size
-        self._SIZES = np.array(forecast_sizes)*2
-        self._TARGET_SIZES = np.array(target_sizes)*2
+        
+        #Constant Parameters
+        self._n_ens = 18     
+        self._env_vars = env_vars
+        self._strm_vars = strm_vars      
         self._ncfile = ncfile
-        self._DX = grid_spacing * upscale_size  
+        self._DX = grid_spacing * self._upscale_size  
         self._reports_path = reports_path
         self._report_type = report_type
         self._TIMESCALE=TIMESCALE
@@ -179,8 +187,8 @@ class GridPointExtracter:
         
         self._original_grid = ll_grid 
 
-        self._target_grid = (ll_grid[0][::upscale_size, ::upscale_size], 
-                             ll_grid[1][::upscale_size, ::upscale_size]
+        self._target_grid = (ll_grid[0][::self._upscale_size, ::self._upscale_size], 
+                             ll_grid[1][::self._upscale_size, ::self._upscale_size]
                             ) 
 
         # Baseline variables and their corresponding thresholds. 
@@ -195,33 +203,53 @@ class GridPointExtracter:
         # TODO: Pre-processor. Get rid of super high updraft speeds, replace NaNs, etc. 
          
         
-        # This X has had a 3-grid point gaussian smoother applied to it. 
+        # This X has had a 3-grid point gaussian smoother applied to it. -- Identical to original fields when upscale_size==1
         X_env_upscaled = {v  : self.upscaler(X_env[v], 
                                      func=uniform_filter,
                                      size=self._upscale_size) for v in self._env_vars}
         
-        # This X has had a 3-grid point maximum filter applied to it. 
+        # This X has had a 3-grid point maximum filter applied to it. (See above note)
         X_strm_upscaled = {v : self.upscaler(X_strm[v], 
                                      func=maximum_filter,
                                      size=self._upscale_size) for v in self._strm_vars}
         
-        # For the environment, 
-        # 1. Time-average 
-        # 2. Spatial ensemble statistics at different scales. 
-        X_env_time_comp = self.calc_time_composite(X_env_upscaled, 
-                                                    func=np.nanmean, name='time_avg', keys=self._env_vars)
         
         
-        X_env_stats = self.calc_spatial_ensemble_stats(X_env_time_comp, environ=True)
+        if self._FRAMEWORK=='POTVIN':
+            #rint(f'{self._FRAMEWORK} Block')
+            # For the environment, 
+            # 1. Time-average 
+            # 2. Spatial ensemble statistics at different scales. 
+            X_env_time_comp = self.calc_time_composite(X_env_upscaled, 
+                                                        func=np.nanmean, name='time_avg', keys=self._env_vars)
+
+
+            X_env_stats = self.calc_spatial_ensemble_stats(X_env_time_comp, environ=True)
+
+            # For the storm, 
+            # 1. Time-maximum 
+            # 2. Spatial ensemble statistics at different scales. 
+            # 3. Amplitude Statistics
+            X_strm_time_comp = self.calc_time_composite(X_strm_upscaled, 
+                                                        func=np.nanmax, name='time_max', keys=self._strm_vars)
+
+            X_strm_stats = self.calc_spatial_ensemble_stats(X_strm_time_comp, environ=False)
+        elif self._FRAMEWORK=='ADAM':
         
-        # For the storm, 
-        # 1. Time-maximum 
-        # 2. Spatial ensemble statistics at different scales. 
-        # 3. Amplitude Statistics
-        X_strm_time_comp = self.calc_time_composite(X_strm_upscaled, 
-                                                    func=np.nanmax, name='time_max', keys=self._strm_vars)
+            #For the environment,
+            #1. Ensemble mean at each time index
+            #2. Time-average of ensemble means 
+            X_ens_stats=self.calc_spatial_ensemble_stats(X_env_upscaled, environ=True, FRAMEWORK=self._FRAMEWORK)
+            X_env_stats=self.calc_time_composite(X_ens_stats, func=np.nanmean, name='time_avg', keys=X_ens_stats.keys())
+            
+            #For the storm,
+            #1. Time-maximum 
+            #2. Ensemble Statistics at each grid point
+            X_strm_time_comp = self.calc_time_composite(X_strm_upscaled, 
+                                                        func=np.nanmax, name='time_max', keys=self._strm_vars)
+            
+            X_strm_stats = self.calc_spatial_ensemble_stats(X_strm_time_comp, environ=False, FRAMEWORK=self._FRAMEWORK)
         
-        X_strm_stats = self.calc_spatial_ensemble_stats(X_strm_time_comp, environ=False)
         
         X_all = {**X_strm_stats, **X_env_stats}
         
@@ -262,10 +290,10 @@ class GridPointExtracter:
         X_nmep = {}
         for v in self._BASELINE_VARS:
             for t in self._NMEP_THRESHS[v]:
-                data = X[f'{v}__time_max__{self._DX*size/2:.0f}km'] #Had to change this line as well
+                data = X[f'{v}__time_max__{self._DX*size/2:.0f}km'] 
                 data_bin = np.where(data>t,1,0)
                 ens_prob = np.nanmean(data_bin, axis=0)
-                X_nmep[f"{v}__nmep_>{str(t).replace('.','_')}_{self._DX*size/2:.0f}km"] = ens_prob #also had to change this line
+                X_nmep[f"{v}__nmep_>{str(t).replace('.','_')}_{self._DX*size/2:.0f}km"] = ens_prob 
                 
         return X_nmep 
 
@@ -344,7 +372,7 @@ class GridPointExtracter:
 
         return variable_nearest
     
-    def neighborhooder(self, X, func, size, is_2d=False):
+    def neighborhooder(self, X, func, size, is_2d=False, AdamEnv=False):
         """Apply neighborhood function to X. For any grid points with NaN values, 
            replace it with a generic, full-domain spatial average value."""
         new_X = X.copy()
@@ -354,9 +382,14 @@ class GridPointExtracter:
                 X_ = np.nan_to_num(X[:,:], nan=fill_value)
                 new_X[:,:] = func(X_, size)
         else:
-            for n in range(self._n_ens):
-                X_ = np.nan_to_num(X[n,:,:], nan=fill_value)
-                new_X[n,:,:] = func(X_, size)
+            if not AdamEnv:
+                for n in range(self._n_ens): #Every Ens Member
+                    X_ = np.nan_to_num(X[n,:,:], nan=fill_value) 
+                    new_X[n,:,:] = func(X_, size)
+            elif AdamEnv:
+                for t,n in itertools.product(range(new_X.shape[0]), range(self._n_ens)): #Every time step and ens member
+                    X_ = np.nan_to_num(X[t, n, :,:], nan=fill_value)
+                    new_X[t,n,:,:] = func(X_, size) 
     
         return new_X 
     
@@ -369,7 +402,7 @@ class GridPointExtracter:
         fill_value = np.nanmean(X)
         for t,n in itertools.product(range(new_X.shape[0]), range(self._n_ens)):
             X_ = np.nan_to_num(X[t,n,:,:], nan=fill_value)
-            new_X[t,n,:,:] = self.resample(func(X_, size))
+            new_X[t,n,:,:] = self.resample(func(X_, size)) #Time, Ens Member, lat/lon
             
         return new_X
     
@@ -378,52 +411,83 @@ class GridPointExtracter:
         X_time_comp = {f'{v}__{name}' : func(X[v], axis=0) for v in keys }
         return X_time_comp
         
-    def calc_spatial_ensemble_stats(self, X, environ=True):
+    def calc_spatial_ensemble_stats(self, X, environ=True, FRAMEWORK='POTVIN'):
         """Compute the spatial ensemble mean and standard deviation if environ = True,
         else compute the ensemble 90th. Ensemble statistics are computed in multiple different 
         neighborhood sizes"""
-        
+        print(f'{environ} and {FRAMEWORK}')
         keys = X.keys()
         
         X_final = []
         
         for size in self._SIZES:
             if environ:
-                X_nghbrd = {f'{v}__{self._DX*size/2:.0f}km' : self.neighborhooder(X[v], 
-                                                                      func=uniform_filter,
-                                                                     size=size, 
-                                                                           ) for v in keys}
-                
-                X_ens_mean = {f'{v}__ens_mean' : np.nanmean(X_nghbrd[v], axis=0) for v in X_nghbrd.keys()}
-                X_ens_std = {f'{v}__ens_std' : np.nanstd(X_nghbrd[v], axis=0, ddof=1) for v in X_nghbrd.keys()}   
-                X_ens_stats = {**X_ens_mean, **X_ens_std}
-                
+                if FRAMEWORK=='POTVIN':
+                    X_nghbrd = {f'{v}__{self._DX*size/2:.0f}km' : self.neighborhooder(X[v], 
+                                                                          func=uniform_filter,
+                                                                         size=size, 
+                                                                               ) for v in keys}
+
+                    X_ens_mean = {f'{v}__ens_mean' : np.nanmean(X_nghbrd[v], axis=0) for v in X_nghbrd.keys()}
+                    X_ens_std = {f'{v}__ens_std' : np.nanstd(X_nghbrd[v], axis=0, ddof=1) for v in X_nghbrd.keys()}   
+                    X_ens_stats = {**X_ens_mean, **X_ens_std}
+                elif FRAMEWORK == 'ADAM':
+                    X_nghbrd = {f'{v}__{self._DX*1/2:.0f}km' : self.neighborhooder(X[v], 
+                                                                          func=uniform_filter,
+                                                                         size=1, AdamEnv=True  
+                                                                               ) for v in keys} #Returns X[t, n, x, y]
+
+                    X_ens_mean = {f'{v}__ens_mean' : np.nanmean(X_nghbrd[v], axis=1) for v in X_nghbrd.keys()} #Returns X[t,x,y]
+                    X_ens_stats = {**X_ens_mean} 
             
             else:
                 #Block for storm variables
-                X_nghbrd = {f'{v}__{self._DX*size/2:.0f}km' : self.neighborhooder(X[v], 
-                                                                      func=maximum_filter,
-                                                                     size=size,      
-                                                                           ) for v in keys}
-                #Should appear as the ens mean and std for storm variables
-                X_ens_mean = {f'{v}__ens_mean' : np.nanmean(X_nghbrd[v], axis=0) for v in X_nghbrd.keys()} #Change 
-               
-                #X_ens_90th = {f'{v}__ens_90th' : np.nanpercentile(X_nghbrd[v],
-                #                                                90, axis=0) for v in X_nghbrd.keys()} #Old 90th percentile
-                
-                X_ens_16th = {f'{v}__ens_16th' : np.nanpercentile(X_nghbrd[v],
-                                                                16/18*100, axis=0, method='higher') for v in X_nghbrd.keys()} 
-                X_ens_2nd = {f'{v}__ens_2nd' : np.nanpercentile(X_nghbrd[v],
-                                                                2/18*100, axis=0, method='lower') for v in X_nghbrd.keys()}
-                X_strm_iqr={f'{v}__ens_IQR' : np.nanpercentile(X_nghbrd[v],
-                                                                75, axis=0, method='higher')-np.nanpercentile(X_nghbrd[v], 25, axis=0, method='lower') for v in X_nghbrd.keys()}
-              
-                
-                # Compute the baseline stuff. 
-                X_baseline = self.get_nmep(X_nghbrd, size)
+                if FRAMEWORK=='POTVIN':
+                    X_nghbrd = {f'{v}__{self._DX*size/2:.0f}km' : self.neighborhooder(X[v], 
+                                                                          func=maximum_filter,
+                                                                         size=size,      
+                                                                               ) for v in keys}
+                  
+                    X_ens_mean = {f'{v}__ens_mean' : np.nanmean(X_nghbrd[v], axis=0) for v in X_nghbrd.keys()} #Change 
 
-                X_ens_stats = {**X_baseline, **X_ens_mean, **X_ens_2nd, **X_strm_iqr, **X_ens_16th} #Change
-                
+                   
+                    X_ens_16th = {f'{v}__ens_16th' : np.nanpercentile(X_nghbrd[v],
+                                                                    16/18*100, axis=0, method='higher') for v in X_nghbrd.keys()} 
+                    X_ens_2nd = {f'{v}__ens_2nd' : np.nanpercentile(X_nghbrd[v],
+                                                                    2/18*100, axis=0, method='lower') for v in X_nghbrd.keys()}
+                    X_strm_iqr={f'{v}__ens_IQR' : np.nanpercentile(X_nghbrd[v],
+                                                                    75, axis=0, method='higher')-np.nanpercentile(X_nghbrd[v], 25, axis=0, method='lower') for v in X_nghbrd.keys()}
+
+
+                    # Compute the baseline stuff. 
+                    X_baseline = self.get_nmep(X_nghbrd, size)
+
+                    X_ens_stats = {**X_baseline, **X_ens_mean, **X_ens_2nd, **X_strm_iqr, **X_ens_16th} 
+                elif FRAMEWORK=='ADAM':
+                    X_nghbrd={f'{v}__{self._DX*1/2:.0f}km':self.neighborhooder(X[v],func=maximum_filter, size=1) for v in keys}
+                    
+                    #Ensemble max at each grid point
+                    X_ens_max={f'{v}__ens_max': np.nanmax(X_nghbrd[v], axis=0) for v in X_nghbrd.keys()}
+                    
+                    #Ensemble 90th %ile at each grid point (No extrapolation)
+                    X_ens_90th={f'{v}__ens_16th': np.nanpercentile(X_nghbrd[v], 16/18*100, axis=0, method='higher') for v in X_nghbrd.keys()}
+                    
+                    #Mean of ensemble at each grid point
+                    
+                    X_ens_mean={f'{v}__ens_mean':np.nanmean(X_nghbrd[v], axis=0) for v in X_nghbrd.keys()}
+                    
+                    X_gaussian={f'{v}__smoothed':self.neighborhooder(X_ens_mean[v], func=gaussian_filter, size=size, is_2d=True) for v in X_ens_mean.keys()}
+                    
+                    
+                    X_smoothed_UH={f'{v}__{self._DX*size/2:.0f}km__smoothed' : self.neighborhooder(X[v], func=gaussian_filter, size=size) for v in keys if 'uh_2to5_instant' in v} 
+                    print(X_smoothed_UH.keys())
+                    
+                    for v in X_smoothed_UH.keys():
+                        X_indiv_UH={f'{v}_{n}' : X_smoothed_UH[v][n,:,:] for n in range(self._n_ens)}
+                    print(X_nghbrd.keys())
+                    X_baseline=self.get_nmep(X_nghbrd, 1)
+                    
+                    X_ens_stats={**X_baseline, **X_ens_90th, **X_ens_max, **X_gaussian,**X_indiv_UH}
                                                            
             
             X_final.append(X_ens_stats)
@@ -449,3 +513,12 @@ def subsampler(y, pos_percent=1.0, neg_percent=0.25):
     inds = np.concatenate([pos_inds_sub, neg_inds_sub])
     
     return inds     
+
+def random_subsampler(length, percent=0.5):
+    '''Selects a random sample of indices consisting of n% of the dataset'''
+    if percent<=0:
+        inds=[]
+    else:
+        n_inds = int(percent*length) #Number of samples to keep
+        inds = np.random.choice(np.arange(0,length), size=n_inds, replace=False) #Draw random selection between 0-length-1
+    return inds

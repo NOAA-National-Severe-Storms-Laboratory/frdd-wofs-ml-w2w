@@ -9,7 +9,8 @@ sys.path.append('/home/samuel.varga/python_packages/MontePython/')
 import pandas as pd
 from WIP_pipeline import (GridPointExtracter,
                                    subsampler, 
-                                   load_dataset)
+                                   load_dataset,
+                         random_subsampler)
 
 from wofs_ml_severe.common.emailer import Emailer
 
@@ -29,14 +30,14 @@ n_jobs = 5 #7
 #####################################
 ##Framework and Time Scale Settings##
 #####################################
-FRAMEWORK='ADAM' #Framework to use when creating the dataset. Valid options: POTVIN or ADAM
+FRAMEWORK=['POTVIN','ADAM'] #Framework to use when creating the dataset. Valid options: POTVIN or ADAM
 TIMESCALE='0to3' #Forecast windows to use when creating the data set. Valid Options: 0to3 or 2to6
 
 ################################
 ##Input and Output Directories##
 ################################
 OUT_PATH = '/work/samuel.varga/data/{}_hr_severe_wx/{}'.format(TIMESCALE, FRAMEWORK) #Output directory
-SUMMARY_FILE_OUT_PATH = '/work/samuel.varga/data/{}_hr_severe_wx/{}/SummaryFiles'.format(TIMESCALE, FRAMEWORK) #Output directory for Summary files
+SUMMARY_FILE_OUT_PATH = '/work/samuel.varga/data/{}_hr_severe_wx'.format(TIMESCALE) #Output directory for Summary files
 base_path = '/work/mflora/SummaryFiles' #Directory of WOFS ENS. Files
 
 
@@ -50,29 +51,36 @@ print('Time scale: {}'.format(TIMESCALE))
 
 def worker(path, FRAMEWORK=FRAMEWORK, TIMESCALE=TIMESCALE):
     print(path)
-    X_env, X_strm, ncfile, ll_grid  = load_dataset(path, TIMESCALE=TIMESCALE) #Load the files for the time scale
-    #print(ncfile)
-    extracter = GridPointExtracter(ncfile, env_vars=X_env.keys(), strm_vars=X_strm.keys(), ll_grid=ll_grid, TIMESCALE=TIMESCALE, FRAMEWORK=FRAMEWORK) #Def GPE-- pass timescale and framework through
-    df = extracter(X_env, X_strm) #Apply GPE to the env and storm
-
-    ys = [f for f in df.columns if 'severe' in f]
-    y_df = df[ys].sum(axis='columns')
-
-    # Sampling all grid points with an event, but only 15% of 
-    # grid points with no events. 
-    inds = subsampler(y_df, pos_percent=1.0, neg_percent=1.0) #Loken et. didn't resample, so use 1
-
-    df_sub = df.iloc[inds, :]
-    df_sub.reset_index(drop=True, inplace=True)
-
-    path = path.replace(base_path, SUMMARY_FILE_OUT_PATH) #replace the base path with the output path
-    if not exists(path):
-        os.makedirs(path)
-       
-    out_name = join(path, 'wofs_ML{}.feather'.format(TIMESCALE.upper()))
-    print(f'Saving {out_name}...')
-    #df_sub.to_feather(out_name)
     
+    X_env, X_strm, ncfile, ll_grid  = load_dataset(path, TIMESCALE=TIMESCALE) #Load the files for the time scale
+    inds=None #set to none
+    
+    for framework in FRAMEWORK:
+        #print(ncfile)
+        extracter = GridPointExtracter(ncfile, env_vars=X_env.keys(), strm_vars=X_strm.keys(), ll_grid=ll_grid, TIMESCALE=TIMESCALE, FRAMEWORK=framework) #Def GPE-- pass timescale and framework through
+        df = extracter(X_env, X_strm) #Apply GPE to the env and storm
+
+        #ys = [f for f in df.columns if 'severe' in f]
+        #y_df = df[ys].sum(axis='columns')
+
+        # Sampling all grid points with an event, but only 15% of 
+        # grid points with no events. 
+        #inds = subsampler(y_df, pos_percent=1.0, neg_percent=1.0) #Loken et. didn't resample, so use 1
+
+        if inds is None: #Inds will be none on the first call. For the second framework, inds will already be assigned
+            inds = random_subsampler(len(df), percent=0.3)
+        
+        df_sub = df.iloc[inds, :] #Selects subset based on inds-- will choose the same indices for both frameworks
+        df_sub.reset_index(drop=True, inplace=True)
+
+        out_path = path.replace(base_path, join(SUMMARY_FILE_OUT_PATH, f'{framework}/SummaryFiles')) #replace the base path with the output path
+        if not exists(out_path):
+            os.makedirs(out_path)
+
+        out_name = join(out_path, 'wofs_ML{}.feather'.format(TIMESCALE.upper()))
+        print(f'Saving {out_name}...')
+        df_sub.to_feather(out_name)
+        
     
     return None
 
@@ -132,34 +140,37 @@ run_parallel(
 
 emailer.send_email('Individual dataframes for the 2-6 hr dataset are complete', start_time)
 
-# Create the ML and BL datasets
-ml_files = []
-for d in dates:
-    if d[4:6] != '05':
-        continue
-        
-    times = [t for t in os.listdir(join(base_path,d)) if 'basemap' not in t]
-    for t in times:
-        path = join(SUMMARY_FILE_OUT_PATH,d,t)
-        filename = join(path,'wofs_ML{}.feather'.format(TIMESCALE.upper())) #Make a list of the individual ML frames for each day
-        if exists(filename):
-            ml_files.append(filename)
-    
-dfs = [pd.read_feather(f) for f in ml_files]
-        
-df = pd.concat(dfs) #Concatenates all daily DFs
+                            
+for framework in FRAMEWORK:
+    SUMMARY_FILE_OUT_PATH = '/work/samuel.varga/data/{}_hr_severe_wx/{}/SummaryFiles'.format(TIMESCALE, framework) #Output 
+    # Create the ML and BL datasets
+    ml_files = []
+    for d in dates:
+        if d[4:6] != '05':
+            continue
 
-METADATA = ['Run Date', 'Init Time']
+        times = [t for t in os.listdir(join(base_path,d)) if 'basemap' not in t]
+        for t in times:
+            path = join(SUMMARY_FILE_OUT_PATH,d,t)
+            filename = join(path,'wofs_ML{}.feather'.format(TIMESCALE.upper())) #Make a list of the individual ML frames for each day
+            if exists(filename):
+                ml_files.append(filename)
 
-baseline_features = [f for f in df.columns if 'nmep' in f] #neighborhood estimation
-targets = [f for f in df.columns if 'severe' in f] #Storm reports
+    dfs = [pd.read_feather(f) for f in ml_files]
 
-baseline_df = df[baseline_features+METADATA+targets].reset_index(drop=True) 
-features = [f for f in df.columns if f not in baseline_features] 
+    df = pd.concat(dfs) #Concatenates all daily DFs
 
-ml_df = df[features].reset_index(drop=True)  
+    METADATA = ['Run Date', 'Init Time']
 
-baseline_df.to_feather(join(OUT_PATH, f'wofs_ml_severe__{TIMESCALE}hr__baseline_data.feather'))
-ml_df.to_feather(join(OUT_PATH, f'wofs_ml_severe__{TIMESCALE}hr__data.feather'))
+    baseline_features = [f for f in df.columns if 'nmep' in f] #neighborhood estimation
+    targets = [f for f in df.columns if 'severe' in f] #Storm reports
 
-emailer.send_email('The 2-6 hr ML and BL datasets are built and ready to go!', start_time)
+    baseline_df = df[baseline_features+METADATA+targets].reset_index(drop=True) 
+    features = [f for f in df.columns if f not in baseline_features] 
+
+    ml_df = df[features].reset_index(drop=True)  
+
+    baseline_df.to_feather(join(OUT_PATH, f'wofs_ml_severe__{TIMESCALE}hr__baseline_data.feather'))
+    ml_df.to_feather(join(OUT_PATH, f'wofs_ml_severe__{TIMESCALE}hr__data.feather'))
+
+    emailer.send_email(f'The 2-6 hr {framework} ML and BL datasets are built and ready to go!', start_time)

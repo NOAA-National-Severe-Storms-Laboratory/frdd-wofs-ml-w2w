@@ -503,3 +503,12 @@ def subsampler(y, pos_percent=1.0, neg_percent=0.25):
     inds = np.concatenate([pos_inds_sub, neg_inds_sub])
     
     return inds     
+
+def random_subsampler(length, percent=0.5):
+    '''Selects a random sample of indices consisting of n% of the dataset'''
+    if percent<=0:
+        inds=[]
+    else:
+        n_inds = int(percent*length) #Number of samples to keep
+        inds = np.random.choice(np.arange(0,length), size=n_inds, replace=False) #Draw random selection between 0-length-1
+    return inds
