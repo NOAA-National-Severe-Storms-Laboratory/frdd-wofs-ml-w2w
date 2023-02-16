@@ -60,7 +60,10 @@ def load_ml_data(base_path, target_col=None, date = None, mode=None, bl_column=N
     else:
         nmep_vars = [f for f in ml_df.columns if 'nmep' in f]
         features = [f for f in ml_df.columns if f not in nmep_vars+metadata]
-    
+    if FRAMEWORK=='ADAM':
+        print('Appending init time to predictors')
+        features.append('Init Time')
+        
     X = ml_df[features]
     
     if date is None:

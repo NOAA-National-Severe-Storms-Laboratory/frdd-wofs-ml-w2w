@@ -2,14 +2,14 @@ import sys
 sys.path.append('/home/samuel.varga/python_packages/wofs_ml_severe')
 sys.path.append('/home/samuel.varga/projects/2to6_hr_severe_wx/experiments')
 sys.path.append('/home/monte.flora/python_packages/scikit-explain')
-sys.path.append('/home/monte.flora/python_packages/WoF_post')
+sys.path.append('/home/samuel.varga/python_packages/WoF_post')
 sys.path.append('/home/samuel.varga/python_packages/MontePython/')
 #for any prefix Wof_post, I have to remove the WoF_Post prefix for some reason
 
 import pandas as pd
 from ml_2to6_data_pipeline import (GridPointExtracter,
                                    subsampler, 
-                                   load_dataset)
+                                   load_dataset, random_subsampler)
 
 from wofs_ml_severe.common.emailer import Emailer
 

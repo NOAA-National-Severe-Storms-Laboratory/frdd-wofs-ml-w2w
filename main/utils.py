@@ -13,8 +13,8 @@ def _train_test_split():
     Randomly split the full dataset into training and testing 
     based on the date. 
     """
-    FRAMEWORK='POTVIN'
-    TIMESCALE='2to6'
+    FRAMEWORK='ADAM'
+    TIMESCALE='0to3'
     basePath = f'/work/samuel.varga/data/{TIMESCALE}_hr_severe_wx/{FRAMEWORK}/' #Base path to data
     
     
