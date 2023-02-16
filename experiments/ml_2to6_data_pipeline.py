@@ -14,7 +14,9 @@ from wofs.post.utils import (
     save_dataset,
     load_multiple_nc_files,
 )
-from wofs.verification.lsrs.get_storm_reports import StormReports
+
+from wofs_ml_severe.data_pipeline.storm_report_loader import StormReportLoader
+
 from wofs.plotting.util import decompose_file_path
 
 
@@ -303,23 +305,15 @@ class GridPointExtracter:
         #start_time = comps['VALID_DATE']+comps['VALID_TIME']
         start_time=(pd.to_datetime(comps['VALID_DATE']+comps['INIT_TIME'])+dt.timedelta(minutes=int(comps['TIME_INDEX'])*self._deltat)).strftime('%Y%m%d%H%M')
 
-        if TIMESCALE=='0to3':
-            report = StormReports(
-                #path=self._reports_path, 
-                #self._report_type, 
+        forecast_length = 180 if TIMESCALE=='0to3' else 240
+        report = StormReportLoader(
+                reports_path = '/work/mflora/LSRS/StormEvents_2017-2022.csv',
+                report_type='NOAA',
                 initial_time=start_time, 
-                forecast_length=180, 
+                forecast_length=forecast_length, 
                 err_window=15,               
             )
-        elif TIMESCALE=='2to6':
-            report = StormReports(
-                #path=self._reports_path, 
-                #self._report_type, 
-                initial_time=start_time, 
-                forecast_length=240, 
-                err_window=15,               
-            )
-
+        
         ds = xr.load_dataset(self._ncfile, decode_times=False)
         report_ds = report.to_grid(dataset=ds, size=self._upscale_size)
         
@@ -382,15 +376,14 @@ class GridPointExtracter:
                 X_ = np.nan_to_num(X[:,:], nan=fill_value)
                 new_X[:,:] = func(X_, size)
         else:
-            if not AdamEnv:
-                for n in range(self._n_ens): #Every Ens Member
-                    X_ = np.nan_to_num(X[n,:,:], nan=fill_value) 
-                    new_X[n,:,:] = func(X_, size)
-            elif AdamEnv:
+            if AdamEnv:
                 for t,n in itertools.product(range(new_X.shape[0]), range(self._n_ens)): #Every time step and ens member
                     X_ = np.nan_to_num(X[t, n, :,:], nan=fill_value)
                     new_X[t,n,:,:] = func(X_, size) 
-    
+            else:
+                for n in range(self._n_ens): #Every Ens Member
+                    X_ = np.nan_to_num(X[n,:,:], nan=fill_value) 
+                    new_X[n,:,:] = func(X_, size)
         return new_X 
     
     def upscaler(self, X, func, size, remove_nans=False):

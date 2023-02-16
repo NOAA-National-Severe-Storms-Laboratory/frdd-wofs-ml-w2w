@@ -878,3 +878,1583 @@ Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200513/1700
  14%|█▎        | 96/710 [8:30:01<40:05:13, 235.04s/it]True and POTVIN
 False and POTVIN
 Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20200519/0000/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20180511/1900/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20200519/0300
+ 14%|█▎        | 97/710 [8:36:23<47:34:37, 279.41s/it]True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20200519/2100/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200519/0000/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20200519/2200
+ 14%|█▍        | 98/710 [8:44:02<56:38:34, 333.19s/it]Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20200519/2000/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20200519/0100/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200519/2100/wofs_ML0TO3.feather...
+ 14%|█▍        | 99/710 [8:49:00<54:45:52, 322.67s/it]/work/mflora/SummaryFiles/20200519/1900
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20200519/0300/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200519/2000/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20200519/1800
+ 14%|█▍        | 100/710 [8:56:14<60:19:51, 356.05s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200519/0100/wofs_ML0TO3.feather...
+ 14%|█▍        | 101/710 [8:58:33<49:12:47, 290.91s/it]/work/mflora/SummaryFiles/20200519/2300
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20200519/2200/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200519/0300/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20200519/0200
+ 14%|█▍        | 102/710 [9:03:37<49:46:44, 294.74s/it]True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20200519/1900/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200519/2200/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20200519/1700
+ 15%|█▍        | 103/710 [9:09:52<53:46:01, 318.88s/it]True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20200519/1800/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20200519/2300/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200519/1900/wofs_ML0TO3.feather...
+ 15%|█▍        | 104/710 [9:15:39<55:04:37, 327.19s/it]/work/mflora/SummaryFiles/20170501/1900
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20200519/0200/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200519/1800/wofs_ML0TO3.feather...
+ 15%|█▍        | 105/710 [9:22:07<58:04:16, 345.55s/it]/work/mflora/SummaryFiles/20180516/1900
+True and POTVIN
+False and POTVIN
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200519/2300/wofs_ML0TO3.feather...
+ 15%|█▍        | 106/710 [9:25:58<52:13:00, 311.23s/it]/work/mflora/SummaryFiles/20180516/2000
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20200519/1700/wofs_ML0TO3.feather...
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20170501/1900/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200519/0200/wofs_ML0TO3.feather...
+ 15%|█▌        | 107/710 [9:30:39<50:35:37, 302.05s/it]/work/mflora/SummaryFiles/20180516/2100
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20180516/1900/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20170501/1900/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20200526/1700
+ 15%|█▌        | 108/710 [9:34:34<47:09:13, 281.98s/it]True and POTVIN
+False and POTVIN
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200519/1700/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20200526/2000
+ 15%|█▌        | 109/710 [9:37:53<42:54:53, 257.06s/it]Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20180516/2000/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20180516/1900/wofs_ML0TO3.feather...
+ 15%|█▌        | 110/710 [9:42:14<43:01:27, 258.15s/it]/work/mflora/SummaryFiles/20200526/0100
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20180516/2100/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20180516/2000/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20200526/0000
+ 16%|█▌        | 111/710 [9:45:38<40:17:33, 242.16s/it]True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20200526/1700/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20180516/2100/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20200526/2100
+ 16%|█▌        | 112/710 [9:50:37<43:01:34, 259.02s/it]True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20200526/2000/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20200526/0100/wofs_ML0TO3.feather...
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200526/1700/wofs_ML0TO3.feather...
+ 16%|█▌        | 113/710 [10:00:13<58:43:22, 354.11s/it]/work/mflora/SummaryFiles/20200526/2300
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20200526/0000/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200526/2000/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20200526/0200
+ 16%|█▌        | 114/710 [10:04:28<53:41:54, 324.35s/it]True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20200526/2100/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200526/0100/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20200526/1800
+ 16%|█▌        | 115/710 [10:12:01<59:59:12, 362.95s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200526/0000/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20200526/1900
+ 16%|█▋        | 116/710 [10:12:46<44:11:19, 267.81s/it]True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20200526/2300/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200526/2100/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20200526/0300
+ 16%|█▋        | 117/710 [10:17:25<44:38:09, 270.98s/it]True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20200526/0200/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200526/2300/wofs_ML0TO3.feather...
+ 17%|█▋        | 118/710 [10:24:14<51:23:43, 312.54s/it]/work/mflora/SummaryFiles/20200526/2200
+True and POTVIN
+False and POTVIN
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20200526/1900/wofs_ML0TO3.feather...
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20200526/1800/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200526/0200/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20180524/1900
+ 17%|█▋        | 119/710 [10:30:06<53:13:08, 324.18s/it]True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20200526/0300/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200526/1900/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20180524/2000
+ 17%|█▋        | 120/710 [10:39:26<64:43:39, 394.95s/it]True and POTVIN
+False and POTVIN
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200526/1800/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20180524/2100
+ 17%|█▋        | 121/710 [10:40:08<47:19:24, 289.24s/it]Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20200526/2200/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20180524/1900/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200526/0300/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20190506/0000
+ 17%|█▋        | 122/710 [10:45:20<48:19:20, 295.85s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200526/2200/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20190506/2100
+ 17%|█▋        | 123/710 [10:51:00<50:24:32, 309.15s/it]True and ADAM
+True and POTVIN
+False and ADAM
+False and POTVIN
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20180524/1900/wofs_ML0TO3.feather...
+ 17%|█▋        | 124/710 [10:51:18<36:06:07, 221.79s/it]/work/mflora/SummaryFiles/20190506/2000
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20180524/2000/wofs_ML0TO3.feather...
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20180524/2100/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+True and ADAM
+False and ADAM
+True and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+False and ADAM
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20180524/2000/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20190506/0100
+ 18%|█▊        | 125/710 [10:59:46<50:01:21, 307.83s/it]dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20180524/2100/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20190506/0300
+ 18%|█▊        | 126/710 [10:59:50<35:08:00, 216.58s/it]Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190506/0000/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190506/2000/wofs_ML0TO3.feather...
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190506/2100/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190506/0000/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20190506/2200
+ 18%|█▊        | 127/710 [11:11:41<59:05:23, 364.88s/it]True and POTVIN
+False and POTVIN
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190506/0300/wofs_ML0TO3.feather...
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190506/0100/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190506/2000/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20190506/1900
+ 18%|█▊        | 128/710 [11:19:22<63:39:38, 393.78s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190506/2100/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20190506/2300
+ 18%|█▊        | 129/710 [11:20:43<48:22:50, 299.78s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190506/0300/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20190506/0200
+ 18%|█▊        | 130/710 [11:27:18<52:54:46, 328.42s/it]True and POTVIN
+False and POTVIN
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190506/0100/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20210504/1700
+ 18%|█▊        | 131/710 [11:27:47<38:24:06, 238.77s/it]Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190506/2200/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190506/1900/wofs_ML0TO3.feather...
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190506/2300/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190506/2200/wofs_ML0TO3.feather...
+ 19%|█▊        | 132/710 [11:38:50<58:44:04, 365.82s/it]/work/mflora/SummaryFiles/20210504/2100
+True and POTVIN
+False and POTVIN
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190506/0200/wofs_ML0TO3.feather...
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210504/1700/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190506/1900/wofs_ML0TO3.feather...
+ 19%|█▊        | 133/710 [11:47:51<67:04:14, 418.47s/it]/work/mflora/SummaryFiles/20210504/0000
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190506/2300/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20210504/0100
+ 19%|█▉        | 134/710 [11:48:34<48:55:50, 305.82s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190506/0200/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20210504/2000
+ 19%|█▉        | 135/710 [11:53:51<49:23:28, 309.23s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210504/2100/wofs_ML0TO3.feather...
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210504/1700/wofs_ML0TO3.feather...
+ 19%|█▉        | 136/710 [11:55:27<39:06:51, 245.32s/it]/work/mflora/SummaryFiles/20210504/2200
+True and POTVIN
+False and POTVIN
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210504/0000/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210504/0100/wofs_ML0TO3.feather...
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210504/2100/wofs_ML0TO3.feather...
+ 19%|█▉        | 137/710 [12:06:18<58:24:39, 366.98s/it]/work/mflora/SummaryFiles/20210504/0300
+True and POTVIN
+False and POTVIN
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210504/2000/wofs_ML0TO3.feather...
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210504/2200/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210504/0000/wofs_ML0TO3.feather...
+ 19%|█▉        | 138/710 [12:16:29<69:55:30, 440.09s/it]/work/mflora/SummaryFiles/20210504/1900
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210504/0100/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20210504/1800
+ 20%|█▉        | 139/710 [12:17:26<51:35:40, 325.29s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210504/2000/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20210504/0200
+ 20%|█▉        | 140/710 [12:21:56<48:51:50, 308.62s/it]True and POTVIN
+False and POTVIN
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210504/2200/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20210504/2300
+ 20%|█▉        | 141/710 [12:23:07<37:30:37, 237.32s/it]Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210504/0300/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210504/1900/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210504/1800/wofs_ML0TO3.feather...
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210504/0300/wofs_ML0TO3.feather...
+ 20%|██        | 142/710 [12:34:47<59:19:31, 376.01s/it]/work/mflora/SummaryFiles/20170515/1900
+True and POTVIN
+False and POTVIN
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210504/0200/wofs_ML0TO3.feather...
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210504/2300/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210504/1900/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20200507/1700
+ 20%|██        | 143/710 [12:43:41<66:43:07, 423.61s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210504/1800/wofs_ML0TO3.feather...
+ 20%|██        | 144/710 [12:46:29<54:32:02, 346.86s/it]/work/mflora/SummaryFiles/20200507/2300
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20170515/1900/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210504/0200/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20200507/0200
+ 20%|██        | 145/710 [12:49:26<46:26:27, 295.91s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210504/2300/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20200507/1800
+ 21%|██        | 146/710 [12:51:06<37:08:43, 237.10s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20170515/1900/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20200507/1900
+ 21%|██        | 147/710 [12:54:14<34:46:23, 222.35s/it]True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20200507/1700/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20200507/2300/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20200507/0200/wofs_ML0TO3.feather...
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20200507/1800/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20200507/1900/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200507/1700/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20200507/0300
+ 21%|██        | 148/710 [13:13:04<77:12:13, 494.54s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200507/2300/wofs_ML0TO3.feather...
+ 21%|██        | 149/710 [13:15:26<60:36:59, 388.98s/it]/work/mflora/SummaryFiles/20200507/2200
+True and ADAM
+False and ADAM
+True and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+False and ADAM
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200507/1800/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20200507/2000
+ 21%|██        | 150/710 [13:17:06<47:00:41, 302.22s/it]dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200507/0200/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20200507/0100
+ 21%|██▏       | 151/710 [13:17:11<33:06:07, 213.18s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200507/1900/wofs_ML0TO3.feather...
+ 21%|██▏       | 152/710 [13:20:37<32:41:51, 210.95s/it]/work/mflora/SummaryFiles/20200507/0000
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20200507/0300/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20200507/2200/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20200507/2000/wofs_ML0TO3.feather...
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20200507/0100/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20200507/0000/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200507/0300/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20200507/2100
+ 22%|██▏       | 153/710 [13:40:05<77:03:03, 498.00s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200507/2200/wofs_ML0TO3.feather...
+ 22%|██▏       | 154/710 [13:42:07<59:30:55, 385.35s/it]/work/mflora/SummaryFiles/20210525/1700
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200507/2000/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20210525/1900
+ 22%|██▏       | 155/710 [13:43:06<44:16:57, 287.24s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200507/0100/wofs_ML0TO3.feather...
+ 22%|██▏       | 156/710 [13:45:46<38:20:47, 249.18s/it]/work/mflora/SummaryFiles/20210525/0300
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200507/0000/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20210525/2200
+ 22%|██▏       | 157/710 [13:47:21<31:10:13, 202.92s/it]True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20200507/2100/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210525/1700/wofs_ML0TO3.feather...
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210525/1900/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210525/0300/wofs_ML0TO3.feather...
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210525/2200/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200507/2100/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20210525/2300
+ 22%|██▏       | 158/710 [14:08:26<79:57:43, 521.49s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210525/1700/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20210525/0200
+ 22%|██▏       | 159/710 [14:11:36<64:35:52, 422.06s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210525/1900/wofs_ML0TO3.feather...
+ 23%|██▎       | 160/710 [14:13:01<49:00:42, 320.80s/it]/work/mflora/SummaryFiles/20210525/1800
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210525/0300/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20210525/0000
+ 23%|██▎       | 161/710 [14:14:44<38:59:10, 255.65s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210525/2200/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20210525/2100
+ 23%|██▎       | 162/710 [14:15:45<29:59:55, 197.07s/it]True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210525/2300/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210525/0200/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210525/1800/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210525/0000/wofs_ML0TO3.feather...
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210525/2100/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210525/2300/wofs_ML0TO3.feather...
+ 23%|██▎       | 163/710 [14:36:00<76:21:41, 502.56s/it]/work/mflora/SummaryFiles/20210525/2000
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210525/0200/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20210525/0100
+ 23%|██▎       | 164/710 [14:39:36<63:11:28, 416.64s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210525/1800/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20170527/1900
+ 23%|██▎       | 165/710 [14:42:34<52:13:45, 345.00s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210525/0000/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20190515/2300
+ 23%|██▎       | 166/710 [14:44:23<41:27:20, 274.34s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210525/2100/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20190515/0200
+ 24%|██▎       | 167/710 [14:46:00<33:21:37, 221.17s/it]True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210525/2000/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20170527/1900/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210525/0100/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20170527/1900/wofs_ML0TO3.feather...
+ 24%|██▎       | 168/710 [15:01:42<65:50:48, 437.36s/it]/work/mflora/SummaryFiles/20190515/0300
+True and POTVIN
+False and POTVIN
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210525/2000/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20190515/2200
+ 24%|██▍       | 169/710 [15:03:08<49:52:43, 331.91s/it]True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190515/2300/wofs_ML0TO3.feather...
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190515/0200/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210525/0100/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20190515/1900
+ 24%|██▍       | 170/710 [15:07:00<45:17:56, 301.99s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190515/2300/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20190515/2000
+ 24%|██▍       | 171/710 [15:14:03<50:37:05, 338.08s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190515/0200/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20190515/0100
+ 24%|██▍       | 172/710 [15:15:50<40:10:08, 268.79s/it]True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190515/0300/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190515/2200/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190515/1900/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190515/0300/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20190515/0000
+ 24%|██▍       | 173/710 [15:27:27<59:15:33, 397.27s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190515/2200/wofs_ML0TO3.feather...
+ 25%|██▍       | 174/710 [15:28:52<45:11:58, 303.58s/it]/work/mflora/SummaryFiles/20190515/2100
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190515/2000/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190515/0100/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190515/1900/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20210517/2200
+ 25%|██▍       | 175/710 [15:33:34<44:10:10, 297.22s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190515/2000/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20210517/0300
+ 25%|██▍       | 176/710 [15:42:24<54:26:21, 367.01s/it]True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190515/0000/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190515/0100/wofs_ML0TO3.feather...
+ 25%|██▍       | 177/710 [15:45:39<46:42:47, 315.51s/it]/work/mflora/SummaryFiles/20210517/1900
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190515/2100/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210517/2200/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190515/0000/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20210517/1800
+ 25%|██▌       | 178/710 [15:56:54<62:32:17, 423.19s/it]True and POTVIN
+False and POTVIN
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190515/2100/wofs_ML0TO3.feather...
+ 25%|██▌       | 179/710 [15:57:58<46:33:19, 315.63s/it]/work/mflora/SummaryFiles/20210517/0200
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210517/0300/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210517/2200/wofs_ML0TO3.feather...
+ 25%|██▌       | 180/710 [16:00:47<39:57:48, 271.45s/it]/work/mflora/SummaryFiles/20210517/2300
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210517/1900/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210517/0300/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20210517/2100
+ 25%|██▌       | 181/710 [16:08:41<48:48:38, 332.17s/it]True and POTVIN
+False and POTVIN
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210517/1900/wofs_ML0TO3.feather...
+ 26%|██▌       | 182/710 [16:12:59<45:29:02, 310.12s/it]/work/mflora/SummaryFiles/20210517/0000
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210517/1800/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210517/0200/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210517/2300/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210517/1800/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20210517/0100
+ 26%|██▌       | 183/710 [16:24:44<62:42:34, 428.38s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210517/2100/wofs_ML0TO3.feather...
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210517/0200/wofs_ML0TO3.feather...
+ 26%|██▌       | 184/710 [16:26:09<47:33:55, 325.54s/it]/work/mflora/SummaryFiles/20210517/2000
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210517/2300/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20210517/1700
+ 26%|██▌       | 185/710 [16:30:20<44:13:22, 303.24s/it]True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210517/0000/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210517/2100/wofs_ML0TO3.feather...
+ 26%|██▌       | 186/710 [16:37:11<48:50:43, 335.58s/it]/work/mflora/SummaryFiles/20170523/1900
+True and POTVIN
+False and POTVIN
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210517/0100/wofs_ML0TO3.feather...
+True and ADAM
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210517/2000/wofs_ML0TO3.feather...
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210517/0000/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20210513/1700
+ 26%|██▋       | 187/710 [16:43:54<51:39:40, 355.60s/it]True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210517/1700/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20170523/1900/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210517/0100/wofs_ML0TO3.feather...
+ 26%|██▋       | 188/710 [16:53:28<61:03:09, 421.05s/it]/work/mflora/SummaryFiles/20210513/1800
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210517/2000/wofs_ML0TO3.feather...
+ 27%|██▋       | 189/710 [16:54:17<44:48:17, 309.59s/it]/work/mflora/SummaryFiles/20210513/2300
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+True and ADAM
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20170523/1900/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20210513/0200
+ 27%|██▋       | 190/710 [16:58:24<42:01:26, 290.94s/it]False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210517/1700/wofs_ML0TO3.feather...
+ 27%|██▋       | 191/710 [16:58:43<30:09:19, 209.17s/it]/work/mflora/SummaryFiles/20210513/0300
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210513/1700/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210513/1800/wofs_ML0TO3.feather...
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210513/2300/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210513/1700/wofs_ML0TO3.feather...
+ 27%|██▋       | 192/710 [17:14:36<62:12:48, 432.37s/it]/work/mflora/SummaryFiles/20210513/2200
+True and POTVIN
+False and POTVIN
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210513/0200/wofs_ML0TO3.feather...
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210513/0300/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210513/1800/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20210513/1900
+ 27%|██▋       | 193/710 [17:23:06<65:26:22, 455.67s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210513/2300/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20210513/2000
+ 27%|██▋       | 194/710 [17:24:48<50:06:05, 349.55s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210513/0200/wofs_ML0TO3.feather...
+ 27%|██▋       | 195/710 [17:28:21<44:08:47, 308.60s/it]/work/mflora/SummaryFiles/20210513/0100
+True and POTVIN
+False and POTVIN
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210513/0300/wofs_ML0TO3.feather...
+ 28%|██▊       | 196/710 [17:31:04<37:50:16, 265.01s/it]/work/mflora/SummaryFiles/20210513/0000
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210513/2200/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210513/1900/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210513/2000/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210513/2200/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20210513/2100
+ 28%|██▊       | 197/710 [17:42:58<56:56:51, 399.63s/it]True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210513/0100/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210513/0000/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210513/1900/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20210519/1700
+ 28%|██▊       | 198/710 [17:51:21<61:15:11, 430.69s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210513/2000/wofs_ML0TO3.feather...
+ 28%|██▊       | 199/710 [17:54:01<49:36:16, 349.47s/it]/work/mflora/SummaryFiles/20210519/2000
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210513/0100/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20210519/0100
+ 28%|██▊       | 200/710 [17:58:19<45:35:29, 321.82s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210513/0000/wofs_ML0TO3.feather...
+ 28%|██▊       | 201/710 [17:59:04<33:45:44, 238.79s/it]/work/mflora/SummaryFiles/20210519/0000
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210513/2100/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210519/1700/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210513/2100/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20210519/2100
+ 28%|██▊       | 202/710 [18:10:19<52:10:31, 369.75s/it]True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210519/2000/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210519/0100/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210519/0000/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210519/1700/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20210519/2300
+ 29%|██▊       | 203/710 [18:21:04<63:41:14, 452.22s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210519/2000/wofs_ML0TO3.feather...
+ 29%|██▊       | 204/710 [18:23:54<51:40:16, 367.62s/it]/work/mflora/SummaryFiles/20210519/0200
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210519/0100/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20210519/1800
+ 29%|██▉       | 205/710 [18:25:16<39:34:26, 282.11s/it]True and POTVIN
+False and POTVIN
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210519/2100/wofs_ML0TO3.feather...
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210519/0000/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20210519/1900
+ 29%|██▉       | 206/710 [18:27:31<33:18:59, 237.98s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210519/2100/wofs_ML0TO3.feather...
+ 29%|██▉       | 207/710 [18:36:20<45:26:33, 325.24s/it]/work/mflora/SummaryFiles/20210519/0300
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210519/2300/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210519/0200/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210519/1800/wofs_ML0TO3.feather...
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210519/1900/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210519/2300/wofs_ML0TO3.feather...
+ 29%|██▉       | 208/710 [18:51:01<68:34:35, 491.78s/it]/work/mflora/SummaryFiles/20210519/2200
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210519/0200/wofs_ML0TO3.feather...
+ 29%|██▉       | 209/710 [18:53:53<55:06:16, 395.96s/it]/work/mflora/SummaryFiles/20170511/1900
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210519/0300/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210519/1800/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20210521/1700
+ 30%|██▉       | 210/710 [18:57:12<46:48:17, 336.99s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210519/1900/wofs_ML0TO3.feather...
+ 30%|██▉       | 211/710 [18:58:30<35:54:58, 259.12s/it]/work/mflora/SummaryFiles/20210521/1900
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210519/0300/wofs_ML0TO3.feather...
+ 30%|██▉       | 212/710 [19:05:13<41:48:49, 302.27s/it]/work/mflora/SummaryFiles/20210521/0300
+True and POTVIN
+False and POTVIN
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20170511/1900/wofs_ML0TO3.feather...
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210519/2200/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+True and POTVIN
+False and POTVIN
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20170511/1900/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20210521/2200
+ 30%|███       | 213/710 [19:15:46<55:25:26, 401.46s/it]Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210521/1900/wofs_ML0TO3.feather...
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210521/1700/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210519/2200/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20210521/2300
+ 30%|███       | 214/710 [19:19:25<47:47:21, 346.86s/it]True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210521/0300/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210521/1900/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20210521/0200
+ 30%|███       | 215/710 [19:26:56<51:58:14, 377.97s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210521/1700/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20210521/1800
+ 30%|███       | 216/710 [19:28:50<41:01:01, 298.91s/it]True and POTVIN
+False and POTVIN
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210521/0300/wofs_ML0TO3.feather...
+ 31%|███       | 217/710 [19:34:28<42:31:21, 310.51s/it]/work/mflora/SummaryFiles/20210521/0000
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210521/2200/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210521/2300/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210521/2200/wofs_ML0TO3.feather...
+ 31%|███       | 218/710 [19:46:37<59:37:08, 436.24s/it]/work/mflora/SummaryFiles/20210521/2100
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210521/0200/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210521/1800/wofs_ML0TO3.feather...
+True and ADAM
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210521/0000/wofs_ML0TO3.feather...
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210521/2300/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20210521/2000
+ 31%|███       | 219/710 [19:51:11<52:49:46, 387.34s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210521/0200/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20210521/0100
+ 31%|███       | 220/710 [19:59:32<57:22:18, 421.51s/it]True and ADAM
+False and ADAM
+True and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210521/0000/wofs_ML0TO3.feather...
+ 31%|███       | 221/710 [20:00:58<43:35:00, 320.86s/it]/work/mflora/SummaryFiles/20190523/1900
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210521/1800/wofs_ML0TO3.feather...
+ 31%|███▏      | 222/710 [20:01:05<30:44:31, 226.79s/it]/work/mflora/SummaryFiles/20190523/2200
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210521/2100/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210521/2000/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210521/2100/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20190523/0300
+ 31%|███▏      | 223/710 [20:12:54<50:13:58, 371.33s/it]True and POTVIN
+False and POTVIN
+True and POTVIN
+False and POTVIN
+True and POTVIN
+False and POTVIN
+True and ADAM
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190523/1900/wofs_ML0TO3.feather...
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210521/2000/wofs_ML0TO3.feather...
+ 32%|███▏      | 224/710 [20:19:36<51:24:06, 380.75s/it]/work/mflora/SummaryFiles/20190523/0200
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190523/2200/wofs_ML0TO3.feather...
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20210521/0100/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190523/1900/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20190523/2300
+ 32%|███▏      | 225/710 [20:30:00<61:07:10, 453.67s/it]True and POTVIN
+False and POTVIN
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190523/0300/wofs_ML0TO3.feather...
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20210521/0100/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20190523/2100
+ 32%|███▏      | 226/710 [20:32:15<48:07:44, 357.98s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190523/2200/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20190523/0000
+ 32%|███▏      | 227/710 [20:32:38<34:33:29, 257.58s/it]True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190523/0200/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190523/0300/wofs_ML0TO3.feather...
+ 32%|███▏      | 228/710 [20:42:34<48:04:04, 359.01s/it]/work/mflora/SummaryFiles/20190523/0100
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190523/2300/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190523/0200/wofs_ML0TO3.feather...
+ 32%|███▏      | 229/710 [20:47:34<45:36:40, 341.37s/it]/work/mflora/SummaryFiles/20190523/2000
+True and POTVIN
+False and POTVIN
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190523/0000/wofs_ML0TO3.feather...
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190523/2100/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190523/2300/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20180501/1900
+ 32%|███▏      | 230/710 [20:54:57<49:34:32, 371.82s/it]True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190523/0100/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190523/0000/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20180501/2000
+ 33%|███▎      | 231/710 [21:02:13<52:01:11, 390.96s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190523/2100/wofs_ML0TO3.feather...
+ 33%|███▎      | 232/710 [21:03:07<38:31:08, 290.10s/it]/work/mflora/SummaryFiles/20190529/0300
+True and POTVIN
+False and POTVIN
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190523/2000/wofs_ML0TO3.feather...
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20180501/1900/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190523/0100/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20190529/2200
+ 33%|███▎      | 233/710 [21:11:31<46:55:30, 354.15s/it]True and POTVIN
+False and POTVIN
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20180501/1900/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20190529/1900 33%|███▎      | 234/710 [21:14:20<39:28:07, 298.50s/it]
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20180501/2000/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190523/2000/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20190529/2300
+ 33%|███▎      | 235/710 [21:16:52<33:35:20, 254.57s/it]True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190529/0300/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20180501/2000/wofs_ML0TO3.feather...
+ 33%|███▎      | 236/710 [21:21:20<34:03:11, 258.63s/it]/work/mflora/SummaryFiles/20190529/0200
+True and POTVIN
+False and POTVIN
+True and ADAM
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190529/2200/wofs_ML0TO3.feather...
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190529/0300/wofs_ML0TO3.feather...
+ 33%|███▎      | 237/710 [21:29:59<44:15:05, 336.80s/it]/work/mflora/SummaryFiles/20190529/0000
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190529/1900/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190529/2300/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190529/0200/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190529/2200/wofs_ML0TO3.feather...
+ 34%|███▎      | 238/710 [21:41:57<59:09:39, 451.23s/it]/work/mflora/SummaryFiles/20190529/2100
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190529/1900/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20190529/2000
+ 34%|███▎      | 239/710 [21:43:22<44:39:43, 341.37s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190529/2300/wofs_ML0TO3.feather...
+ 34%|███▍      | 240/710 [21:45:43<36:41:49, 281.08s/it]/work/mflora/SummaryFiles/20190529/0100
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190529/0000/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190529/0200/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20170530/1900
+ 34%|███▍      | 241/710 [21:49:43<35:00:34, 268.73s/it]True and POTVIN
+False and POTVIN
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190529/0000/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20200528/2300
+ 34%|███▍      | 242/710 [21:57:47<43:21:44, 333.56s/it]Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190529/2100/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190529/2000/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20170530/1900/wofs_ML0TO3.feather...
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190529/0100/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20170530/1900/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20200528/0200
+ 34%|███▍      | 243/710 [22:12:18<64:09:16, 494.55s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190529/2100/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20200528/1800
+ 34%|███▍      | 244/710 [22:12:47<45:56:38, 354.93s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190529/2000/wofs_ML0TO3.feather...
+ 35%|███▍      | 245/710 [22:15:55<39:23:33, 304.98s/it]/work/mflora/SummaryFiles/20200528/1900
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20200528/2300/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190529/0100/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20200528/0300
+ 35%|███▍      | 246/710 [22:17:21<30:49:47, 239.20s/it]True and POTVIN
+False and POTVIN
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200528/2300/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20200528/2200
+ 35%|███▍      | 247/710 [22:28:56<48:21:36, 376.02s/it]True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20200528/0200/wofs_ML0TO3.feather...
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20200528/1800/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20200528/1900/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20200528/0300/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200528/0200/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20200528/2000
+ 35%|███▍      | 248/710 [22:40:03<59:26:12, 463.14s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200528/1800/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20200528/0100
+ 35%|███▌      | 249/710 [22:42:51<48:00:16, 374.87s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200528/1900/wofs_ML0TO3.feather...
+ 35%|███▌      | 250/710 [22:43:14<34:23:17, 269.13s/it]/work/mflora/SummaryFiles/20200528/0000
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20200528/2200/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200528/0300/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20200528/2100
+ 35%|███▌      | 251/710 [22:47:26<33:38:59, 263.92s/it]True and POTVIN
+False and POTVIN
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200528/2200/wofs_ML0TO3.feather...
+ 35%|███▌      | 252/710 [22:56:12<43:36:39, 342.79s/it]/work/mflora/SummaryFiles/20200528/1700
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20200528/2000/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20200528/0100/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20200528/0000/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20200528/2100/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200528/2000/wofs_ML0TO3.feather...
+ 36%|███▌      | 253/710 [23:09:36<61:04:31, 481.12s/it]/work/mflora/SummaryFiles/20190508/2000
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200528/0100/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20190508/0100
+ 36%|███▌      | 254/710 [23:09:58<43:28:08, 343.18s/it]True and POTVIN
+False and POTVIN
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200528/0000/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20190508/0000
+ 36%|███▌      | 255/710 [23:13:43<38:53:56, 307.77s/it]Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20200528/1700/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200528/2100/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20190508/2100
+ 36%|███▌      | 256/710 [23:17:03<34:45:08, 275.57s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20200528/1700/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20190508/2300
+ 36%|███▌      | 257/710 [23:24:37<41:23:59, 329.01s/it]True and POTVIN
+False and POTVIN
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190508/0100/wofs_ML0TO3.feather...
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190508/2000/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190508/0000/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190508/2100/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190508/0100/wofs_ML0TO3.feather...
+ 36%|███▋      | 258/710 [23:36:57<56:48:07, 452.41s/it]/work/mflora/SummaryFiles/20190508/0200
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190508/2000/wofs_ML0TO3.feather...
+ 36%|███▋      | 259/710 [23:38:25<42:58:27, 343.03s/it]/work/mflora/SummaryFiles/20190508/0300
+True and POTVIN
+False and POTVIN
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190508/0000/wofs_ML0TO3.feather...
+ 37%|███▋      | 260/710 [23:41:58<37:59:42, 303.96s/it]/work/mflora/SummaryFiles/20190508/2200
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190508/2300/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190508/2100/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20190508/1900
+ 37%|███▋      | 261/710 [23:47:38<39:16:25, 314.89s/it]True and POTVIN
+False and POTVIN
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190508/2300/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20190502/2100
+ 37%|███▋      | 262/710 [23:52:58<39:23:00, 316.47s/it]True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190508/0200/wofs_ML0TO3.feather...
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190508/0300/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190508/2200/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190508/1900/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190508/0200/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20190502/0000
+ 37%|███▋      | 263/710 [24:05:49<56:12:49, 452.73s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190508/0300/wofs_ML0TO3.feather...
+ 37%|███▋      | 264/710 [24:07:12<42:20:14, 341.74s/it]/work/mflora/SummaryFiles/20190502/0100
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190502/2100/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190508/2200/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20190502/2000
+ 37%|███▋      | 265/710 [24:11:22<38:50:36, 314.24s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190508/1900/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20190502/2200
+ 37%|███▋      | 266/710 [24:14:29<34:02:46, 276.05s/it]True and POTVIN
+False and POTVIN
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190502/2100/wofs_ML0TO3.feather...
+ 38%|███▊      | 267/710 [24:22:01<40:27:59, 328.85s/it]/work/mflora/SummaryFiles/20190502/0300
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190502/0000/wofs_ML0TO3.feather...
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190502/0100/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190502/2000/wofs_ML0TO3.feather...
+True and POTVIN
+False and POTVIN
+True and ADAM
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190502/2200/wofs_ML0TO3.feather...
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190502/0000/wofs_ML0TO3.feather...
+ 38%|███▊      | 268/710 [24:35:16<57:33:13, 468.76s/it]/work/mflora/SummaryFiles/20190502/1900
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190502/0100/wofs_ML0TO3.feather...
+ 38%|███▊      | 269/710 [24:35:45<41:15:58, 336.87s/it]/work/mflora/SummaryFiles/20190502/0200
+True and POTVIN
+False and POTVIN
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/POTVIN/SummaryFiles/20190502/0300/wofs_ML0TO3.feather...
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190502/2000/wofs_ML0TO3.feather...
+/work/mflora/SummaryFiles/20190502/2300
+ 38%|███▊      | 270/710 [24:39:56<38:01:16, 311.08s/it]True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190502/2200/wofs_ML0TO3.feather...
+ 38%|███▊      | 271/710 [24:45:43<39:15:30, 321.94s/it]/work/mflora/SummaryFiles/20200522/0000
+True and ADAM
+False and ADAM
+dict_keys(['uh_2to5_instant__time_max__9km__smoothed'])
+dict_keys(['uh_2to5_instant__time_max__4km', 'uh_0to2_instant__time_max__4km', 'wz_0to2_instant__time_max__4km', 'comp_dz__time_max__4km', 'ws_80__time_max__4km', 'hailcast__time_max__4km', 'w_up__time_max__4km', 'okubo_weiss__time_max__4km'])
+Saving /work/samuel.varga/data/0to3_hr_severe_wx/ADAM/SummaryFiles/20190502/0300/wofs_ML0TO3.feather...
+ 38%|███▊      | 272/710 [24:50:48<38:32:54, 316.84s/it]/work/mflora/SummaryFiles/20200522/2100
+True and POTVIN
+False and POTVIN

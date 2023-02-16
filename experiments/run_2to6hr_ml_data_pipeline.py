@@ -13,6 +13,7 @@ from ml_2to6_data_pipeline import (GridPointExtracter,
 
 from wofs_ml_severe.common.emailer import Emailer
 
+
 from os.path import join , exists
 
 from skexplain.common.multiprocessing_utils import run_parallel, to_iterator
@@ -43,14 +44,14 @@ n_jobs=5 #Number of jobs for parallel processing
 ################################
 ##Input and Output Directories##
 ################################
-OUT_PATH_BASE = '/work/samuel.varga/data/{}_hr_severe_wx'.format(TIMESCALE) #Output directory
-SUMMARY_FILE_OUT_PATH = '/work/samuel.varga/data/{}_hr_severe_wx'.format(TIMESCALE) #Output directory for Summary files
+OUT_PATH_BASE = f'/work/samuel.varga/data/{TIMESCALE}_hr_severe_wx' #Output directory
+SUMMARY_FILE_OUT_PATH = f'/work/samuel.varga/data/{TIMESCALE}_hr_severe_wx' #Output directory for Summary files
 base_path = '/work/mflora/SummaryFiles' #Directory of WOFS ENS. Files
 
 
 print('Using Sam\'s version of the data pipeline')
-print('Framework: {}'.format(FRAMEWORK))
-print('Time scale: {}'.format(TIMESCALE))
+print(f'Framework: {FRAMEWORK}')
+print(f'Time scale: {TIMESCALE}')
 
 
 ###################
@@ -87,7 +88,7 @@ def worker(path, FRAMEWORK=FRAMEWORK, TIMESCALE=TIMESCALE):
         if not exists(out_path):
             os.makedirs(out_path)
 
-        out_name = join(out_path, 'wofs_ML{}.feather'.format(TIMESCALE.upper()))
+        out_name = join(out_path, f'wofs_ML{TIMESCALE.upper()}.feather')
         print(f'Saving {out_name}...')
         df_sub.to_feather(out_name)
         
@@ -161,7 +162,7 @@ emailer.send_email(f'Individual dataframes for the {TIMESCALE} hr dataset are co
 #################################
 for framework in FRAMEWORK:
     OUT_PATH = join(OUT_PATH_BASE, f'{framework}') #Output directory
-    SUMMARY_FILE_OUT_PATH = '/work/samuel.varga/data/{}_hr_severe_wx/{}/SummaryFiles'.format(TIMESCALE, framework) 
+    SUMMARY_FILE_OUT_PATH = f'/work/samuel.varga/data/{TIMESCALE}_hr_severe_wx/{framework}/SummaryFiles' 
 
     ml_files = []
     for d in dates:

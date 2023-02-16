@@ -6,6 +6,7 @@ import random
 from sklearn.model_selection import train_test_split
 from os.path import join
 import pandas as pd
+import pickle
 
 # Splitting the data into training and testing. 
 def _train_test_split():
@@ -13,51 +14,57 @@ def _train_test_split():
     Randomly split the full dataset into training and testing 
     based on the date. 
     """
-    FRAMEWORK='ADAM'
+    FRAMEWORK=['POTVIN','ADAM']
     TIMESCALE='0to3'
-    basePath = f'/work/samuel.varga/data/{TIMESCALE}_hr_severe_wx/{FRAMEWORK}/' #Base path to data
-    
-    
-    path = join(basePath, f'wofs_ml_severe__{TIMESCALE}hr__data.feather')
-    df = pd.read_feather(path)
-    
-    baseline_path = join(basePath, f'wofs_ml_severe__{TIMESCALE}hr__baseline_data.feather')
-    baseline_df = pd.read_feather(baseline_path)
-        
-    # Get the date from April, May, and June 
-    df['Run Date'] = df['Run Date'].apply(str)
-    baseline_df['Run Date'] = baseline_df['Run Date'].apply(str)
-        
-    # Limit data to the Spring/Summer 
-    df = df[pd.to_datetime(df['Run Date']).dt.strftime('%B').isin(['March', 'April', 'May', 'June', 'July'])]
-    baseline_df = baseline_df[
-    pd.to_datetime(baseline_df['Run Date']).dt.strftime('%B').isin(['March', 'April', 'May', 'June', 'July'])]
-        
-    all_dates = list(df['Run Date'].unique())
-    random.shuffle(all_dates)
-    train_dates, test_dates = train_test_split(all_dates, test_size=0.3)
-    
-    train_df = df[df['Run Date'].isin(train_dates)] 
-    test_df  = df[df['Run Date'].isin(test_dates)] 
-    
-    train_base_df = baseline_df[baseline_df['Run Date'].isin(train_dates)] 
-    test_base_df  = baseline_df[baseline_df['Run Date'].isin(test_dates)] 
-    
-    print(f'{train_df.shape=}')
-    print(f'{test_df.shape=}')
-    
-    train_df.reset_index(inplace=True, drop=True)
-    test_df.reset_index(inplace=True, drop=True)
-        
-    train_base_df.reset_index(inplace=True, drop=True)
-    test_base_df.reset_index(inplace=True, drop=True)
-        
-    train_df.to_feather(join(basePath, f'wofs_ml_severe__{TIMESCALE}hr__train_data.feather'))
-    test_df.to_feather(join(basePath, f'wofs_ml_severe__{TIMESCALE}hr__test_data.feather'))
-        
-    train_base_df.to_feather(join(basePath, f'wofs_ml_severe__{TIMESCALE}hr__baseline_train_data.feather'))
-    test_base_df.to_feather(join(basePath, f'wofs_ml_severe__{TIMESCALE}hr__baseline_test_data.feather'))
-    
+    train_dates, test_dates = None, None
+    for framework in FRAMEWORK:
+        basePath = f'/work/samuel.varga/data/{TIMESCALE}_hr_severe_wx/{framework}/' #Base path to data
+
+
+        path = join(basePath, f'wofs_ml_severe__{TIMESCALE}hr__data.feather')
+        df = pd.read_feather(path)
+
+        baseline_path = join(basePath, f'wofs_ml_severe__{TIMESCALE}hr__baseline_data.feather')
+        baseline_df = pd.read_feather(baseline_path)
+
+        # Get the date from April, May, and June 
+        df['Run Date'] = df['Run Date'].apply(str)
+        baseline_df['Run Date'] = baseline_df['Run Date'].apply(str)
+
+        # Limit data to the Spring/Summer 
+        df = df[pd.to_datetime(df['Run Date']).dt.strftime('%B').isin(['March', 'April', 'May', 'June', 'July'])]
+        baseline_df = baseline_df[
+        pd.to_datetime(baseline_df['Run Date']).dt.strftime('%B').isin(['March', 'April', 'May', 'June', 'July'])]
+
+        if train_dates is None and test_dates is None:
+            all_dates = list(df['Run Date'].unique())
+            random.Random(42).shuffle(all_dates) #Set random seed for reproducibility - might need to sort first to make sure that the 0-3 and 2-6 line up?
+            train_dates, test_dates = train_test_split(all_dates, test_size=0.3)
+            
+            with open(f'/work/samuel.varga/data/{TIMESCALE}hr_severe_wx/dates_split.txt', 'wb') as date_file:
+                    pickle.dump({'train_dates':train_dates,'test_dates':test_dates}, date_file)
+
+        train_df = df[df['Run Date'].isin(train_dates)] 
+        test_df  = df[df['Run Date'].isin(test_dates)] 
+
+        train_base_df = baseline_df[baseline_df['Run Date'].isin(train_dates)] 
+        test_base_df  = baseline_df[baseline_df['Run Date'].isin(test_dates)] 
+
+        print(f'{train_df.shape=}')
+        print(f'{test_df.shape=}')
+
+        train_df.reset_index(inplace=True, drop=True)
+        test_df.reset_index(inplace=True, drop=True)
+
+        train_base_df.reset_index(inplace=True, drop=True)
+        test_base_df.reset_index(inplace=True, drop=True)
+
+        train_df.to_feather(join(basePath, f'wofs_ml_severe__{TIMESCALE}hr__train_data.feather'))
+        test_df.to_feather(join(basePath, f'wofs_ml_severe__{TIMESCALE}hr__test_data.feather'))
+
+        train_base_df.to_feather(join(basePath, f'wofs_ml_severe__{TIMESCALE}hr__baseline_train_data.feather'))
+        test_base_df.to_feather(join(basePath, f'wofs_ml_severe__{TIMESCALE}hr__baseline_test_data.feather'))
+
 # Execute the code. 
 _train_test_split()
     
