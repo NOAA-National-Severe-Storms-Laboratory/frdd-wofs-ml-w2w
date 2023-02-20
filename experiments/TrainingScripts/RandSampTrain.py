@@ -19,7 +19,7 @@ from hyperopt import hp
 from main.io import load_ml_data
 from ml_workflow.calibrated_pipeline_hyperopt_cv import norm_aupdc_scorer, norm_csi_scorer
 from ml_workflow.tuned_estimator import TunedEstimator, dates_to_groups
-from VargaPy.MlUtils import All_Severe, Simple_Random_Subsample, Drop_Unwanted_Variables
+from VargaPy.MlUtils import All_Severe, Simple_Random_Subsample, Drop_Unwanted_Variables, Train_Ml_Parser
 from sklearn.model_selection import GroupKFold
 
 #######
@@ -36,13 +36,7 @@ from sklearn.model_selection import GroupKFold
 #Resolution for target hazard (9, 15, 36)
 #Resolution for input (9, 27, 45, all)
 
-parser=argparse.ArgumentParser()
-parser.add_argument('-o', '--original', help="Original Variables", action='store_true')
-parser.add_argument('-ts', '--training_scale', help="Scale of Training variables (9,27,45)")
-parser.add_argument('-hs','--hazard_scale', help="Scale of Target Variables (9,18,36, all)")
-parser.add_argument('-hn', '--hazard_name', help="Target: hail, wind, tornado")
-parser.add_argument('-env','--environmental', help="Drop all intrastorm variables", action='store_true')
-parser.add_argument('-is' ,'--intrastorm', help="Drop all environmental variables", action='store_true')
+parser=Train_Ml_Parser()
 args=parser.parse_args()
 
 # Configuration variables (You'll need to change based on where you store your data)
