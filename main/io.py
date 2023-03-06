@@ -3,7 +3,7 @@ import pandas as pd
 from os.path import join
 
 # Load the data in a scikit-learn-ready input. 
-def load_ml_data(base_path, target_col=None, date = None, mode=None, bl_column=None, FRAMEWORK=None, TIMESCALE=None, Big=True):
+def load_ml_data(base_path, target_col=None, date = None, mode=None, bl_column=None, FRAMEWORK=None, TIMESCALE=None, Big=False):
     """Load the ML dataframe into a X,y-ready scikit-learn input
     Parameters
     ---------------
@@ -27,7 +27,7 @@ def load_ml_data(base_path, target_col=None, date = None, mode=None, bl_column=N
     # Load the feather file.
     if mode is None:
         if date is not None:
-            if FRAMEWORK and TIMESCALE:
+            if TIMESCALE:
                 if Big:
                     ml_df = pd.read_feather(join(base_path, f'wofs_ml_severe__{TIMESCALE}hr__{date}_data_Big.feather'))
                 else:
@@ -40,7 +40,7 @@ def load_ml_data(base_path, target_col=None, date = None, mode=None, bl_column=N
             else:
                 ml_df = pd.read_feather(join(base_path, f'wofs_ml_severe__{TIMESCALE}hr__data.feather'))
     
-    elif FRAMEWORK and TIMESCALE:
+    elif TIMESCALE:
         if Big:
             ml_df = pd.read_feather(join(base_path, f'wofs_ml_severe__{TIMESCALE}hr__{mode}_data_Big.feather'))
         else:
@@ -75,7 +75,7 @@ def load_ml_data(base_path, target_col=None, date = None, mode=None, bl_column=N
 
 
 # Load the baseline data into a scikit-learn ready input. 
-def load_bl_data(base_path, target_col, mode, feature_col=None, FRAMEWORK=None, TIMESCALE=None, Big=True):
+def load_bl_data(base_path, target_col, mode, feature_col=None, TIMESCALE=None, Big=False):
     """
     Load the baseline dataset.
     
@@ -96,7 +96,7 @@ def load_bl_data(base_path, target_col, mode, feature_col=None, FRAMEWORK=None, 
         Useful for training the baseline model. 
 
     """
-    if TIMESCALE and FRAMEWORK:
+    if TIMESCALE:
         if Big:
             bl_df = pd.read_feather(join(base_path, f'wofs_ml_severe__{TIMESCALE}hr__baseline_{mode}_data_Big.feather'))
         else:

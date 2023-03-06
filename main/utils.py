@@ -4,7 +4,7 @@ sys.path.append('/home/monte.flora/python_packages/ml_workflow')
 from ml_workflow.io.cross_validation_generator import DateBasedCV
 import random
 from sklearn.model_selection import train_test_split
-from os.path import join
+from os.path import join, exists
 import pandas as pd
 import pickle
 
@@ -15,8 +15,14 @@ def _train_test_split():
     based on the date. 
     """
     FRAMEWORK=['POTVIN','ADAM']
-    TIMESCALE='0to3'
-    train_dates, test_dates = None, None
+    TIMESCALE='2to6'
+    
+    if exists('/work/samuel.varga/data/dates_split.pkl'):
+        date_pkl = pd.read_pickle('/work/samuel.varga/data/dates_split.pkl')
+        print('Using previous T-T split')
+        train_dates, test_dates = date_pkl['train_dates'], date_pkl['test_dates']
+    else:
+        train_dates, test_dates = None, None
     for framework in FRAMEWORK:
         basePath = f'/work/samuel.varga/data/{TIMESCALE}_hr_severe_wx/{framework}/' #Base path to data
 
@@ -33,15 +39,19 @@ def _train_test_split():
 
         # Limit data to the Spring/Summer 
         df = df[pd.to_datetime(df['Run Date']).dt.strftime('%B').isin(['March', 'April', 'May', 'June', 'July'])]
+        df = df[pd.to_datetime(df['Run Date']).dt.strftime('%Y').isin(['2018','2019','2020','2021'])]
+        
         baseline_df = baseline_df[
         pd.to_datetime(baseline_df['Run Date']).dt.strftime('%B').isin(['March', 'April', 'May', 'June', 'July'])]
+        baseline_df = baseline_df[
+        pd.to_datetime(baseline_df['Run Date']).dt.strftime('%Y').isin(['2018','2019','2020','2021'])]
 
         if train_dates is None and test_dates is None:
             all_dates = list(df['Run Date'].unique())
-            random.Random(42).shuffle(all_dates) #Set random seed for reproducibility - might need to sort first to make sure that the 0-3 and 2-6 line up?
+            random.Random(42).shuffle(all_dates)
             train_dates, test_dates = train_test_split(all_dates, test_size=0.3)
-            
-            with open(f'/work/samuel.varga/data/{TIMESCALE}hr_severe_wx/dates_split.txt', 'wb') as date_file:
+            print(test_dates)
+            with open(f'/work/samuel.varga/data/dates_split.pkl', 'wb') as date_file:
                     pickle.dump({'train_dates':train_dates,'test_dates':test_dates}, date_file)
 
         train_df = df[df['Run Date'].isin(train_dates)] 

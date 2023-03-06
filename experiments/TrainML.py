@@ -41,7 +41,7 @@ args=parser.parse_args()
 
 # Configuration variables (You'll need to change based on where you store your data)
 FRAMEWORK='POTVIN'
-TIMESCALE='2to6'
+TIMESCALE='0to3'
 base_path = f'/work/samuel.varga/data/{TIMESCALE}_hr_severe_wx/{FRAMEWORK}'
 
 
@@ -127,7 +127,7 @@ for radius in hazard_scale:
 
 
          
-    for n in [0,1,2]:
+    for n in [4]:
         print(f'Starting {n} process for {radius}km auto')
 
         train_dates=metadata['Run Date']
@@ -196,7 +196,7 @@ for radius in hazard_scale:
                                      calibration_cv_kwargs=arguments_dict['calibration_arguments'])
 
 
-                t_e.fit(X, y, groups)
+                t_e.fit(X, y, groups) #do i need the equals?
 
                 if args.original or args.environmental:
                     suff=''

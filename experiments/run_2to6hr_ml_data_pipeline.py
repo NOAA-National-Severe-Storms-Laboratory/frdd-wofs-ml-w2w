@@ -38,7 +38,7 @@ import numpy.random as npr #Used for date selection
 ##Framework and Time Scale Settings##
 #####################################
 FRAMEWORK=['POTVIN','ADAM'] #Framework to use when creating the dataset. Valid options: POTVIN or ADAM
-TIMESCALE='0to3' #Forecast windows to use when creating the data set. Valid Options: 0to3 or 2to6
+TIMESCALE='2to6' #Forecast windows to use when creating the data set. Valid Options: 0to3 or 2to6
 n_jobs=5 #Number of jobs for parallel processing
 
 ################################
