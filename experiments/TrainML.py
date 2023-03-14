@@ -33,15 +33,15 @@ from sklearn.model_selection import GroupKFold
 
 #Command line input
 #Hazard for target (tornado, hail, wind, all)
-#Resolution for target hazard (9, 15, 36)
-#Resolution for input (9, 27, 45, all)
+#Resolution for target hazard (9, 15, 36, all)
+#Resolution for input (9, 27, 45, all=None)
 
 parser=Train_Ml_Parser()
 args=parser.parse_args()
 
 # Configuration variables (You'll need to change based on where you store your data)
 FRAMEWORK='POTVIN'
-TIMESCALE='0to3'
+TIMESCALE='2to6'
 base_path = f'/work/samuel.varga/data/{TIMESCALE}_hr_severe_wx/{FRAMEWORK}'
 
 
@@ -98,14 +98,14 @@ for radius in hazard_scale:
         X,y,metadata = All_Severe(base_path, mode='train',
                                   target_scale=radius,
                                   FRAMEWORK=FRAMEWORK,
-                                  TIMESCALE=TIMESCALE, Big=False)
+                                  TIMESCALE=TIMESCALE, SigSevere=args.SigSevere)
     else:
         target_col='{}_severe__{}km'.format(args.hazard_name, radius)
         X,y,metadata = load_ml_data(base_path=base_path, 
                                 mode='train', 
                                 target_col=target_col,
                                FRAMEWORK=FRAMEWORK,
-                               TIMESCALE=TIMESCALE, Big=False)
+                               TIMESCALE=TIMESCALE, SigSevere=args.SigSevere)
 
   
     X, ts_suff = Drop_Unwanted_Variables(X, original=args.original, training_scale=args.training_scale, intrastormOnly=args.intrastorm, envOnly=args.environmental)
@@ -127,8 +127,8 @@ for radius in hazard_scale:
 
 
          
-    for n in [4]:
-        print(f'Starting {n} process for {radius}km auto')
+    for n in [0,1,2]:
+        print(f'Starting {n} learning process for {radius}km ')
 
         train_dates=metadata['Run Date']
         groups=dates_to_groups(train_dates, n_splits=5)
@@ -137,7 +137,7 @@ for radius in hazard_scale:
 
 
 
-        for name in ['hist','logistic','random']:
+        for name in ['hist','logistic','random','ADAM']:
                 if name=='logistic':
                     base_estimator = LogisticRegression(solver='saga', penalty='elasticnet', max_iter=300, random_state=42, l1_ratio=0.001)
                     #Param grid for LogReg
@@ -164,7 +164,7 @@ for radius in hazard_scale:
                     'max_leaf_nodes': hp.choice('max_leaf_nodes',[5, 10, 20, 30, 40, 50]),
                     'max_depth': hp.choice('max_depth', [4, 6, 8, 10]),
                     'min_samples_leaf': hp.choice('min_samples_leaf',[5,10,15,20,30, 40, 50]),
-                    'l2_regularization': hp.choice('l2_regularization',[0.001, 0.01, 0.1]), #This one causes problems
+                    'l2_regularization': hp.choice('l2_regularization',[0.001, 0.01, 0.1]), 
                     'max_bins': hp.choice('max_bins',[15, 31, 63, 127])
 
                             }
@@ -192,11 +192,11 @@ for radius in hazard_scale:
                 arguments_dict['hyperopt_arguments']['search_space']=param_grid
                 t_e = TunedEstimator(estimator=base_estimator,
                                      pipeline_kwargs=arguments_dict['pipeline_arguments'],
-                                     hyperopt_kwargs=None,
+                                     hyperopt_kwargs=arguments_dict['hyperopt_arguments'],
                                      calibration_cv_kwargs=arguments_dict['calibration_arguments'])
 
 
-                t_e.fit(X, y, groups) #do i need the equals?
+                t_e.fit(X, y, groups) 
 
                 if args.original or args.environmental:
                     suff=''
@@ -206,6 +206,6 @@ for radius in hazard_scale:
                         suff+='env'
                     save_name = f'Varga_{ts_suff}_{name}_{args.hazard_name}_{args.hazard_scale}km_{suff}.joblib'
                 else:
-                    save_name = f'Varga_{ts_suff}_{name}_{args.hazard_name}_{radius}km_control_{n}.joblib'
+                    save_name = f'Varga_{ts_suff}_{name}_{args.hazard_name}_{radius}km_SigSev_{n}.joblib'
                 print(save_name)
                 t_e.save(join(OUTPATH, save_name)) 

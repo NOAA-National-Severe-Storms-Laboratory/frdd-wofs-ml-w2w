@@ -3,7 +3,7 @@ import pandas as pd
 from os.path import join
 
 # Load the data in a scikit-learn-ready input. 
-def load_ml_data(base_path, target_col=None, date = None, mode=None, bl_column=None, FRAMEWORK=None, TIMESCALE=None, Big=False):
+def load_ml_data(base_path, target_col=None, date = None, mode=None, bl_column=None, FRAMEWORK=None, TIMESCALE=None):
     """Load the ML dataframe into a X,y-ready scikit-learn input
     Parameters
     ---------------
@@ -28,23 +28,14 @@ def load_ml_data(base_path, target_col=None, date = None, mode=None, bl_column=N
     if mode is None:
         if date is not None:
             if TIMESCALE:
-                if Big:
-                    ml_df = pd.read_feather(join(base_path, f'wofs_ml_severe__{TIMESCALE}hr__{date}_data_Big.feather'))
-                else:
-                    ml_df = pd.read_feather(join(base_path, f'wofs_ml_severe__{TIMESCALE}hr__{date}_data.feather'))
+                ml_df = pd.read_feather(join(base_path, f'wofs_ml_severe__{TIMESCALE}hr__{date}_data.feather'))
             else:
                 ml_df = pd.read_feather(join(base_path, f'wofs_ml_severe__2to6hr__{date}_data.feather'))
         else:
-            if Big:
-                ml_df = pd.read_feather(join(base_path, f'wofs_ml_severe__{TIMESCALE}hr__data_Big.feather'))
-            else:
-                ml_df = pd.read_feather(join(base_path, f'wofs_ml_severe__{TIMESCALE}hr__data.feather'))
+            ml_df = pd.read_feather(join(base_path, f'wofs_ml_severe__{TIMESCALE}hr__data.feather'))
     
     elif TIMESCALE:
-        if Big:
-            ml_df = pd.read_feather(join(base_path, f'wofs_ml_severe__{TIMESCALE}hr__{mode}_data_Big.feather'))
-        else:
-            ml_df = pd.read_feather(join(base_path, f'wofs_ml_severe__{TIMESCALE}hr__{mode}_data.feather'))
+        ml_df = pd.read_feather(join(base_path, f'wofs_ml_severe__{TIMESCALE}hr__{mode}_data.feather'))
     else:
         ml_df = pd.read_feather(join(base_path, f'wofs_ml_severe__2to6hr__{mode}_data.feather'))
       
