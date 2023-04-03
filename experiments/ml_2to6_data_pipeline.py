@@ -454,8 +454,16 @@ class GridPointExtracter:
 
                     # Compute the baseline stuff. 
                     X_baseline = self.get_nmep(X_nghbrd, size)
+                    
+                    X_indiv_UH=None
+                    if size==2:
+                        X_smoothed_UH={f'{v}__{self._DX*size/2:.0f}km__smoothed' : self.neighborhooder(X[v], func=gaussian_filter, size=size) for v in keys if 'uh_2to5_instant' in v} 
+                    
+                        for v in X_smoothed_UH.keys(): #Should just be able to append from other ds since matched pairs?
+                            X_indiv_UH={f'{v}_{n}' : X_smoothed_UH[v][n,:,:] for n in range(self._n_ens)}
 
-                    X_ens_stats = {**X_baseline, **X_ens_mean, **X_ens_2nd, **X_strm_iqr, **X_ens_16th} 
+                    X_ens_stats = {**X_baseline, **X_ens_mean, **X_ens_2nd, **X_strm_iqr, **X_ens_16th, **X_indiv_UH} 
+                    
                 elif FRAMEWORK=='ADAM':
                     X_nghbrd={f'{v}__{self._DX*1/2:.0f}km':self.neighborhooder(X[v],func=maximum_filter, size=1) for v in keys}
                     
@@ -473,11 +481,11 @@ class GridPointExtracter:
                     
                     
                     X_smoothed_UH={f'{v}__{self._DX*size/2:.0f}km__smoothed' : self.neighborhooder(X[v], func=gaussian_filter, size=size) for v in keys if 'uh_2to5_instant' in v} 
-                    print(X_smoothed_UH.keys())
+                    #print(X_smoothed_UH.keys())
                     
                     for v in X_smoothed_UH.keys():
                         X_indiv_UH={f'{v}_{n}' : X_smoothed_UH[v][n,:,:] for n in range(self._n_ens)}
-                    print(X_nghbrd.keys())
+                    #print(X_nghbrd.keys())
                     X_baseline=self.get_nmep(X_nghbrd, 1)
                     
                     X_ens_stats={**X_baseline, **X_ens_90th, **X_ens_max, **X_gaussian,**X_indiv_UH}

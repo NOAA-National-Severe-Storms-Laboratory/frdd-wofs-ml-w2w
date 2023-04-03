@@ -21,6 +21,7 @@ from ml_workflow.calibrated_pipeline_hyperopt_cv import norm_aupdc_scorer, norm_
 from ml_workflow.tuned_estimator import TunedEstimator, dates_to_groups
 from VargaPy.MlUtils import All_Severe, Drop_Unwanted_Variables, Train_Ml_Parser
 from sklearn.model_selection import GroupKFold
+from itertools import product
 
 #######
 #Usage#
@@ -40,9 +41,11 @@ parser=Train_Ml_Parser()
 args=parser.parse_args()
 
 # Configuration variables (You'll need to change based on where you store your data)
-FRAMEWORK='POTVIN'
-TIMESCALE='2to6'
-base_path = f'/work/samuel.varga/data/{TIMESCALE}_hr_severe_wx/{FRAMEWORK}'
+framework=['POTVIN','ADAM']
+timescale=['2to6','0to3']
+mod_names=['hist','logistic']
+hazard_scale = [36,18,9] if args.hazard_scale == 'all' else [args.hazard_scale]
+HAZARD=['wind','hail','tornado'] if args.hazard_name == ['each'] else args.hazard_name
 
 
 #############################
@@ -61,17 +64,17 @@ arguments_dict = {'pipeline_arguments':{#Dictionary of arguments for ml_workflow
 },
              'hyperopt_arguments':{ #Dictionary of arguments for ml_workflow.hyperparameter_optimizer.HyperOptCV
                         'search_space':None, #Update
-                        'optimizer':'tpe', #atpe or tpe
-                        'max_evals':50,
-                        'patience':10,
+                        'optimizer':'tpe', #None or tpe
+                        'max_evals':100,
+                        'patience':25,
                         'scorer':norm_csi_scorer,
-                        'n_jobs':1,
-                        'cv':None #Update
+                        'n_jobs':None, #None
+                        'cv':None #Updated later
 }, 
              'calibration_arguments': {#Dictionary of arguments for sklearn.calibration.CalibratedClassifierCV
                         'method':'isotonic',
-                        'cv':None, #Update
-                        'n_jobs':None,
+                        'cv':None, #Updated later
+                        'n_jobs':None, #None
                         'ensemble':False                        
 } 
             
@@ -80,35 +83,34 @@ arguments_dict = {'pipeline_arguments':{#Dictionary of arguments for ml_workflow
 #############
 ##Data Prep##
 #############
-if args.hazard_scale =='all':
-    hazard_scale=[36, 18, 9]
-else:
-    hazard_scale=[args.hazard_scale]
+
 
 ###Start Loop here
-for radius in hazard_scale:
-    print(f'Starting the process for {radius}km')
-    
+for radius, FRAMEWORK, TIMESCALE, hazard in product(hazard_scale, framework, timescale, HAZARD):
+    print(f'Starting the process for:')
+    print(f'{radius} {FRAMEWORK} {TIMESCALE} {hazard}')
+    base_path = f'/work/samuel.varga/data/{TIMESCALE}_hr_severe_wx/{FRAMEWORK}'
     OUTPATH=f'/work/samuel.varga/projects/{TIMESCALE}_hr_severe_wx/{FRAMEWORK}/mlModels/{radius}km'
     
     
     #Load Data
-    if args.hazard_name == 'all':    
+    if hazard == 'all':    
         target_col=f'tornado_severe__{radius}km' #Used to grab the correct baseline
         X,y,metadata = All_Severe(base_path, mode='train',
                                   target_scale=radius,
                                   FRAMEWORK=FRAMEWORK,
                                   TIMESCALE=TIMESCALE, SigSevere=args.SigSevere)
     else:
-        target_col='{}_severe__{}km'.format(args.hazard_name, radius)
+        target_col='{}_severe__{}km'.format(hazard, radius)
+        print(target_col)
         X,y,metadata = load_ml_data(base_path=base_path, 
                                 mode='train', 
                                 target_col=target_col,
                                FRAMEWORK=FRAMEWORK,
-                               TIMESCALE=TIMESCALE, SigSevere=args.SigSevere)
+                               TIMESCALE=TIMESCALE)
 
   
-    X, ts_suff = Drop_Unwanted_Variables(X, original=args.original, training_scale=args.training_scale, intrastormOnly=args.intrastorm, envOnly=args.environmental)
+    X, ts_suff, var_suff = Drop_Unwanted_Variables(X, original=args.original, training_scale=args.training_scale, intrastormOnly=args.intrastorm, envOnly=args.environmental)
     
 
 
@@ -127,8 +129,8 @@ for radius in hazard_scale:
 
 
          
-    for n in [0,1,2]:
-        print(f'Starting {n} learning process for {radius}km ')
+    for n in [0,1]:
+        print(f'Starting {n} process for {radius}km ')
 
         train_dates=metadata['Run Date']
         groups=dates_to_groups(train_dates, n_splits=5)
@@ -137,75 +139,54 @@ for radius in hazard_scale:
 
 
 
-        for name in ['hist','logistic','random','ADAM']:
+        for name in mod_names:#random, hist, logistic, ADAM
+            print(f'Starting Learning for {name}')
                 if name=='logistic':
                     base_estimator = LogisticRegression(solver='saga', penalty='elasticnet', max_iter=300, random_state=42, l1_ratio=0.001)
                     #Param grid for LogReg
                     param_grid = {
-                                'l1_ratio': hp.choice('l1_ratio', [0.0001, 0.001, 0.01, 0.1, 0.15, 0.2, 0.25, 0.3, 0.5, 0.6, 0.8, 1.0]),
-                                'C': hp.choice('C', [0.0001, 0.001, 0.01, 0.1, 0.15, 0.2, 0.25, 0.35, 0.5, 0.62, 0.75, 0.87, 1.0]),
+                                'l1_ratio': [0.0001, 0.001, 0.01, 0.1, 0.15, 0.2, 0.25, 0.3, 0.5, 0.6, 0.8, 1.0],
+                                'C': [0.0001, 0.001, 0.01, 0.1, 0.15, 0.2, 0.25, 0.35, 0.5, 0.62, 0.75, 0.87, 1.0],
                             }
                 elif name=='random':
                     base_estimator=sklearn.ensemble.RandomForestClassifier(random_state=42, n_estimators=200, max_depth=15, max_features='sqrt', min_samples_leaf=20)
                     #Param Grid for RF
                     param_grid = {
-                               'n_estimators' : hp.choice('n_estimators',[10, 25, 50, 100,150,300,400,500]), 
-                               'max_depth' : hp.choice('max_depth',[4, 6,8,10,15,20]),
-                               'max_features' : hp.choice('max_features',[4,6,8,10,15,20,25,30]),
-                               'min_samples_split' : hp.choice('min_samples_split',[4,6,8,10,15,20,25,50]),
-                               'min_samples_leaf' : hp.choice('min_samples_leaf',[4,6,8,10,15,20,25,50]),
+                               'n_estimators' : [10, 25, 50, 100,150,300,400,500], 
+                               'max_depth' : [4, 6,8,10,15,20],
+                               'max_features' : [4,6,8,10,15,20,25,30],
+                               'min_samples_split' : [4,6,8,10,15,20,25,50],
+                               'min_samples_leaf' : [4,6,8,10,15,20,25,50],
                             }
                 elif name=='hist':
                     base_estimator=sklearn.ensemble.HistGradientBoostingClassifier(random_state=42, learning_rate=0.001, max_leaf_nodes=20, max_depth=15, min_samples_leaf=20, l2_regularization=0.001, max_bins=31)
                     #Check performance of different loss functions?
                     #Param Grid for HGB
                     param_grid= {
-                    'learning_rate': hp.choice('learning_rate',[0.0001, 0.001, 0.01, 0.1]),
-                    'max_leaf_nodes': hp.choice('max_leaf_nodes',[5, 10, 20, 30, 40, 50]),
-                    'max_depth': hp.choice('max_depth', [4, 6, 8, 10]),
-                    'min_samples_leaf': hp.choice('min_samples_leaf',[5,10,15,20,30, 40, 50]),
-                    'l2_regularization': hp.choice('l2_regularization',[0.001, 0.01, 0.1]), 
-                    'max_bins': hp.choice('max_bins',[15, 31, 63, 127])
+                    'learning_rate': [0.0001, 0.001, 0.01, 0.1],
+                    'max_leaf_nodes': [5, 10, 20, 30, 40, 50],
+                    'max_depth': [4, 6, 8, 10],
+                    'min_samples_leaf': [5,10,15,20,30, 40, 50],
+                    'l2_regularization': [0.001, 0.01, 0.1], 
+                    'max_bins': [15, 31, 63, 127]
 
                             }
 
 
-                elif name=='ADAM':
-                    base_estimator=sklearn.ensemble.RandomForestClassifier(random_state=42)
-                    param_grid = {
-                           'n_estimators' : hp.choice('n_estimators',[200]), 
-                           'criterion' : hp.choice('criterion',['entropy']),
-                            'max_depth' : hp.choice('max_depth',[15]),
-                           'max_features' : hp.choice('max_features',["sqrt"]),
-                           #'min_samples_split' : hp.choice('min_samples_split',[4,6,8,10,15,20,25,50]),
-                           'min_samples_leaf' : hp.choice('min_samples_leaf',[20])
-                        }
+                elif name=='rand-entropy':
+                    base_estimator=sklearn.ensemble.RandomForestClassifier(random_state=42, n_estimators=200, criterion='entropy', max_depth=15, max_features='sqrt', min_samples_leaf=20)
+                    param_grid = None
 
-
-                if name=='ADAM':
-                    max_iter=50 #25
-                else:
-                    max_iter=50
-
-
-
+               
                 arguments_dict['hyperopt_arguments']['search_space']=param_grid
                 t_e = TunedEstimator(estimator=base_estimator,
                                      pipeline_kwargs=arguments_dict['pipeline_arguments'],
-                                     hyperopt_kwargs=arguments_dict['hyperopt_arguments'],
+                                     hyperopt_kwargs=None if name=='rand-entropy' else arguments_dict['hyperopt_arguments'],
                                      calibration_cv_kwargs=arguments_dict['calibration_arguments'])
 
 
                 t_e.fit(X, y, groups) 
 
-                if args.original or args.environmental:
-                    suff=''
-                    if args.original:
-                        suff+='control_'
-                    if args.environmental:
-                        suff+='env'
-                    save_name = f'Varga_{ts_suff}_{name}_{args.hazard_name}_{args.hazard_scale}km_{suff}.joblib'
-                else:
-                    save_name = f'Varga_{ts_suff}_{name}_{args.hazard_name}_{radius}km_SigSev_{n}.joblib'
-                print(save_name)
+                save_name = f'Varga_{ts_suff}_{name}_{hazard}_{radius}km_{"SigSev" if args.SigSevere else "Sev"}_{var_suff}_{n}.joblib'
+                print(join(OUTPATH,save_name))
                 t_e.save(join(OUTPATH, save_name)) 
