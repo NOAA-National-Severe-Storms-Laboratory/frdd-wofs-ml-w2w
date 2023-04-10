@@ -3,7 +3,7 @@ import pandas as pd
 from os.path import join
 
 # Load the data in a scikit-learn-ready input. 
-def load_ml_data(base_path, target_col=None, date = None, mode=None, bl_column=None, FRAMEWORK=None, TIMESCALE=None):
+def load_ml_data(base_path, target_col=None, date = None, mode=None, bl_column=None, FRAMEWORK=None, TIMESCALE=None, appendUH=False):
     """Load the ML dataframe into a X,y-ready scikit-learn input
     Parameters
     ---------------
@@ -57,6 +57,12 @@ def load_ml_data(base_path, target_col=None, date = None, mode=None, bl_column=N
         
     X = ml_df[features]
     
+    if FRAMEWORK=='POTVIN' and appendUH:
+        print('Appending UH')
+        temp = pd.read_feather(join(f'/work/samuel.varga/data/{TIMESCALE}_hr_severe_wx/ADAM', f'wofs_ml_severe__{TIMESCALE}hr__{mode}_data.feather'))
+        cols = [col for col in temp.columns if 'uh_2to5_instant__time_max__9km__smoothed_' in col]
+        X[cols]=temp[cols]
+        
     if date is None:
         y = ml_df[target_col]
         return X, y, ml_df[metadata]

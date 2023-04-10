@@ -41,7 +41,7 @@ parser=Train_Ml_Parser()
 args=parser.parse_args()
 
 # Configuration variables (You'll need to change based on where you store your data)
-framework=['POTVIN','ADAM']
+framework=['POTVIN']
 timescale=['2to6','0to3']
 mod_names=['hist','logistic']
 hazard_scale = [36,18,9] if args.hazard_scale == 'all' else [args.hazard_scale]
@@ -99,7 +99,7 @@ for radius, FRAMEWORK, TIMESCALE, hazard in product(hazard_scale, framework, tim
         X,y,metadata = All_Severe(base_path, mode='train',
                                   target_scale=radius,
                                   FRAMEWORK=FRAMEWORK,
-                                  TIMESCALE=TIMESCALE, SigSevere=args.SigSevere)
+                                  TIMESCALE=TIMESCALE, SigSevere=args.SigSevere, appendUH=True)
     else:
         target_col='{}_severe__{}km'.format(hazard, radius)
         print(target_col)
@@ -129,7 +129,7 @@ for radius, FRAMEWORK, TIMESCALE, hazard in product(hazard_scale, framework, tim
 
 
          
-    for n in [0,1]:
+    for n in [0]:
         print(f'Starting {n} process for {radius}km ')
 
         train_dates=metadata['Run Date']
@@ -140,7 +140,7 @@ for radius, FRAMEWORK, TIMESCALE, hazard in product(hazard_scale, framework, tim
 
 
         for name in mod_names:#random, hist, logistic, ADAM
-            print(f'Starting Learning for {name}')
+                print(f'Starting Learning for {name}')
                 if name=='logistic':
                     base_estimator = LogisticRegression(solver='saga', penalty='elasticnet', max_iter=300, random_state=42, l1_ratio=0.001)
                     #Param grid for LogReg
