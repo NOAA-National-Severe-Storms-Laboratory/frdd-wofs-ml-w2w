@@ -42,7 +42,8 @@ args=parser.parse_args()
 
 # Configuration variables (You'll need to change based on where you store your data)
 framework=['POTVIN']
-timescale=['2to6','0to3']
+timescale=['2to6']
+Tkm=False
 mod_names=['hist','logistic']
 hazard_scale = [36,18,9] if args.hazard_scale == 'all' else [args.hazard_scale]
 HAZARD=['wind','hail','tornado'] if args.hazard_name == ['each'] else args.hazard_name
@@ -99,7 +100,7 @@ for radius, FRAMEWORK, TIMESCALE, hazard in product(hazard_scale, framework, tim
         X,y,metadata = All_Severe(base_path, mode='train',
                                   target_scale=radius,
                                   FRAMEWORK=FRAMEWORK,
-                                  TIMESCALE=TIMESCALE, SigSevere=args.SigSevere, appendUH=True)
+                                  TIMESCALE=TIMESCALE, SigSevere=args.SigSevere, appendUH=False, Three_km=Tkm)
     else:
         target_col='{}_severe__{}km'.format(hazard, radius)
         print(target_col)
@@ -107,7 +108,7 @@ for radius, FRAMEWORK, TIMESCALE, hazard in product(hazard_scale, framework, tim
                                 mode='train', 
                                 target_col=target_col,
                                FRAMEWORK=FRAMEWORK,
-                               TIMESCALE=TIMESCALE)
+                               TIMESCALE=TIMESCALE, Three_km=Tkm)
 
   
     X, ts_suff, var_suff = Drop_Unwanted_Variables(X, original=args.original, training_scale=args.training_scale, intrastormOnly=args.intrastorm, envOnly=args.environmental)
@@ -187,6 +188,6 @@ for radius, FRAMEWORK, TIMESCALE, hazard in product(hazard_scale, framework, tim
 
                 t_e.fit(X, y, groups) 
 
-                save_name = f'Varga_{ts_suff}_{name}_{hazard}_{radius}km_{"SigSev" if args.SigSevere else "Sev"}_{var_suff}_{n}.joblib'
+                save_name = f'Varga_{ts_suff}_{name}_{hazard}_{radius}km_{"SigSev" if args.SigSevere else "Sev"}_{var_suff}_{n}{"_DBRS" if Tkm else ""}.joblib'
                 print(join(OUTPATH,save_name))
                 t_e.save(join(OUTPATH, save_name)) 

@@ -37,9 +37,9 @@ import numpy.random as npr #Used for date selection
 #####################################
 ##Framework and Time Scale Settings##
 #####################################
-FRAMEWORK=['POTVIN','ADAM'] #Framework to use when creating the dataset. Valid options: POTVIN or ADAM
+FRAMEWORK=['POTVIN'] #Framework to use when creating the dataset. Valid options: POTVIN or ADAM
 TIMESCALE='2to6' #Forecast windows to use when creating the data set. Valid Options: 0to3 or 2to6
-n_jobs=5 #Number of jobs for parallel processing
+n_jobs=3 #Number of jobs for parallel processing
 
 ################################
 ##Input and Output Directories##
@@ -88,7 +88,7 @@ def worker(path, FRAMEWORK=FRAMEWORK, TIMESCALE=TIMESCALE):
         if not exists(out_path):
             os.makedirs(out_path)
 
-        out_name = join(out_path, f'wofs_ML{TIMESCALE.upper()}.feather')
+        out_name = join(out_path, f'wofs_ML{TIMESCALE.upper()}_3km.feather')
         print(f'Saving {out_name}...')
         df_sub.to_feather(out_name)
         
@@ -174,7 +174,7 @@ for framework in FRAMEWORK:
 
         for t in times:
             path = join(SUMMARY_FILE_OUT_PATH,d,t)
-            filename = join(path,f'wofs_ML{TIMESCALE.upper()}.feather') #Make a list of the individual ML frames for each day
+            filename = join(path,f'wofs_ML{TIMESCALE.upper()}_3km.feather') #Make a list of the individual ML frames for each day
             if exists(filename):
                 ml_files.append(filename)
 
@@ -192,7 +192,7 @@ for framework in FRAMEWORK:
 
     ml_df = df[features].reset_index(drop=True)  
 
-    baseline_df.to_feather(join(OUT_PATH, f'wofs_ml_severe__{TIMESCALE}hr__baseline_data.feather'))
-    ml_df.to_feather(join(OUT_PATH, f'wofs_ml_severe__{TIMESCALE}hr__data.feather'))
+    baseline_df.to_feather(join(OUT_PATH, f'wofs_ml_severe__{TIMESCALE}hr__baseline_data_3km.feather'))
+    ml_df.to_feather(join(OUT_PATH, f'wofs_ml_severe__{TIMESCALE}hr__data_3km.feather'))
 
     emailer.send_email(f'The {TIMESCALE} hr {framework} ML and BL datasets are built and ready to go!', start_time)

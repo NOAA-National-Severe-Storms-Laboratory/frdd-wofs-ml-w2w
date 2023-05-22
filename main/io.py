@@ -3,7 +3,7 @@ import pandas as pd
 from os.path import join
 
 # Load the data in a scikit-learn-ready input. 
-def load_ml_data(base_path, target_col=None, date = None, mode=None, bl_column=None, FRAMEWORK=None, TIMESCALE=None, appendUH=False):
+def load_ml_data(base_path, target_col=None, date = None, mode=None, bl_column=None, FRAMEWORK=None, TIMESCALE=None, appendUH=False, Three_km=False, return_targets=False):
     """Load the ML dataframe into a X,y-ready scikit-learn input
     Parameters
     ---------------
@@ -28,22 +28,22 @@ def load_ml_data(base_path, target_col=None, date = None, mode=None, bl_column=N
     if mode is None:
         if date is not None:
             if TIMESCALE:
-                ml_df = pd.read_feather(join(base_path, f'wofs_ml_severe__{TIMESCALE}hr__{date}_data.feather'))
+                ml_df = pd.read_feather(join(base_path, f'wofs_ml_severe__{TIMESCALE}hr__{date}_data{"_DBRS" if Three_km else ""}{"_target" if return_targets else ""}.feather'))
             else:
-                ml_df = pd.read_feather(join(base_path, f'wofs_ml_severe__2to6hr__{date}_data.feather'))
+                ml_df = pd.read_feather(join(base_path, f'wofs_ml_severe__2to6hr__{date}_data{"_DBRS" if Three_km else ""}.feather'))
         else:
-            ml_df = pd.read_feather(join(base_path, f'wofs_ml_severe__{TIMESCALE}hr__data.feather'))
+            ml_df = pd.read_feather(join(base_path, f'wofs_ml_severe__{TIMESCALE}hr__data{"_DBRS" if Three_km else ""}.feather'))
     
     elif TIMESCALE:
-        ml_df = pd.read_feather(join(base_path, f'wofs_ml_severe__{TIMESCALE}hr__{mode}_data.feather'))
+        ml_df = pd.read_feather(join(base_path, f'wofs_ml_severe__{TIMESCALE}hr__{mode}_data{"_DBRS" if Three_km else ""}.feather'))
     else:
-        ml_df = pd.read_feather(join(base_path, f'wofs_ml_severe__2to6hr__{mode}_data.feather'))
+        ml_df = pd.read_feather(join(base_path, f'wofs_ml_severe__2to6hr__{mode}_data{"_DBRS" if Three_km else ""}.feather'))
       
     # The two columns are additional metadata. They tell us the run date and 
     # initialization for a given example.
     metadata = ['Run Date', 'Init Time']
     
-    if date is None:
+    if date is None or return_targets:
         # All the target columns will have "severe" in them.
         targets = [f for f in ml_df.columns if 'severe' in f]
         # The features we will be using for training. 
@@ -66,13 +66,18 @@ def load_ml_data(base_path, target_col=None, date = None, mode=None, bl_column=N
     if date is None:
         y = ml_df[target_col]
         return X, y, ml_df[metadata]
+    elif return_targets:
+        y=ml_df[target_col]
+        X_bl=ml_df[bl_column]
+        
+        return X, X_bl, y
     else:
         X_bl = ml_df[bl_column]
         return X, X_bl 
 
 
 # Load the baseline data into a scikit-learn ready input. 
-def load_bl_data(base_path, target_col, mode, feature_col=None, TIMESCALE=None, Big=False):
+def load_bl_data(base_path, target_col, mode, feature_col=None, TIMESCALE=None, Big=False, Three_km=False):
     """
     Load the baseline dataset.
     
@@ -97,10 +102,10 @@ def load_bl_data(base_path, target_col, mode, feature_col=None, TIMESCALE=None, 
         if Big:
             bl_df = pd.read_feather(join(base_path, f'wofs_ml_severe__{TIMESCALE}hr__baseline_{mode}_data_Big.feather'))
         else:
-            bl_df = pd.read_feather(join(base_path, f'wofs_ml_severe__{TIMESCALE}hr__baseline_{mode}_data.feather'))
+            bl_df = pd.read_feather(join(base_path, f'wofs_ml_severe__{TIMESCALE}hr__baseline_{mode}_data{"_DBRS" if Three_km else ""}.feather'))
     
     else:
-        bl_df = pd.read_feather(join(base_path, f'wofs_ml_severe__2to6hr__baseline_{mode}_data.feather'))
+        bl_df = pd.read_feather(join(base_path, f'wofs_ml_severe__2to6hr__baseline_{mode}_data{"_DBRS" if Three_km else ""}.feather'))
     
     y = bl_df[target_col]
     dates = bl_df['Run Date'].apply(str)

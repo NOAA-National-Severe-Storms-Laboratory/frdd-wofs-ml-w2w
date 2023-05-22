@@ -149,8 +149,8 @@ class GridPointExtracter:
         Framework used for preprocessing the data. See respective papers for more detail.
     """
     def __init__(self, ncfile, env_vars, strm_vars, ll_grid, TIMESCALE, FRAMEWORK,
-                 forecast_sizes=[1,3,5], #upscale_zie*grid_spacing*forecast size = predictor radius (km)
-                 target_sizes = [1,2,4,6], #upscale_size*grid_spacing*target size = target radius (km)
+                 forecast_sizes=[1,3,5], #[1,3,5] #upscale_zie*grid_spacing*forecast size = predictor radius (km)
+                 target_sizes = [1,2,4,6], #[1,2,4,6] #upscale_size*grid_spacing*target size = target radius (km)
                  upscale_size=None, #Scales from 3-> 9 km grid
                  grid_spacing=3, #WOFS grid spacing (km)
                  reports_path = '/work/mflora/LSRS/STORM_EVENTS_2017-2022.csv',
@@ -159,16 +159,16 @@ class GridPointExtracter:
         
         #Change parameters based on Framework:
         if FRAMEWORK.upper()=='ADAM':
-            self._upscale_size = 3 #No upscaling of data -->  Change this to 1, for comparison, set to 3
-            self._TARGET_SIZES = np.array([1, 2, 4]) * 2 #Converts radius to diameter, 3 km x 12,13 boxes == 36 km, 39 km target radius
+            self._upscale_size = 3 #3 #No upscaling of data -->  Change this to 1, for comparison, set to 3
+            self._TARGET_SIZES = np.array([1, 2, 4])*3 * 2 #Converts radius to diameter, 3 km x 12,13 boxes == 36 km, 39 km target radius
             self._SIZES = np.array([1])*2 #Diameter of Gaussian Smoother only used for smoothed mean of storm fields
             #From Loken et.: SD is 18 km -> grid_spacing * forecast_size * 2 =18km -> forecast_size=3
             #With upscaling: SD of 18 km-> grid_spacing * upscale * forecast * 2 =18 -> f_size=1
             #But is that really valid when the initial data is 3x as coarse?
         else:
-            self._upscale_size = 3 #3km smoothing of data before everything else
-            self._TARGET_SIZES =  np.array(target_sizes)*2
-            self._SIZES = np.array(forecast_sizes)*2
+            self._upscale_size = 3 #3km smoothing of data before everything else #1
+            self._TARGET_SIZES =  np.array(target_sizes)*2 #*3
+            self._SIZES = np.array(forecast_sizes)*2 #*3
         
         
         #Constant Parameters
@@ -454,15 +454,8 @@ class GridPointExtracter:
 
                     # Compute the baseline stuff. 
                     X_baseline = self.get_nmep(X_nghbrd, size)
-                    
-                    X_indiv_UH=None
-                    if size==2:
-                        X_smoothed_UH={f'{v}__{self._DX*size/2:.0f}km__smoothed' : self.neighborhooder(X[v], func=gaussian_filter, size=size) for v in keys if 'uh_2to5_instant' in v} 
-                    
-                        for v in X_smoothed_UH.keys(): #Should just be able to append from other ds since matched pairs?
-                            X_indiv_UH={f'{v}_{n}' : X_smoothed_UH[v][n,:,:] for n in range(self._n_ens)}
 
-                    X_ens_stats = {**X_baseline, **X_ens_mean, **X_ens_2nd, **X_strm_iqr, **X_ens_16th, **X_indiv_UH} 
+                    X_ens_stats = {**X_baseline, **X_ens_mean, **X_ens_2nd, **X_strm_iqr, **X_ens_16th} 
                     
                 elif FRAMEWORK=='ADAM':
                     X_nghbrd={f'{v}__{self._DX*1/2:.0f}km':self.neighborhooder(X[v],func=maximum_filter, size=1) for v in keys}
