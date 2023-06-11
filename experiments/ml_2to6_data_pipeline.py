@@ -160,7 +160,7 @@ class GridPointExtracter:
         #Change parameters based on Framework:
         if FRAMEWORK.upper()=='ADAM':
             self._upscale_size = 3 #3 #No upscaling of data -->  Change this to 1, for comparison, set to 3
-            self._TARGET_SIZES = np.array([1, 2, 4])*3 * 2 #Converts radius to diameter, 3 km x 12,13 boxes == 36 km, 39 km target radius
+            self._TARGET_SIZES = np.array([1, 2, 4]) * 2 #Converts radius to diameter, 3 km x 12,13 boxes == 36 km, 39 km target radius
             self._SIZES = np.array([1])*2 #Diameter of Gaussian Smoother only used for smoothed mean of storm fields
             #From Loken et.: SD is 18 km -> grid_spacing * forecast_size * 2 =18km -> forecast_size=3
             #With upscaling: SD of 18 km-> grid_spacing * upscale * forecast * 2 =18 -> f_size=1
@@ -320,12 +320,12 @@ class GridPointExtracter:
         keys = list(report_ds.data_vars)
         
         y = {v : report_ds[v].values[::self._upscale_size, ::self._upscale_size] 
-             for v in keys}
+             for v in keys}#Here, we take every 3rd point to reproject from 3km to 9km. What happens if we use resample, so it's consistent with the reprojection of predictors?
         
         # Upscale the targets. 
         y_final = [] 
         for size in self._TARGET_SIZES:
-            y_nghbrd = {f'{v}__{self._DX*size/2:.0f}km' : self.neighborhooder(y[v], #Here
+            y_nghbrd = {f'{v}__{self._DX*size/2:.0f}km' : self.neighborhooder(y[v], 
                                                                       func=maximum_filter,
                                                                      size=size, is_2d=True) for v in keys}
             y_final.append(y_nghbrd)
