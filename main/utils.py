@@ -28,10 +28,10 @@ def _train_test_split():
         basePath = f'/work/samuel.varga/data/{TIMESCALE}_hr_severe_wx/{framework}/' #Base path to data
 
 
-        path = join(basePath, f'wofs_ml_severe__{TIMESCALE}hr__data_3km.feather')
+        path = join(basePath, f'wofs_ml_severe__{TIMESCALE}hr__data_full.feather')
         df = pd.read_feather(path)
 
-        baseline_path = join(basePath, f'wofs_ml_severe__{TIMESCALE}hr__baseline_data_3km.feather')
+        baseline_path = join(basePath, f'wofs_ml_severe__{TIMESCALE}hr__baseline_data_full.feather')
         baseline_df = pd.read_feather(baseline_path)
 
         # Get the date from April, May, and June 
@@ -70,6 +70,8 @@ def _train_test_split():
         train_base_df.reset_index(inplace=True, drop=True)
         test_base_df.reset_index(inplace=True, drop=True)
         
+        
+        ##3km only
         if False: #Simple Random Sampling
             np.random.seed(42)
             new_sample=np.random.choice(np.arange(0, len(train_df)), 2000000, replace=False) #Generate 2 million random indices
@@ -77,7 +79,7 @@ def _train_test_split():
             train_base_df = train_base_df.loc[new_sample]
             train_df.reset_index(inplace=True, drop=True)
             train_base_df.reset_index(inplace=True, drop=True)
-        elif True: #Date-Based Random Sampling
+        elif False: #Date-Based Random Sampling
             np.random.seed(42)
             train_out=pd.DataFrame() #subsampled ML data
             train_base_out=pd.DataFrame() #subsampled BL data 
@@ -114,12 +116,14 @@ def _train_test_split():
             baseline_df=train_base_out
             train_df.reset_index(inplace=True, drop=True)
             train_base_df.reset_index(inplace=True, drop=True)
-                    
-        train_df.to_feather(join(basePath, f'wofs_ml_severe__{TIMESCALE}hr__train_data_DBRS.feather'))
-        test_df.to_feather(join(basePath, f'wofs_ml_severe__{TIMESCALE}hr__test_data_DBRS.feather'))
+        ##            
+        
+        
+        train_df.to_feather(join(basePath, f'wofs_ml_severe__{TIMESCALE}hr__train_data_full.feather'))
+        test_df.to_feather(join(basePath, f'wofs_ml_severe__{TIMESCALE}hr__test_data_full.feather'))
 
-        train_base_df.to_feather(join(basePath, f'wofs_ml_severe__{TIMESCALE}hr__baseline_train_data_DBRS.feather'))
-        test_base_df.to_feather(join(basePath, f'wofs_ml_severe__{TIMESCALE}hr__baseline_test_data_DBRS.feather'))
+        train_base_df.to_feather(join(basePath, f'wofs_ml_severe__{TIMESCALE}hr__baseline_train_data_full.feather'))
+        test_base_df.to_feather(join(basePath, f'wofs_ml_severe__{TIMESCALE}hr__baseline_test_data_full.feather'))
 
 # Execute the code. 
 _train_test_split()

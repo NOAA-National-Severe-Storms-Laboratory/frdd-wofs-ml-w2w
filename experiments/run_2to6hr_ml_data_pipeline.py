@@ -70,7 +70,7 @@ def worker(path, FRAMEWORK=FRAMEWORK, TIMESCALE=TIMESCALE):
         #print(ncfile)
         extracter = GridPointExtracter(ncfile, env_vars=X_env.keys(), strm_vars=X_strm.keys(), ll_grid=ll_grid, TIMESCALE=TIMESCALE, FRAMEWORK=framework) #Def GPE-- pass timescale and framework through
         df = extracter(X_env, X_strm) #Apply GPE to the env and storm
-
+        df.reset_index(drop=True, inplace=True)
         #ys = [f for f in df.columns if 'severe' in f]
         #y_df = df[ys].sum(axis='columns')
 
@@ -78,19 +78,20 @@ def worker(path, FRAMEWORK=FRAMEWORK, TIMESCALE=TIMESCALE):
         # grid points with no events. 
         #inds = subsampler(y_df, pos_percent=1.0, neg_percent=1.0) #Loken et. didn't resample, so use 1
 
-        if inds is None: #Inds will be none on the first call. For the second framework, inds will already be assigned
-            inds = random_subsampler(len(df), percent=0.3)
+        #if inds is None: #Inds will be none on the first call. For the second framework, inds will already be assigned
+        #    inds = random_subsampler(len(df), percent=0.3)
         
-        df_sub = df.iloc[inds, :] #Selects subset based on inds-- will choose the same indices for both frameworks
-        df_sub.reset_index(drop=True, inplace=True)
+        #df_sub = df.iloc[inds, :] #Selects subset based on inds-- will choose the same indices for both frameworks
+        #df_sub.reset_index(drop=True, inplace=True)
 
         out_path = path.replace(base_path, join(SUMMARY_FILE_OUT_PATH, f'{framework}/SummaryFiles')) #replace the base path with the output path
         if not exists(out_path):
             os.makedirs(out_path)
 
-        out_name = join(out_path, f'wofs_ML{TIMESCALE.upper()}_3km.feather')
+        out_name = join(out_path, f'wofs_ML{TIMESCALE.upper()}_full.feather')
         print(f'Saving {out_name}...')
-        df_sub.to_feather(out_name)
+        df.to_feather(out_name)
+        #df_sub.to_feather(out_name)
         
     
     return None
@@ -147,6 +148,8 @@ for d in dates:
 ############################
 
 print(f'Number of paths : {len(paths)}')
+
+
 emailer.send_email(f'Starting process for wofs_ML{TIMESCALE}', start_time)
 
 run_parallel(
@@ -174,7 +177,7 @@ for framework in FRAMEWORK:
 
         for t in times:
             path = join(SUMMARY_FILE_OUT_PATH,d,t)
-            filename = join(path,f'wofs_ML{TIMESCALE.upper()}_3km.feather') #Make a list of the individual ML frames for each day
+            filename = join(path,f'wofs_ML{TIMESCALE.upper()}_full.feather') #Make a list of the individual ML frames for each day
             if exists(filename):
                 ml_files.append(filename)
 
@@ -192,7 +195,7 @@ for framework in FRAMEWORK:
 
     ml_df = df[features].reset_index(drop=True)  
 
-    baseline_df.to_feather(join(OUT_PATH, f'wofs_ml_severe__{TIMESCALE}hr__baseline_data_3km.feather'))
-    ml_df.to_feather(join(OUT_PATH, f'wofs_ml_severe__{TIMESCALE}hr__data_3km.feather'))
+    baseline_df.to_feather(join(OUT_PATH, f'wofs_ml_severe__{TIMESCALE}hr__baseline_data_full.feather'))
+    ml_df.to_feather(join(OUT_PATH, f'wofs_ml_severe__{TIMESCALE}hr__data_full.feather'))
 
     emailer.send_email(f'The {TIMESCALE} hr {framework} ML and BL datasets are built and ready to go!', start_time)

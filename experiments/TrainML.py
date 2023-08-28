@@ -44,7 +44,7 @@ args=parser.parse_args()
 framework=['POTVIN']
 timescale=['2to6']
 Tkm=False
-mod_names=['hist','logistic']
+mod_names=['hist']
 hazard_scale = [36,18,9] if args.hazard_scale == 'all' else [args.hazard_scale]
 HAZARD=['wind','hail','tornado'] if args.hazard_name == ['each'] else args.hazard_name
 
@@ -70,7 +70,8 @@ arguments_dict = {'pipeline_arguments':{#Dictionary of arguments for ml_workflow
                         'patience':25,
                         'scorer':norm_csi_scorer,
                         'n_jobs':None, #None
-                        'cv':None #Updated later
+                        'cv':None, #Updated later
+                         'output_fname':None
 }, 
              'calibration_arguments': {#Dictionary of arguments for sklearn.calibration.CalibratedClassifierCV
                         'method':'isotonic',
@@ -100,7 +101,7 @@ for radius, FRAMEWORK, TIMESCALE, hazard in product(hazard_scale, framework, tim
         X,y,metadata = All_Severe(base_path, mode='train',
                                   target_scale=radius,
                                   FRAMEWORK=FRAMEWORK,
-                                  TIMESCALE=TIMESCALE, SigSevere=args.SigSevere, appendUH=False, Three_km=Tkm)
+                                  TIMESCALE=TIMESCALE, SigSevere=args.SigSevere, appendUH=False, Three_km=Tkm, full_9km=True)
     else:
         target_col='{}_severe__{}km'.format(hazard, radius)
         print(target_col)
@@ -108,7 +109,7 @@ for radius, FRAMEWORK, TIMESCALE, hazard in product(hazard_scale, framework, tim
                                 mode='train', 
                                 target_col=target_col,
                                FRAMEWORK=FRAMEWORK,
-                               TIMESCALE=TIMESCALE, Three_km=Tkm)
+                               TIMESCALE=TIMESCALE, Three_km=Tkm, full_9km=True)
 
   
     X, ts_suff, var_suff = Drop_Unwanted_Variables(X, original=args.original, training_scale=args.training_scale, intrastormOnly=args.intrastorm, envOnly=args.environmental)
@@ -180,6 +181,7 @@ for radius, FRAMEWORK, TIMESCALE, hazard in product(hazard_scale, framework, tim
 
                
                 arguments_dict['hyperopt_arguments']['search_space']=param_grid
+                arguments_dict['hyperopt_arguments']['output_fname']=f'/home/samuel.varga/.hpopt/{ts_suff}_{name}_{hazard}_{radius}.feather'
                 t_e = TunedEstimator(estimator=base_estimator,
                                      pipeline_kwargs=arguments_dict['pipeline_arguments'],
                                      hyperopt_kwargs=None if name=='rand-entropy' else arguments_dict['hyperopt_arguments'],
