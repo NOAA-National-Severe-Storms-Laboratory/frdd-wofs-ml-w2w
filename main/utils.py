@@ -18,14 +18,14 @@ def _train_test_split():
     FRAMEWORK=['POTVIN']
     TIMESCALE='2to6'
     
-    if exists('/work/samuel.varga/data/dates_split.pkl'):
-        date_pkl = pd.read_pickle('/work/samuel.varga/data/dates_split.pkl')
+    if exists('/work/samuel.varga/data/sfe_dates_split.pkl'):
+        date_pkl = pd.read_pickle('/work/samuel.varga/data/dates_split_deep_learning.pkl')
         print('Using previous T-T split')
         train_dates, test_dates = date_pkl['train_dates'], date_pkl['test_dates']
     else:
         train_dates, test_dates = None, None
     for framework in FRAMEWORK:
-        basePath = f'/work/samuel.varga/data/{TIMESCALE}_hr_severe_wx/{framework}/' #Base path to data
+        basePath = f'/work/samuel.varga/data/{TIMESCALE}_hr_severe_wx/sfe_prep'#{framework}/' #Base path to data
 
 
         path = join(basePath, f'wofs_ml_severe__{TIMESCALE}hr__data_full.feather')
@@ -35,17 +35,19 @@ def _train_test_split():
         baseline_df = pd.read_feather(baseline_path)
 
         # Get the date from April, May, and June 
-        df['Run Date'] = df['Run Date'].apply(str)
-        baseline_df['Run Date'] = baseline_df['Run Date'].apply(str)
+        df['Run Date Dom'] = df['Run Date'].apply(str)
+        df['Run Date'] = [str(d[0:8]) for d in df['Run Date Dom']] #Create a second column with only date, no domain number
+        baseline_df['Run Date Dom'] = baseline_df['Run Date'].apply(str)
+        baseline_df['Run Date'] = [str(d[0:8]) for d in baseline_df['Run Date Dom']]
 
         # Limit data to the Spring/Summer 
         df = df[pd.to_datetime(df['Run Date']).dt.strftime('%B').isin(['March', 'April', 'May', 'June', 'July'])]
-        df = df[pd.to_datetime(df['Run Date']).dt.strftime('%Y').isin(['2018','2019','2020','2021'])]
+        df = df[pd.to_datetime(df['Run Date']).dt.strftime('%Y').isin(['2018','2019','2020','2021','2022','2023'])]
         
         baseline_df = baseline_df[
         pd.to_datetime(baseline_df['Run Date']).dt.strftime('%B').isin(['March', 'April', 'May', 'June', 'July'])]
         baseline_df = baseline_df[
-        pd.to_datetime(baseline_df['Run Date']).dt.strftime('%Y').isin(['2018','2019','2020','2021'])]
+        pd.to_datetime(baseline_df['Run Date']).dt.strftime('%Y').isin(['2018','2019','2020','2021','2022','2023'])]
 
         if train_dates is None and test_dates is None:
             all_dates = list(df['Run Date'].unique())

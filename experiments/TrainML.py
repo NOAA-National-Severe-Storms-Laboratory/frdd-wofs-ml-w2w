@@ -66,7 +66,7 @@ arguments_dict = {'pipeline_arguments':{#Dictionary of arguments for ml_workflow
              'hyperopt_arguments':{ #Dictionary of arguments for ml_workflow.hyperparameter_optimizer.HyperOptCV
                         'search_space':None, #Update
                         'optimizer':'tpe', #None or tpe
-                        'max_evals':100,
+                        'max_evals':35,
                         'patience':25,
                         'scorer':norm_csi_scorer,
                         'n_jobs':None, #None
@@ -85,14 +85,15 @@ arguments_dict = {'pipeline_arguments':{#Dictionary of arguments for ml_workflow
 #############
 ##Data Prep##
 #############
-
+#Change hazard back to full 9km
 
 ###Start Loop here
 for radius, FRAMEWORK, TIMESCALE, hazard in product(hazard_scale, framework, timescale, HAZARD):
     print(f'Starting the process for:')
     print(f'{radius} {FRAMEWORK} {TIMESCALE} {hazard}')
-    base_path = f'/work/samuel.varga/data/{TIMESCALE}_hr_severe_wx/{FRAMEWORK}'
-    OUTPATH=f'/work/samuel.varga/projects/{TIMESCALE}_hr_severe_wx/{FRAMEWORK}/mlModels/{radius}km'
+    base_path = f'/work/samuel.varga/data/{TIMESCALE}_hr_severe_wx/sfe_prep' #{FRAMEWORK}'
+    OUTPATH=f'/work/samuel.varga/projects/{TIMESCALE}_hr_severe_wx/sfe_prep/mlModels/{radius}km'
+    #{FRAMEWORK}/mlModels/{radius}km'
     
     
     #Load Data
@@ -115,7 +116,7 @@ for radius, FRAMEWORK, TIMESCALE, hazard in product(hazard_scale, framework, tim
     X, ts_suff, var_suff = Drop_Unwanted_Variables(X, original=args.original, training_scale=args.training_scale, intrastormOnly=args.intrastorm, envOnly=args.environmental)
     
 
-
+    
     #Debugging    
     print(args)
     #print(target_col)    
@@ -124,7 +125,8 @@ for radius, FRAMEWORK, TIMESCALE, hazard in product(hazard_scale, framework, tim
     print(ts_suff)
     #exit()
 
-
+    
+    
 ###################
 ##Training models##
 ###################
@@ -190,6 +192,6 @@ for radius, FRAMEWORK, TIMESCALE, hazard in product(hazard_scale, framework, tim
 
                 t_e.fit(X, y, groups) 
 
-                save_name = f'Varga_{ts_suff}_{name}_{hazard}_{radius}km_{"SigSev" if args.SigSevere else "Sev"}_{var_suff}_{n}{"_DBRS" if Tkm else ""}.joblib'
+                save_name = f'sfe_{ts_suff}_{name}_{hazard}_{radius}km_{"SigSev" if args.SigSevere else "Sev"}_{var_suff}_{n}{"_DBRS" if Tkm else ""}.joblib'
                 print(join(OUTPATH,save_name))
                 t_e.save(join(OUTPATH, save_name)) 

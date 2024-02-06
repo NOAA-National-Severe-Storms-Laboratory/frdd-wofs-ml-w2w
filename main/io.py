@@ -43,6 +43,9 @@ def load_ml_data(base_path, target_col=None, date = None, mode=None, bl_column=N
     # initialization for a given example.
     metadata = ['Run Date', 'Init Time','NX','NY']
     
+    if 'Run Date Dom' in ml_df.columns:
+        metadata.append('Run Date Dom')
+    
     if date is None or return_targets:
         # All the target columns will have "severe" in them.
         targets = [f for f in ml_df.columns if 'severe' in f]

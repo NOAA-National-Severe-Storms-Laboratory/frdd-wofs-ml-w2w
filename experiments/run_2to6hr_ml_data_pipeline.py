@@ -39,13 +39,13 @@ import numpy.random as npr #Used for date selection
 #####################################
 FRAMEWORK=['POTVIN'] #Framework to use when creating the dataset. Valid options: POTVIN or ADAM
 TIMESCALE='2to6' #Forecast windows to use when creating the data set. Valid Options: 0to3 or 2to6
-n_jobs=3 #Number of jobs for parallel processing
+n_jobs=2 #Number of jobs for parallel processing
 
 ################################
 ##Input and Output Directories##
 ################################
-OUT_PATH_BASE = f'/work/samuel.varga/data/{TIMESCALE}_hr_severe_wx' #Output directory
-SUMMARY_FILE_OUT_PATH = f'/work/samuel.varga/data/{TIMESCALE}_hr_severe_wx' #Output directory for Summary files
+OUT_PATH_BASE = f'/work/samuel.varga/data/{TIMESCALE}_hr_severe_wx/sfe_prep' #Output directory
+SUMMARY_FILE_OUT_PATH = f'/work/samuel.varga/data/{TIMESCALE}_hr_severe_wx/sfe_prep' #Output directory for Summary files
 base_path = '/work/mflora/SummaryFiles' #Directory of WOFS ENS. Files
 
 
@@ -84,7 +84,9 @@ def worker(path, FRAMEWORK=FRAMEWORK, TIMESCALE=TIMESCALE):
         #df_sub = df.iloc[inds, :] #Selects subset based on inds-- will choose the same indices for both frameworks
         #df_sub.reset_index(drop=True, inplace=True)
 
-        out_path = path.replace(base_path, join(SUMMARY_FILE_OUT_PATH, f'{framework}/SummaryFiles')) #replace the base path with the output path
+       # out_path = path.replace(base_path, join(SUMMARY_FILE_OUT_PATH, f'{framework}/SummaryFiles'))
+        out_path = path.replace(base_path, join(SUMMARY_FILE_OUT_PATH, f'SummaryFiles'))
+    #replace the base path with the output path
         if not exists(out_path):
             os.makedirs(out_path)
 
@@ -121,7 +123,7 @@ dates = [d for d in os.listdir(base_path) if '.txt' not in d]
 
 paths = [] #list of valid paths for worker function
 for d in dates:
-    if d[4:6] != '05': #Skips all months other than May-- should we change this?
+    if d[4:6] != '05' or int(d[:4])<=2018:
         continue
     
     times = [t for t in os.listdir(join(base_path,d)) if 'basemap' not in t] #initialization time
@@ -130,9 +132,9 @@ for d in dates:
     for t in times: #For every init time on that day
         path = join(base_path,d,t)
         if TIMESCALE=='0to3':
-            files = glob(join(path, f'wofs_ENS_[0-3]*')) #For 0-200 minutes into forecast, gets changed to 0-180 in get_files
+            files = glob(join(path, f'wofs_{"ALL" if int(path.split("/")[4][:4]) >= 2021 else "ENS"}_[0-3]*.nc')) #For 0-200 minutes into forecast, gets changed to 0-180 in get_files
         elif TIMESCALE=='2to6':    
-            files = glob(join(path, f'wofs_ENS_[2-7]*')) #For 100-360 minutes into the forecast- gets changed to 120-360 in get_files
+            files = glob(join(path, f'wofs_{"ALL" if int(path.split("/")[4][:4]) >= 2021 else "ENS"}_[2-7]*.nc')) #For 100-360 minutes into the forecast- gets changed to 120-360 in get_files
         
         all_nc_files = [f for f in files if f.endswith('.nc')] #list of every ENS file that ends with nc for that init time
         
@@ -164,8 +166,9 @@ emailer.send_email(f'Individual dataframes for the {TIMESCALE} hr dataset are co
 ##Create the ML and BL datasets##
 #################################
 for framework in FRAMEWORK:
-    OUT_PATH = join(OUT_PATH_BASE, f'{framework}') #Output directory
-    SUMMARY_FILE_OUT_PATH = f'/work/samuel.varga/data/{TIMESCALE}_hr_severe_wx/{framework}/SummaryFiles' 
+    #OUT_PATH = join(OUT_PATH_BASE, f'{framework}') #Output directory
+    OUT_PATH = OUT_PATH_BASE
+    SUMMARY_FILE_OUT_PATH = f'/work/samuel.varga/data/{TIMESCALE}_hr_severe_wx/sfe_prep/SummaryFiles' 
 
     ml_files = []
     for d in dates:

@@ -66,16 +66,20 @@ def get_files(path, TIMESCALE):
     """Get the ENS, ENV, and SVR file paths for the 0-3 || 2-6 hr forecasts"""
     # Load summary files between time step 00-36 || 24-72. 
     if TIMESCALE=='0to3':
-        ens_files = glob(join(path,'wofs_ENS_[0-3]*')) 
+        ens_files = glob(join(path, f'wofs_{"ALL" if int(path.split("/")[4][:4]) >= 2021 else "ENS"}_[0-3]*.nc')) 
         ens_files.sort()
         ens_files = ens_files[:37] #Drops the last 4 files, so we have 0-36
     elif TIMESCALE=='2to6':
-        ens_files = glob(join(path,'wofs_ENS_[2-7]*'))
+        ens_files = glob(join(path,f'wofs_{"ALL" if int(path.split("/")[4][:4]) >= 2021 else "ENS"}_[2-7]*.nc'))
         ens_files.sort()
         ens_files = ens_files[4:] #Drops the first 4 files, so we have 24-72 instead of 20-72
     
-    svr_files = [f.replace('ENS', 'SVR') for f in ens_files]
-    env_files = [f.replace('ENS', 'ENV') for f in ens_files]
+    if int(path.split('/')[4][:4]) >=2021:
+        svr_files = ens_files
+        env_files = ens_files
+    else:
+        svr_files = [f.replace('ENS', 'SVR') for f in ens_files]
+        env_files = [f.replace('ENS', 'ENV') for f in ens_files]
     
     return ens_files, env_files, svr_files
     
@@ -205,7 +209,7 @@ class GridPointExtracter:
         # TODO: Pre-processor. Get rid of super high updraft speeds, replace NaNs, etc. 
          
         
-        # This X has had a 3-grid point gaussian smoother applied to it. -- Identical to original fields when upscale_size==1
+        # This X has had a 3-grid point mean filter applied to it. -- Identical to original fields when upscale_size==1
         X_env_upscaled = {v  : self.upscaler(X_env[v], 
                                      func=uniform_filter,
                                      size=self._upscale_size) for v in self._env_vars}
@@ -307,7 +311,7 @@ class GridPointExtracter:
 
         forecast_length = 180 if TIMESCALE=='0to3' else 240
         report = StormReportLoader(
-                reports_path = '/work/mflora/LSRS/StormEvents_2017-2022.csv',
+                reports_path = '/work/mflora/LSRS/STORM_EVENTS_2017-2023.csv',
                 report_type='NOAA',
                 initial_time=start_time, 
                 forecast_length=forecast_length, 
@@ -322,7 +326,7 @@ class GridPointExtracter:
         y = {v : report_ds[v].values[::self._upscale_size, ::self._upscale_size] 
              for v in keys}#Here, we take every 3rd point to reproject from 3km to 9km. What happens if we use resample, so it's consistent with the reprojection of predictors?
         
-        # Upscale the targets. 
+        # Coarsen the targets. 
         y_final = [] 
         for size in self._TARGET_SIZES:
             y_nghbrd = {f'{v}__{self._DX*size/2:.0f}km' : self.neighborhooder(y[v], 
