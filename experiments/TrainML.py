@@ -41,10 +41,10 @@ parser=Train_Ml_Parser()
 args=parser.parse_args()
 
 # Configuration variables (You'll need to change based on where you store your data)
-framework=['POTVIN']
+framework=['ADAM']
 timescale=['2to6']
 Tkm=False
-mod_names=['hist']
+mod_names=['hist', 'logistic']
 hazard_scale = [36,18,9] if args.hazard_scale == 'all' else [args.hazard_scale]
 HAZARD=['wind','hail','tornado'] if args.hazard_name == ['each'] else args.hazard_name
 
@@ -91,8 +91,8 @@ arguments_dict = {'pipeline_arguments':{#Dictionary of arguments for ml_workflow
 for radius, FRAMEWORK, TIMESCALE, hazard in product(hazard_scale, framework, timescale, HAZARD):
     print(f'Starting the process for:')
     print(f'{radius} {FRAMEWORK} {TIMESCALE} {hazard}')
-    base_path = f'/work/samuel.varga/data/{TIMESCALE}_hr_severe_wx/sfe_prep' #{FRAMEWORK}'
-    OUTPATH=f'/work/samuel.varga/projects/{TIMESCALE}_hr_severe_wx/sfe_prep/mlModels/{radius}km'
+    base_path = f'/work/samuel.varga/data/{TIMESCALE}_hr_severe_wx/{FRAMEWORK}'
+    OUTPATH=f'/work/samuel.varga/projects/{TIMESCALE}_hr_severe_wx/{FRAMEWORK}/mlModels/{radius}km'
     #{FRAMEWORK}/mlModels/{radius}km'
     
     
@@ -192,6 +192,6 @@ for radius, FRAMEWORK, TIMESCALE, hazard in product(hazard_scale, framework, tim
 
                 t_e.fit(X, y, groups) 
 
-                save_name = f'sfe_{ts_suff}_{name}_{hazard}_{radius}km_{"SigSev" if args.SigSevere else "Sev"}_{var_suff}_{n}{"_DBRS" if Tkm else ""}.joblib'
+                save_name = f'Varga_{ts_suff}_{name}_{hazard}_{radius}km_{"SigSev" if args.SigSevere else "Sev"}_{var_suff}_{n}{"_DBRS" if Tkm else ""}.joblib'
                 print(join(OUTPATH,save_name))
                 t_e.save(join(OUTPATH, save_name)) 

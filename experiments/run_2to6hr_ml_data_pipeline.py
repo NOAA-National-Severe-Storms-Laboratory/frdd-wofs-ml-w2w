@@ -37,15 +37,15 @@ import numpy.random as npr #Used for date selection
 #####################################
 ##Framework and Time Scale Settings##
 #####################################
-FRAMEWORK=['POTVIN'] #Framework to use when creating the dataset. Valid options: POTVIN or ADAM
+FRAMEWORK=['ADAM'] #Framework to use when creating the dataset. Valid options: POTVIN or ADAM
 TIMESCALE='2to6' #Forecast windows to use when creating the data set. Valid Options: 0to3 or 2to6
 n_jobs=2 #Number of jobs for parallel processing
 
 ################################
 ##Input and Output Directories##
 ################################
-OUT_PATH_BASE = f'/work/samuel.varga/data/{TIMESCALE}_hr_severe_wx/sfe_prep' #Output directory
-SUMMARY_FILE_OUT_PATH = f'/work/samuel.varga/data/{TIMESCALE}_hr_severe_wx/sfe_prep' #Output directory for Summary files
+OUT_PATH_BASE = f'/work/samuel.varga/data/{TIMESCALE}_hr_severe_wx/{FRAMEWORK}' #Output directory
+SUMMARY_FILE_OUT_PATH = f'/work/samuel.varga/data/{TIMESCALE}_hr_severe_wx/{FRAMEWORK}' #Output directory for Summary files
 base_path = '/work/mflora/SummaryFiles' #Directory of WOFS ENS. Files
 
 
@@ -123,7 +123,7 @@ dates = [d for d in os.listdir(base_path) if '.txt' not in d]
 
 paths = [] #list of valid paths for worker function
 for d in dates:
-    if d[4:6] != '05' or int(d[:4])<=2018:
+    if d[4:6] != '05' or int(d[:4]) not in [2018, 2019, 2020, 2021]:   #<=2018:
         continue
     
     times = [t for t in os.listdir(join(base_path,d)) if 'basemap' not in t] #initialization time
@@ -168,7 +168,7 @@ emailer.send_email(f'Individual dataframes for the {TIMESCALE} hr dataset are co
 for framework in FRAMEWORK:
     #OUT_PATH = join(OUT_PATH_BASE, f'{framework}') #Output directory
     OUT_PATH = OUT_PATH_BASE
-    SUMMARY_FILE_OUT_PATH = f'/work/samuel.varga/data/{TIMESCALE}_hr_severe_wx/sfe_prep/SummaryFiles' 
+    SUMMARY_FILE_OUT_PATH = f'/work/samuel.varga/data/{TIMESCALE}_hr_severe_wx/{FRAMEWORK}/SummaryFiles' 
 
     ml_files = []
     for d in dates:

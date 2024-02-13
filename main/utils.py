@@ -15,17 +15,17 @@ def _train_test_split():
     Randomly split the full dataset into training and testing 
     based on the date. 
     """
-    FRAMEWORK=['POTVIN']
+    FRAMEWORK=['ADAM']
     TIMESCALE='2to6'
     
-    if exists('/work/samuel.varga/data/sfe_dates_split.pkl'):
-        date_pkl = pd.read_pickle('/work/samuel.varga/data/dates_split_deep_learning.pkl')
+    if exists('/work/samuel.varga/data/dates_split.pkl'):
+        date_pkl = pd.read_pickle('/work/samuel.varga/data/dates_split.pkl')
         print('Using previous T-T split')
         train_dates, test_dates = date_pkl['train_dates'], date_pkl['test_dates']
     else:
         train_dates, test_dates = None, None
     for framework in FRAMEWORK:
-        basePath = f'/work/samuel.varga/data/{TIMESCALE}_hr_severe_wx/sfe_prep'#{framework}/' #Base path to data
+        basePath = f'/work/samuel.varga/data/{TIMESCALE}_hr_severe_wx/{framework}/' #Base path to data
 
 
         path = join(basePath, f'wofs_ml_severe__{TIMESCALE}hr__data_full.feather')
