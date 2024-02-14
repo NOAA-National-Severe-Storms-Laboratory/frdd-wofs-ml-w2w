@@ -63,8 +63,8 @@ ml_config = { 'ENS_VARS':  ['uh_2to5_instant',
             }
 
 def get_files(path):
-    """Get the ENS, ENV, and SVR file paths for the 0-3 || 2-6 hr forecasts"""
-    # Load summary files between time step 00-36 || 24-72. 
+    """Get the ENS, ENV, and SVR file paths for the 2-6 hr forecasts"""
+    # Load summary files between time step 24-72. 
     ens_files = glob(join(path,f'wofs_{"ALL" if int(path.split("/")[4][:4]) >= 2021 else "ENS"}_[2-7]*.nc'))
     ens_files.sort()
     ens_files = ens_files[4:] #Drops the first 4 files, so we have 24-72 instead of 20-72

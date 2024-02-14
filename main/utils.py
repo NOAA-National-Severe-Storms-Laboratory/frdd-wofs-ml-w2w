@@ -15,7 +15,7 @@ def _train_test_split():
     Randomly split the full dataset into training and testing 
     based on the date. 
     """
-    FRAMEWORK=['ADAM']
+    FRAMEWORK=['POTVIN']
     TIMESCALE='2to6'
     
     if exists('/work/samuel.varga/data/dates_split.pkl'):
