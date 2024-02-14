@@ -327,7 +327,7 @@ class wofs_ml_2to6:
         out_name = f"{name_split[0]}ML2TO6_PREDICTORS{name_split[1]}"
         df.to_feather(join(self.out_directory, out_name))
 
-        print(f'Saving predictors at {join(self.out_dorectory, out_name)}') if self.verbose else None
+        print(f'Saving predictors at {join(self.out_directory, out_name)}') if self.verbose else None
         
         return None
     
