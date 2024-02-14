@@ -2,26 +2,34 @@
 #
 # DATA PIPELINE SCRIPT FOR THE 2-6 HR WOFS-ML-SEVERE PRODUCTS
 #
-# Git Author: monte-flora (monte.flora@noaa.gov) 
+# Git Author: monte-flora (monte.flora@noaa.gov)
+#PMMWIP Branch: svarga 
 ####################################################################################
 
-from WoF_post.wofs.post.utils import (
+
+#Varga version
+#These are from the wofs_post package
+
+from wofs.post.utils import (
     save_dataset,
     load_multiple_nc_files,
 )
-from WoF_post.wofs.verification.lsrs.get_storm_reports import StormReports
-from WoF_post.wofs.plotting.util import decompose_file_path
+
+from wofs_ml_severe.data_pipeline.storm_report_loader import StormReportLoader
+
+from wofs.plotting.util import decompose_file_path
 
 
 from glob import glob
-from scipy.ndimage import uniform_filter, maximum_filter 
+from scipy.ndimage import uniform_filter, maximum_filter, gaussian_filter
 from collections import ChainMap
 import numpy as np
 import xarray as xr
 from os.path import join
 import itertools
 import pyresample 
-
+import pandas as pd
+import datetime as dt
 
 # These are the list of variables that are pulled from the WoFS
 # summary files. The list is informed by previous work (Flora et al. 2021, MWR) 
@@ -57,12 +65,16 @@ ml_config = { 'ENS_VARS':  ['uh_2to5_instant',
 def get_files(path):
     """Get the ENS, ENV, and SVR file paths for the 2-6 hr forecasts"""
     # Load summary files between time step 24-72. 
-    ens_files = glob(join(path,'wofs_ENS_[2-7]*'))
+    ens_files = glob(join(path,f'wofs_{"ALL" if int(path.split("/")[4][:4]) >= 2021 else "ENS"}_[2-7]*.nc'))
     ens_files.sort()
-    ens_files = ens_files[4:]
+    ens_files = ens_files[4:] #Drops the first 4 files, so we have 24-72 instead of 20-72
     
-    svr_files = [f.replace('ENS', 'SVR') for f in ens_files]
-    env_files = [f.replace('ENS', 'ENV') for f in ens_files]
+    if int(path.split('/')[4][:4]) >=2021:
+        svr_files = ens_files
+        env_files = ens_files
+    else:
+        svr_files = [f.replace('ENS', 'SVR') for f in ens_files]
+        env_files = [f.replace('ENS', 'ENV') for f in ens_files]
     
     return ens_files, env_files, svr_files
     
@@ -71,6 +83,7 @@ def load_dataset(path):
     ens_files, env_files, svr_files = get_files(path)
     
     coord_vars = ["xlat", "xlon", "hgt"]
+    
     X_strm, coords, _, _  = load_multiple_nc_files(
                 ens_files, concat_dim="time", coord_vars=coord_vars,  load_vars=ml_config['ENS_VARS'])
 
@@ -127,35 +140,45 @@ class GridPointExtracter:
         
     grid_spacing : int 
         Grid spacing (in km) of the original grid. 
+        
+    TIMESCALE: string
+        Forecast window of the data in hours after the init time
+        
+    FRAMEWORK: string
+        Framework used for preprocessing the data. See respective papers for more detail.
     """
     def __init__(self, ncfile, env_vars, strm_vars, ll_grid, 
-                 forecast_sizes=[1,3,5], 
-                 target_sizes = [1,2,4,6],
-                 upscale_size=3, 
-                 grid_spacing=3,
+                 forecast_sizes=[1,3,5], #[1,3,5] #upscale_zie*grid_spacing*forecast size = predictor radius (km)
+                 target_sizes = [1,2,4,6], #[1,2,4,6] #upscale_size*grid_spacing*target size = target radius (km)
+                 upscale_size=None, #Scales from 3-> 9 km grid
+                 grid_spacing=3, #WOFS grid spacing (km)
                  reports_path = '/work/mflora/LSRS/STORM_EVENTS_2017-2022.csv',
                  report_type = 'NOAA'
                 ):
         
-        self._n_ens = 18
-        self._env_vars = env_vars
-        self._strm_vars = strm_vars
+        self._upscale_size = 3 #3km smoothing of data before everything else #1
+        self._TARGET_SIZES =  np.array(target_sizes)*2 #*3
+        self._SIZES = np.array(forecast_sizes)*2 #*3
         
-        self._upscale_size = upscale_size
-        self._SIZES = np.array(forecast_sizes)*2
-        self._TARGET_SIZES = np.array(target_sizes)*2
+        
+        #Constant Parameters
+        self._n_ens = 18     
+        self._env_vars = env_vars
+        self._strm_vars = strm_vars      
         self._ncfile = ncfile
-        self._DX = grid_spacing * upscale_size  
+        self._DX = grid_spacing * self._upscale_size  
         self._reports_path = reports_path
         self._report_type = report_type
+        self._deltat=5 #Time step in minutes
+        
         
         if np.max(np.absolute(ll_grid[0]))>90:
             raise ValueError('Latitude values for ll_grid > 90 and are likely longitude values. Switch the input.')
         
         self._original_grid = ll_grid 
 
-        self._target_grid = (ll_grid[0][::upscale_size, ::upscale_size], 
-                             ll_grid[1][::upscale_size, ::upscale_size]
+        self._target_grid = (ll_grid[0][::self._upscale_size, ::self._upscale_size], 
+                             ll_grid[1][::self._upscale_size, ::self._upscale_size]
                             ) 
 
         # Baseline variables and their corresponding thresholds. 
@@ -184,19 +207,20 @@ class GridPointExtracter:
         # 1. Time-average 
         # 2. Spatial ensemble statistics at different scales. 
         X_env_time_comp = self.calc_time_composite(X_env_upscaled, 
-                                                    func=np.nanmean, name='time_avg', keys=self._env_vars)
-        
-        
+                                                        func=np.nanmean, name='time_avg', keys=self._env_vars)
+
+
         X_env_stats = self.calc_spatial_ensemble_stats(X_env_time_comp, environ=True)
-        
+
         # For the storm, 
         # 1. Time-maximum 
         # 2. Spatial ensemble statistics at different scales. 
         # 3. Amplitude Statistics
         X_strm_time_comp = self.calc_time_composite(X_strm_upscaled, 
-                                                    func=np.nanmax, name='time_max', keys=self._strm_vars)
-        
+                                                        func=np.nanmax, name='time_max', keys=self._strm_vars)
+
         X_strm_stats = self.calc_spatial_ensemble_stats(X_strm_time_comp, environ=False)
+        
         
         X_all = {**X_strm_stats, **X_env_stats}
         
@@ -237,25 +261,28 @@ class GridPointExtracter:
         X_nmep = {}
         for v in self._BASELINE_VARS:
             for t in self._NMEP_THRESHS[v]:
-                data = X[f'{v}__time_max__{self._DX*size/2:.0f}km']
+                data = X[f'{v}__time_max__{self._DX*size/2:.0f}km'] 
                 data_bin = np.where(data>t,1,0)
                 ens_prob = np.nanmean(data_bin, axis=0)
-                X_nmep[f"{v}__nmep_>{str(t).replace('.','_')}_{self._DX*size/2:.0f}km"] = ens_prob
+                X_nmep[f"{v}__nmep_>{str(t).replace('.','_')}_{self._DX*size/2:.0f}km"] = ens_prob 
                 
         return X_nmep 
 
     def get_targets(self):
         """Convert storm reports to a grid and apply different upscaling"""
         comps = decompose_file_path(self._ncfile)
-        start_time = comps['VALID_DATE']+comps['VALID_TIME']
-        report = StormReports(
-            self._reports_path, 
-            self._report_type, 
-            start_time, 
-            forecast_length=240,
-            err_window=15,               
-            )
+        #start_time = comps['VALID_DATE']+comps['VALID_TIME']
+        start_time=(pd.to_datetime(comps['VALID_DATE']+comps['INIT_TIME'])+dt.timedelta(minutes=int(comps['TIME_INDEX'])*self._deltat)).strftime('%Y%m%d%H%M')
 
+        forecast_length = 240
+        report = StormReportLoader(
+                reports_path = '/work/mflora/LSRS/STORM_EVENTS_2017-2023.csv',
+                report_type='NOAA',
+                initial_time=start_time, 
+                forecast_length=forecast_length, 
+                err_window=15,               
+            )
+        
         ds = xr.load_dataset(self._ncfile, decode_times=False)
         report_ds = report.to_grid(dataset=ds, size=self._upscale_size)
         
@@ -264,7 +291,7 @@ class GridPointExtracter:
         y = {v : report_ds[v].values[::self._upscale_size, ::self._upscale_size] 
              for v in keys}
         
-        # Upscale the targets. 
+        # Coarsen the targets. 
         y_final = [] 
         for size in self._TARGET_SIZES:
             y_nghbrd = {f'{v}__{self._DX*size/2:.0f}km' : self.neighborhooder(y[v], 
@@ -318,10 +345,9 @@ class GridPointExtracter:
                 X_ = np.nan_to_num(X[:,:], nan=fill_value)
                 new_X[:,:] = func(X_, size)
         else:
-            for n in range(self._n_ens):
-                X_ = np.nan_to_num(X[n,:,:], nan=fill_value)
+             for n in range(self._n_ens): #Every Ens Member
+                X_ = np.nan_to_num(X[n,:,:], nan=fill_value) 
                 new_X[n,:,:] = func(X_, size)
-    
         return new_X 
     
     def upscaler(self, X, func, size, remove_nans=False):
@@ -333,7 +359,7 @@ class GridPointExtracter:
         fill_value = np.nanmean(X)
         for t,n in itertools.product(range(new_X.shape[0]), range(self._n_ens)):
             X_ = np.nan_to_num(X[t,n,:,:], nan=fill_value)
-            new_X[t,n,:,:] = self.resample(func(X_, size))
+            new_X[t,n,:,:] = self.resample(func(X_, size)) #Time, Ens Member, lat/lon
             
         return new_X
     
@@ -354,29 +380,41 @@ class GridPointExtracter:
         for size in self._SIZES:
             if environ:
                 X_nghbrd = {f'{v}__{self._DX*size/2:.0f}km' : self.neighborhooder(X[v], 
-                                                                      func=uniform_filter,
-                                                                     size=size, 
-                                                                           ) for v in keys}
-                
+                                                                          func=uniform_filter,
+                                                                         size=size, 
+                                                                               ) for v in keys}
+
                 X_ens_mean = {f'{v}__ens_mean' : np.nanmean(X_nghbrd[v], axis=0) for v in X_nghbrd.keys()}
                 X_ens_std = {f'{v}__ens_std' : np.nanstd(X_nghbrd[v], axis=0, ddof=1) for v in X_nghbrd.keys()}   
                 X_ens_stats = {**X_ens_mean, **X_ens_std}
             
             else:
+                #Block for storm variables
                 X_nghbrd = {f'{v}__{self._DX*size/2:.0f}km' : self.neighborhooder(X[v], 
-                                                                      func=maximum_filter,
-                                                                     size=size,      
-                                                                           ) for v in keys}
-                
-                X_ens_90th = {f'{v}__ens_90th' : np.nanpercentile(X_nghbrd[v],
-                                                                90, axis=0) for v in X_nghbrd.keys()} 
-                
+                                                                          func=maximum_filter,
+                                                                         size=size,      
+                                                                               ) for v in keys}
+                  
+                X_ens_mean = {f'{v}__ens_mean' : np.nanmean(X_nghbrd[v], axis=0) for v in X_nghbrd.keys()} #Change 
+
+                   
+                X_ens_16th = {f'{v}__ens_16th' : np.nanpercentile(X_nghbrd[v],
+                                                                    16/18*100, axis=0, method='higher') for v in X_nghbrd.keys()} 
+                X_ens_2nd = {f'{v}__ens_2nd' : np.nanpercentile(X_nghbrd[v],
+                                                                    2/18*100, axis=0, method='lower') for v in X_nghbrd.keys()}
+                X_strm_iqr={f'{v}__ens_IQR' : np.nanpercentile(X_nghbrd[v],
+                                                                    75, axis=0, method='higher')-np.nanpercentile(X_nghbrd[v], 25, axis=0, method='lower') for v in X_nghbrd.keys()}
+
+
                 # Compute the baseline stuff. 
                 X_baseline = self.get_nmep(X_nghbrd, size)
 
-                X_ens_stats = {**X_baseline, **X_ens_90th}
+                X_ens_stats = {**X_baseline, **X_ens_mean, **X_ens_2nd, **X_strm_iqr, **X_ens_16th} 
+                                                           
             
             X_final.append(X_ens_stats)
+            
+                                                          
             
         X_final = dict(ChainMap(*X_final))    
             
@@ -397,3 +435,12 @@ def subsampler(y, pos_percent=1.0, neg_percent=0.25):
     inds = np.concatenate([pos_inds_sub, neg_inds_sub])
     
     return inds     
+
+def random_subsampler(length, percent=0.5):
+    '''Selects a random sample of indices consisting of n% of the dataset'''
+    if percent<=0:
+        inds=[]
+    else:
+        n_inds = int(percent*length) #Number of samples to keep
+        inds = np.random.choice(np.arange(0,length), size=n_inds, replace=False) #Draw random selection between 0-length-1
+    return inds

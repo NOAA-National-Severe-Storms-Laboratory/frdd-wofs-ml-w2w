@@ -21,7 +21,7 @@ import warnings
 def plot_verification(estimators, X, y, 
                       baseline_estimators=None, 
                       X_baseline=None, 
-                      n_boot=10, style='classification'):
+                      n_boot=10, style='classification', row_colors=None):
     
     """Plot Classification- or Regression-based verification."""
     verify = VerificationDiagram()
@@ -70,7 +70,7 @@ def plot_verification(estimators, X, y,
                 pred[name] = predictions
                 scores[name] = _scores
     
-        verify.plot(diagram=metric, x=xp, y=yp, ax=ax, scores=scores, pred=pred)
+        verify.plot(diagram=metric, x=xp, y=yp, ax=ax, scores=scores, pred=pred, row_colors=row_colors)
     
     axes.flat[-1].remove()
     
@@ -210,7 +210,7 @@ class VerificationDiagram:
              add_high_marker=False,
              line_colors=None,
              diagram_kwargs={}, 
-             plot_kwargs={}, ax=None): 
+             plot_kwargs={}, ax=None, row_colors=None): 
         """
         Plot a performance, attribute, or ROC Diagram. 
         
@@ -236,8 +236,10 @@ class VerificationDiagram:
         plot_kwargs['alpha'] = plot_kwargs.get('alpha', 0.7)
         plot_kwargs['linewidth'] = plot_kwargs.get('linewidth', 1.5)
         
-        line_colors = ['r', 'b', 'g', 'k']
-        
+        if row_colors:
+            line_colors = row_colors
+        else:
+            line_colors = ['r', 'b', 'g', 'orange','k']
         if ax is None:
             mpl.pyplot.subplots
             f, ax = plt.subplots(dpi=600, figsize=(4,4))
@@ -332,7 +334,7 @@ class VerificationDiagram:
         
         if scores is not None:
             if diagram == 'performance':
-                loc = 'upper center'
+                loc = 'upper right'
             elif diagram == 'reliability':
                 loc = 'lower right'
             elif diagram == 'roc':
