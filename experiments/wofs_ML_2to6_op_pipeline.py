@@ -102,10 +102,10 @@ class wofs_ml_2to6:
         if model_dics:
             self.model_dics = model_dics
         else:
-            self.model_dics = [{'name':'hist','prefix':'sfe','train_scale':'all','hazard':'all','target':'36km','suffix':'control','severity':'Sev'},
-             {'name':'hist','prefix':'sfe','train_scale':'all','hazard':'wind','target':'36km','suffix':'control','severity':'Sev'},
-             {'name':'hist','prefix':'sfe','train_scale':'all','hazard':'hail','target':'36km','suffix':'control','severity':'Sev'},
-             {'name':'hist','prefix':'sfe','train_scale':'all','hazard':'tornado','target':'36km','suffix':'control','severity':'Sev'}]
+            self.model_dics = [{'name':'hist','prefix':'sfe','train':'all','hazard':'all','target':'36km','suffix':'control','severity':'Sev'},
+             {'name':'hist','prefix':'sfe','train':'all','hazard':'wind','target':'36km','suffix':'control','severity':'Sev'},
+             {'name':'hist','prefix':'sfe','train':'all','hazard':'hail','target':'36km','suffix':'control','severity':'Sev'},
+             {'name':'hist','prefix':'sfe','train':'all','hazard':'tornado','target':'36km','suffix':'control','severity':'Sev'}]
         
         
     def load_dataset(self, files):
@@ -219,9 +219,9 @@ class wofs_ml_2to6:
 
         #Remove all columns except for those with correct spatial scale 
         if training_scale and str(training_scale).lower() !='all': 
-            print(f'Dropping all variables except {training_scale} km fields') if self.verbose else None
-            X=X[[col for col in X.columns if '{}km'.format(training_scale) in col]] 
-        ts_suff=str(training_scale)+'km' if training_scale != "all" else 'all'
+            print(f'Dropping all variables except {training_scale} fields') if self.verbose else None
+            X=X[[col for col in X.columns if training_scale in col]] 
+        ts_suff= training_scale 
 
         #Remove all columns except for those with correct variable type (Storm/Env)
         if category and category.lower() !='control': 
