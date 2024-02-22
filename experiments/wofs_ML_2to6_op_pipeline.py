@@ -43,7 +43,7 @@ class wofs_ml_2to6:
     
     
     def __init__(self, ncfiles, ml_dir, outdir, model_dics=None, baseline_dir=None, save_predictors=False, ml_config=None, 
-                 init_time=False, out_file=None, verbose=False):
+                 init_time=False, out_file=None, verbose=False, **kwargs):
         self.forecast_files = ncfiles
         self.out_directory = outdir
         self.model_directory = ml_dir
@@ -107,6 +107,12 @@ class wofs_ml_2to6:
              {'name':'hist','prefix':'sfe','train':'all','hazard':'hail','target':'36km','suffix':'control','severity':'Sev'},
              {'name':'hist','prefix':'sfe','train':'all','hazard':'tornado','target':'36km','suffix':'control','severity':'Sev'}]
         
+        #Optional kwarg to turn off isotonic regression
+        if 'no_calibration' in kwargs.keys() and kwargs['no_calibration']==True:
+            print('Using raw ML output') if self.verbose>=1 else None
+            self.no_ir = True
+        else:
+            self.no_ir = False
         
     def load_dataset(self, files):
         """Loads the forecast files into expected format"""
@@ -251,6 +257,7 @@ class wofs_ml_2to6:
         targ_scale=kwarg_dic.get('target', '36km')
         suffix=kwarg_dic.get('suffix', 'control')
         severity = kwarg_dic.get('severity','Sev')
+        calibration = False if self.no_ir else kwarg_dic.get('calibration',True)
         
         if self.verbose >1:
             print(f'Loading {prefix}_{train_scale}_{name}_{hazard_name}_{targ_scale}_{severity}_{suffix}_0.joblib')
@@ -259,7 +266,7 @@ class wofs_ml_2to6:
         
         out_dic={'model':(name, ml_data['model']), 'suffix':suffix, 'target':targ_scale, 'severity':severity,
                  'hazard':hazard_name, 'train':train_scale, 'prefix':prefix, 'name':name, 
-                 'features':ml_data['X'].columns}
+                 'features':ml_data['X'].columns, 'calibration':calibration}
 
         return out_dic
     
@@ -280,14 +287,19 @@ class wofs_ml_2to6:
     def get_ml_pred(self, X, model_dic): 
         '''Takes loaded ML model and predicts on X, then reshapes into self.forecast_shape'''
         #Reorganize features to be in correct order
+        
         ml_model = model_dic['model'][1]
         features = model_dic['features']
         X = X[features]
-
+        
         #Make predictions and reshape
-        ml_pred = ml_model.predict_proba(X)[:,1]  
+        if self.no_ir or model_dic['calibration'] == False:
+            X = ml_model.calibrated_classifiers_[0].base_estimator.named_steps['scaler'].transform(X)
+            ml_pred = ml_model.calibrated_classifiers_[0].base_estimator.named_steps['model'].predict_proba(X)[:,1]
+        else:          
+            ml_pred = ml_model.predict_proba(X)[:,1]  
+        
         ml_pred_2D = ml_pred.reshape(self.forecast_shape)
-
         return ml_pred_2D
     
     def get_predictions(self, X, X_baseline):
