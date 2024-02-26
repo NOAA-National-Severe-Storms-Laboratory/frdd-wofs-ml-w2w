@@ -1,10 +1,17 @@
 import sys
-sys.path.append('/home/samuel.varga/python_packages/wofs_ml_severe')
-sys.path.append('/home/samuel.varga/projects/2to6_hr_severe_wx/experiments')
-sys.path.append('/home/samuel.varga/python_packages/WoF_post')
-sys.path.append('/home/samuel.varga/python_packages/MontePython/')
-from ml_2to6_data_pipeline import GridPointExtracter, get_files
+sys.path.insert(0, '/home/monte.flora/python_packages/frdd-wofs-post')
+
+#sys.path.append('/home/samuel.varga/python_packages/wofs_ml_severe')
+#sys.path.append('/home/samuel.varga/projects/2to6_hr_severe_wx/experiments')
+#sys.path.append('/home/samuel.varga/python_packages/WoF_post')
+#sys.path.append('/home/samuel.varga/python_packages/MontePython/')
+
+from .ml_2to6_data_pipeline import GridPointExtracter, get_files
 from wofs.post.utils import save_dataset, load_multiple_nc_files
+
+from wofs.common import remove_reserved_keys
+from wofs.common.zarr import open_dataset
+
 from os.path import join, exists
 from glob import glob 
 import pandas as pd
@@ -42,10 +49,12 @@ class wofs_ml_2to6:
     '''
     
     
-    def __init__(self, ncfiles, ml_dir, outdir, model_dics=None, baseline_dir=None, save_predictors=False, ml_config=None, 
+    def __init__(self, ncfiles, ml_dir, outdir, 
+                 model_dics=None, baseline_dir=None, save_predictors=False, ml_config=None, 
                  init_time=False, out_file=None, verbose=False, **kwargs):
         self.forecast_files = ncfiles
         self.out_directory = outdir
+        
         self.model_directory = ml_dir
         self.save_pred = save_predictors
         self.verbose = verbose
@@ -187,7 +196,7 @@ class wofs_ml_2to6:
         df.reset_index(drop=True, inplace=True)
 
         #Convert to Predictor Format
-        metadata = ['Run Date', 'Init Time','NX','NY']
+        metadata = ['Run Date', 'Init Time']#,'NX','NY']
         bl_columns = [b for b in self.bl_columns.values()] if self.baseline_directory else []
         ml_features = [f for f in df.columns if f not in metadata]
         ml_features = [f for f in ml_features if 'nmep' not in f.lower()]
@@ -326,11 +335,25 @@ class wofs_ml_2to6:
         '''Saves the predictions as an NC file in self.out_directory'''
 
         ds = xarray.Dataset({**ml, **bl, 'xlat':self.lats, 'xlon':self.lons})
-        ds.to_netcdf(join(self.out_directory, self.filename))
-        ds.close()
-        print(f'file saved at {join(self.out_directory, self.filename)}') if self.verbose else None
+        
+        fname = join(self.out_directory, self.filename)
+        
+        wofs_ds = open_dataset(self.forecast_files[0])
 
-        return None
+        # cleanup reserved netcdf keys
+        for attr, val in wofs_ds.attrs.items():
+            ds.attrs[attr] = val 
+
+        for var in ds.data_vars:
+            ds.data_vars[var].attrs = remove_reserved_keys(ds.data_vars[var].attrs)
+    
+        ds.attrs = remove_reserved_keys(ds.attrs)
+        
+        ds.to_netcdf(fname)
+        ds.close()
+        print(f'file saved at {fname}') if self.verbose else None
+
+        return fname
     
     def save_predictors(self, X, X_bl, meta):
         '''Saves the predictors and metadata as a dataframe in self.out_directory'''
@@ -352,10 +375,10 @@ class wofs_ml_2to6:
         #Get ML and BL predictions
         ml_preds, bl_preds = self.get_predictions(X, X_bl)
             
-        self.save_ml_predictions(ml_preds, bl_preds)
+        fname = self.save_ml_predictions(ml_preds, bl_preds)
         
         
         if self.save_pred:
             self.save_predictors(X, X_bl, meta)
         
-        return X, X_bl, meta, ml_preds, bl_preds if self.verbose else None
+        return X, X_bl, meta, ml_preds, bl_preds if self.verbose else fname
