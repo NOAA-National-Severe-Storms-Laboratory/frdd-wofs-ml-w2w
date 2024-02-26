@@ -9,6 +9,9 @@
 
 #Varga version
 #These are from the wofs_post package
+import sys
+sys.path.append('/home/monte.flora/python_packages/wofs_ml_severe')
+sys.path.insert(0, '/home/monte.flora/python_packages/frdd-wofs-post')
 
 from wofs.post.utils import (
     save_dataset,
