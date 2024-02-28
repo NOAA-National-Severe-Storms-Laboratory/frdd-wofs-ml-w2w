@@ -1,0 +1,24 @@
+Metadata-Version: 2.1
+Name: mlw2w
+Version: 0.0.3
+Summary: Official WoFS ML W2W Repository
+Home-page: https://github.com/NOAA-National-Severe-Storms-Laboratory/frdd-wofs-ml-w2w
+Author: NOAA National Severe Storms Laboratory
+License: UNKNOWN
+Project-URL: Bug Reports, https://github.com/WarnOnForecast/wofs_ml_severe/issues
+Project-URL: Source, https://github.com/WarnOnForecast/wofs_ml_severe
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Scientists
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.8, <4
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+## WoFS-ML-Severe 2-6 hr Severe Weather Prediction 
+
+Official repository for the WoFS-ML-Severe 2-6 hr severe weather prediction codebase initially developed for the 2022 AI2ES REU. 
+
+
+
+

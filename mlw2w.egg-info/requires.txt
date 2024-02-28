@@ -1,0 +1,10 @@
+scikit-learn==1.0.2
+scikit-image>=0.19
+hyperopt==0.2.7
+numpy
+scipy
+pandas
+xarray>=0.18
+scikit-learn-intelex==2023.0.1
+xgboost==1.7.1
+imbalanced-learn==0.10.1
