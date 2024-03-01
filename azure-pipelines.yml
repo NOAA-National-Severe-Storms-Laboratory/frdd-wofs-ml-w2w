@@ -70,7 +70,7 @@ stages:
           displayName: 'Create GitHub Release'
           inputs:
             gitHubConnection: WarnOnForecast-Github
-            repositoryName: WarnOnForecast/frdd-wofs-ml-w2w
+            repositoryName: NOAA-National-Severe-Storms-Laboratory/frdd-wofs-ml-w2w
             isPreRelease: false
             tagSource: userSpecifiedTag
             assets: dist/*.whl
