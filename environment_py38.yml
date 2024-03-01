@@ -53,9 +53,5 @@ dependencies:
     - wofs
     - wofs-ml-severe>=1.1.2922
     - ml-workflow>=1.1.2860
-    - azure-functions
-    - azure-storage-blob
-    - azure-cosmos
-    - azure-storage-queue
   - python=3.8.15
 #  - basemap-data-hires=1.2.2
