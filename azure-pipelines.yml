@@ -50,7 +50,7 @@ stages:
           displayName: Create mamba environment            
      
         - bash: |
-            source activate monte_python
+            source activate wofs-func
             python setup.py bdist_wheel
           displayName: Build wheel
 
