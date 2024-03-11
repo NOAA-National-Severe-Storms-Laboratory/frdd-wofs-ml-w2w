@@ -173,6 +173,8 @@ class wofs_ml_2to6:
         if self.filename is None:
             self.filename = files[0].split('/')[-1].split('_')
             self.filename = f"{self.filename[0]}_ML2TO6_{'_'.join(self.filename[3:])}"
+            # Need to save as a netcdf file
+            self.filename = self.filename.replace('.json', '.nc')                               
         if self.init_time is None:
             self.init_time = files[0].split('/')[-1].split('_')[-2]
     
@@ -337,7 +339,8 @@ class wofs_ml_2to6:
         ds = xarray.Dataset({**ml, **bl, 'xlat':self.lats, 'xlon':self.lons})
         
         fname = join(self.out_directory, self.filename)
-        
+        print("\n\n\n")
+        print(f"{fname=}")        
         wofs_ds = open_dataset(self.forecast_files[0])
 
         # cleanup reserved netcdf keys
@@ -376,9 +379,8 @@ class wofs_ml_2to6:
         ml_preds, bl_preds = self.get_predictions(X, X_bl)
             
         fname = self.save_ml_predictions(ml_preds, bl_preds)
-        
-        
+
         if self.save_pred:
             self.save_predictors(X, X_bl, meta)
         
-        return X, X_bl, meta, ml_preds, bl_preds if self.verbose else fname
+        return fname
