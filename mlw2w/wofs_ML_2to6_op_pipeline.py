@@ -19,6 +19,7 @@ import numpy as np
 import joblib
 import netCDF4
 import xarray
+from scipy.ndimage import gaussian_filter
 
 class wofs_ml_2to6:
     '''
@@ -122,6 +123,14 @@ class wofs_ml_2to6:
             self.no_ir = True
         else:
             self.no_ir = False
+            
+        #Smoothing Parameters
+        if 'smoothing' in kwargs.keys():
+            #Smoothing can be None or a tuple of shape (smoothing_function, size)
+            self.smoothing = kwargs['smoothing']
+        else:
+            #Default to a guassian_filter with sigma=1
+            self.smoothing = (gaussian_filter, 1) 
         
     def load_dataset(self, files):
         """Loads the forecast files into expected format"""
@@ -322,9 +331,15 @@ class wofs_ml_2to6:
         for ml_dic in self.model_dics:
             ml_model = self.load_ml_model(ml_dic)  
             ml_name = f'{ml_model["severity"]}_{ml_model["hazard"]}_predictor_scale_{ml_model["train"]}_predictor_type_{ml_model["suffix"]}'
-            ml_preds[ml_name] = (['lat','lon'], 
-                                 self.get_ml_pred(self.load_predictor_scales(X, ml_model['train'], ml_model['suffix']), ml_model))
             
+            #Unsmoothed predictions
+            ml_preds[f'{ml_name}_unsmoothed'] = (['lat','lon'], 
+                                 self.get_ml_pred(self.load_predictor_scales(X, ml_model['train'], ml_model['suffix']), ml_model))
+            #Smoothed predictions
+            if self.smoothing: 
+                ml_preds[ml_name] = (['lat','lon'], 
+                                     self.smoothing[0](self.get_ml_pred(self.load_predictor_scales(X, ml_model['train'], ml_model['suffix']), ml_model), self.smoothing[1]))
+
         #BL Predictions
         if self.baseline_directory:
             bl_preds = self.get_bl_pred(X_baseline)
