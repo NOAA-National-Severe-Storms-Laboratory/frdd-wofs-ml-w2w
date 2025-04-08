@@ -11,6 +11,8 @@ dependencies:
   - scikit-learn=1.0.2
   - scikit-learn-intelex=2023.0.1
   - pip:
+    - importlib_resources==6.4.5
+    - importlib_metadata==7.2.1  
     - imblearn
     - hyperopt
     - lightgbm
