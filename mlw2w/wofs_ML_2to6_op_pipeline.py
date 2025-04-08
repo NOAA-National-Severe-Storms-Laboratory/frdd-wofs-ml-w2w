@@ -175,10 +175,12 @@ class wofs_ml_2to6:
 
         ll_grid = (coords['xlat'][1].values, coords['xlon'][1].values)
         
-        
         #Update object attributes for later
-        self.lats = coords['xlat'][1][::3, ::3]
-        self.lons = coords['xlon'][1][::3, ::3]
+        self.original_lats = coords['xlat'][1]
+        self.original_lons = coords['xlon'][1]
+        
+        self.lats = self.original_lats[::3, ::3]
+        self.lons = self.original_lons[::3, ::3]
         if self.filename is None:
             self.filename = files[0].split('/')[-1].split('_')
             self.filename = f"{self.filename[0]}_ML2TO6_{'_'.join(self.filename[3:])}"
@@ -194,7 +196,6 @@ class wofs_ml_2to6:
         #Load the Data
         print('Loading Dataset') if self.verbose else None
         X_env, X_strm, ncfile, llgrid  = self.load_dataset(self.forecast_files)
-        
         
         self.forecast_shape = np.shape(llgrid[0][::3, ::3])
         print(f'Forecast Shape: {self.forecast_shape}') if self.verbose else None
@@ -348,10 +349,40 @@ class wofs_ml_2to6:
         
         return ml_preds, bl_preds
     
+    
+    def regrid_back_to_3km_grid(self, dataset):
+        """For consistency, regrid from 9km to the WoFS 3km grid"""
+        import xesmf as xe
+        import xarray as xr
+        
+        this_dataset = dataset.copy()
+        
+        # Add lat, lon coordinates 
+        this_dataset['lat'] = self.lats.values[:,0]
+        this_dataset['lon'] = self.lons.values[0,:]
+        
+        # Create target 3-km grid
+        target_grid = xr.Dataset({
+            'lat': (['lat'], self.original_lats.values[:,0]),
+            'lon': (['lon'], self.original_lons.values[0,:]),
+        })
+                
+        regridder = xe.Regridder(this_dataset, target_grid, method='bilinear')
+        ds_regridded = regridder(this_dataset)
+
+        return ds_regridded
+        
     def save_ml_predictions(self, ml, bl):
         '''Saves the predictions as an NC file in self.out_directory'''
 
-        ds = xarray.Dataset({**ml, **bl, 'xlat':self.lats, 'xlon':self.lons})
+        ds = xarray.Dataset({**ml, **bl})
+        
+        # Regrid to the 3-km grid, set the original 3-km lat, long
+        # and then drop the temp 1d lat, lon added from regridding.
+        ds = self.regrid_back_to_3km_grid(ds)
+        ds['xlat'] = self.original_lats
+        ds['xlon'] = self.original_lons
+        ds = ds.drop_vars(['lat', 'lon'])
         
         fname = join(self.out_directory, self.filename)
         print("\n\n\n")
