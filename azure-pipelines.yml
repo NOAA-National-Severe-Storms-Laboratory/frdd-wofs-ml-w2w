@@ -49,7 +49,7 @@ stages:
         - bash: |
             # workaround based on recent failures
             rm /usr/share/miniconda/pkgs/cache/*.json    
-            mamba env create --file $(env_file)
+            conda env create --file $(env_file)
           displayName: Create mamba environment            
      
         - bash: |
