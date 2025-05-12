@@ -2,25 +2,28 @@ trigger:
 - main
 
 parameters:
+- name: vargroup
+  displayName: DevOps variable group
+  type: string
+  default: "wofs-pipeline-variables" 
 - name: package_version
   displayName: Package Version
   type: string
   default: 1.1
 
 variables:
+- group: ${{ parameters.vargroup }}
 - name: PACKAGE_VERSION
   value: ${{ parameters.package_version }}.$(Build.BuildId)
-- name: vmImageName
-  value: 'ubuntu-22.04'
 
 stages:
 - stage: Build
   displayName: Build Package
   jobs:
       - job:
-        displayName: ${{ variables.vmImageName }}
+        displayName: $(DEFAULT_POOL_IMAGE)
         pool:
-          vmImage: $(vmImageName)
+          vmImage: $(DEFAULT_POOL_IMAGE)
         strategy:
           matrix:
             Python38:
@@ -71,6 +74,7 @@ stages:
 
         - task: GithubRelease@1 
           displayName: 'Create GitHub Release'
+          condition: eq(variables['AZ_DEVOPS_DEPLOY_GITHUB'], 'TRUE')
           inputs:
             gitHubConnection: WarnOnForecast-Github
             repositoryName: NOAA-National-Severe-Storms-Laboratory/frdd-wofs-ml-w2w
