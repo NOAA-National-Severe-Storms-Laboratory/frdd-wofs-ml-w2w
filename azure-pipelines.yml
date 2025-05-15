@@ -74,10 +74,10 @@ stages:
 
         - task: GithubRelease@1 
           displayName: 'Create GitHub Release'
-          condition: eq(variables['AZ_DEVOPS_DEPLOY_GITHUB'], 'TRUE')
+          condition: and(succeeded(), eq(variables['AZ_DEVOPS_DEPLOY_GITHUB'], 'TRUE'))
           inputs:
-            gitHubConnection: WarnOnForecast-Github
-            repositoryName: NOAA-National-Severe-Storms-Laboratory/frdd-wofs-ml-w2w
+            gitHubConnection: $(AZ_DEVOPS_GITHUB_SERVICE_CONNECTION_NAME)
+            repositoryName: $(AZ_DEVOPS_GITHUB_ORGANIZATION_NAME)/frdd-wofs-ml-w2w
             isPreRelease: false
             tagSource: userSpecifiedTag
             assets: dist/*.whl
